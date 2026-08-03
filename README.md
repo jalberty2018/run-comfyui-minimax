@@ -2,19 +2,15 @@
 
 # 🚀 Run MiniMax with ComfyUI with provisioning — RunPod
 
-## bf16
+## INT8 convrot
 
 ![Pod running on L40S native comfyUI](images/runpod_L40S_MiniMax.jpg)
-
-## fp8
-
-![Pod running on RTX A5000 native comfyUI](images/runpod_A5000_MiniMax.jpeg)
 
 ## Workflow i2v
 
 ![Workflow i2v](images/ai-generated-MiniMax.jpg)
 
-A streamlined and automated environment for running **ComfyUI** with **MiniMax-2.3 video models**, optimized for use on RunPod
+A streamlined and automated environment for running **ComfyUI** with **MiniMax H3 video model**, optimized for use on RunPod
 
 ## 🔧 Features
 
@@ -29,13 +25,14 @@ A streamlined and automated environment for running **ComfyUI** with **MiniMax-2
 
 ## 🧩 Template Deployment
 
-### Deployment.
+### Deployment
 
-- All available templates on runpod are tested on a L40S and RTX A5000.
+- All available templates on runpod are tested on a L40S and RTX 5090
 
 ### Runpod templates
 
-[**👉 One-click Deploy on RunPod MiniMax-2.3**](https://console.runpod.io/deploy?template=p4f6rm9tb4&ref=se4tkc5o)
+- [**👉 One-click Deploy on RunPod MiniMax H3 FL2VA  **](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [**👉 One-click Deploy on RunPod MiniMax H3 Ref2VA **](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
 
 ### Documentation
 

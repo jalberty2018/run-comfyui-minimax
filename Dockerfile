@@ -47,7 +47,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/WASasquatch/was_affine.git && \
     git clone --depth=1 --filter=blob:none https://github.com/judian17/ComfyUI_YOLO_For_Multi_SDPose_Detection.git  && \
     git clone --depth=1 --filter=blob:none https://github.com/wuwukaka/ComfyUI-BodyRatioMapper.git && \
-	git clone --depth=1 --filter=blob:none https://github.com/afloy011-spec/afloy_audio_tools.git
+	  git clone --depth=1 --filter=blob:none https://github.com/afloy011-spec/afloy_audio_tools.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -99,7 +100,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r ComfyUI-Lora-Manager/requirements.txt \
 	-r ComfyUI-SAM3/requirements.txt \
   -r ComfyUI-Easy-Use/requirements.txt \
-  -r ComfyUI_YOLO_For_Multi_SDPose_Detection/requirements.txt
+  -r ComfyUI_YOLO_For_Multi_SDPose_Detection/requirements.txt \
+	-r comfyui-model-linker/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
@@ -139,7 +141,7 @@ EXPOSE 8188 9000
 # Labels
 LABEL org.opencontainers.image.title="ComfyUI 0.30.0 for MiniMax inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
-      org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-wan2" \
+      org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses="MIT"
 
 # Test

@@ -1,4 +1,4 @@
-# Run MiniMax with ComfyUI with provisioning
+# Run MiniMax H3 video model with ComfyUI with provisioning
 
 ## Features
 
@@ -30,7 +30,13 @@
 
 ### Template
 
-[**👉 One-click Deploy on RunPod MiniMax-h2 **]()
+| Checkpoint | Supported Tasks | Input Conditions | Output | 
+|---|---|---|---|
+| MiniMax-H3 Base FL2VA | Text-to-Audio-Video (`t2va`), First/Last-Frame-to-Audio-Video (`fl2va`) | Text; optional first frame, last frame, or both | Video and audio |
+| MiniMax-H3 Base Ref2VA | Reference-to-Audio-Video (`ref2va`) | Text with reference images, videos, and/or audio | Video and audio |
+
+- [**👉 One-click Deploy on RunPod MiniMax H3 FL2VA  **](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [**👉 One-click Deploy on RunPod MiniMax H3 Ref2VA **](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
 
 ## Documentation
 
@@ -39,25 +45,24 @@
 
 ## Hardware tested
 
-### MiniMax 2.3 bf16
+### MiniMax H3 INT8 Convrot
 
-- precision bf16
-- video settings 1920x1088 20sec 24fps
-
-| GPU          | VRAM  | RAM |
-|--------------------------|-------|-------------------------|
-| L40S / RTX 6000 Ada | 45Gb | 60Gb           |
-
-### MiniMax 2.3 fp8
-
-- precision fp8 mixed
-- video settings 1280x736 20sec 24fps
+- video settings 1 MP 15 sec 24fps
 
 | GPU          | VRAM  | RAM |
 |--------------------------|-------|-------------------------|
-| RTX A5000 / RTX 4090 | 24Gb | 50Gb           |
+| L40S / RTX 6000 Ada | 45Gb | 80Gb           |
+
+### MiniMax H3 fp8 pruned
+
+- video settings 1 MP 15sec 24fps
+
+| GPU          | VRAM  | RAM |
+|--------------------------|-------|-------------------------|
+| RTX 5090 | 32Gb | 70Gb           |
 
 ## Other pods
 
 - [WAN 2.2](https://comfyui.rozenlaan.site/ComfyUI_WAN/)
+- [LTX 2.3](https://comfyui.rozenlaan.site/ComfyUI_LTX/)
 - [Image models](https://comfyui.rozenlaan.site/ComfyUI_image/)
