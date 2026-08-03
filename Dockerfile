@@ -98,8 +98,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r ComfyUI-outputlists-combiner/requirements.txt \
 	-r ComfyUI-Lora-Manager/requirements.txt \
 	-r ComfyUI-SAM3/requirements.txt \
-    -r ComfyUI-Easy-Use/requirements.txt \
-    -r ComfyUI_YOLO_For_Multi_SDPose_Detection/requirements.txt \
+  -r ComfyUI-Easy-Use/requirements.txt \
+  -r ComfyUI_YOLO_For_Multi_SDPose_Detection/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
