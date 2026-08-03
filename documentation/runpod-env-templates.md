@@ -1,0 +1,48 @@
+# Environment variables for MiniMax-H3 templates
+
+## Public
+
+```bash
+HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_int8_convrot.safetensors
+HF_MODEL_HVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors
+HF_MODEL_TEXT_ENCODERS1=Comfy-Org/MiniMax-H3
+HF_MODEL_TEXT_ENCODERS_FILENAME1=text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors
+HF_MODEL_VAE1=Comfy-Org/MiniMax-H3
+HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
+HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
+HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
+WORKFLOW1=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_i2v.json
+WORKFLOW2=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_t2v.json
+WORKFLOW3=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_r2v.json
+```
+
+## Private
+
+```bash
+CIVITAI_TOKEN={{ RUNPOD_SECRET_CivitAI_API_KEY }}
+HF_TOKEN={{ RUNPOD_SECRET_HF_TOKEN_WRITE }}
+PASSWORD={{ RUNPOD_SECRET_CODE-SERVER-NEW }}
+HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_int8_convrot.safetensors
+HF_MODEL_HVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors
+HF_MODEL_TEXT_ENCODERS1=Comfy-Org/MiniMax-H3
+HF_MODEL_TEXT_ENCODERS_FILENAME1=text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors
+HF_MODEL_VAE1=Comfy-Org/MiniMax-H3
+HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
+HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
+HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
+WORKFLOW1=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_i2v.json
+WORKFLOW2=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_t2v.json
+WORKFLOW3=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_r2v.json
+```
