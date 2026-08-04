@@ -4,7 +4,7 @@
 
 - Automatic model provisioning through environment variables.
 - Full INT8 ConvRot diffusion models for high-VRAM GPUs.
-- Pruned INT8 ConvRot diffusion models for lower-VRAM GPUs.
+- Pruned mixed-precision NVFP4 ConvRot INT8 diffusion models for lower-VRAM GPUs.
 - INT8 ConvRot Qwen3-VL text encoders, including Ultra Heretic variants.
 - Official I2V, T2V and R2V workflows.
 - CUDA 12.8 runtime with compiled attention acceleration.

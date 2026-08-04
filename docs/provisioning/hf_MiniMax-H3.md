@@ -1,14 +1,16 @@
 # Manual provisioning for MiniMax H3 ConvRot
 
-The base files are hosted in [`Comfy-Org/MiniMax-H3`](https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main). Alternative text encoders are hosted in [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/tree/main).
+- The base files are hosted in [`Comfy-Org/MiniMax-H3`](https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main). 
+- Low-VRAM NVFP4 models are hosted in [`lilcheaty/MiniMax-H3-NVFP4`](https://huggingface.co/lilcheaty/MiniMax-H3-NVFP4/tree/main) and are based on the mixed-precision conversions by [`rockerBOO`](https://huggingface.co/rockerBOO/minimax-h3-nvfp4). 
+- Alternative text encoders are hosted in [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/tree/main).
 
-## Low-VRAM profile: pruned INT8 ConvRot
+## Low-VRAM profile: pruned mixed-precision NVFP4 ConvRot INT8
 
 ```bash
-hf download Comfy-Org/MiniMax-H3 \
-  diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors \
-  diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors \
-  --local-dir /workspace/ComfyUI/models
+hf download lilcheaty/MiniMax-H3-NVFP4 \
+  minimax_h3_fl2va_pruned_nvfp4_convrot_int8.safetensors \
+  minimax_h3_ref2va_pruned_nvfp4_convrot_int8.safetensors \
+  --local-dir /workspace/ComfyUI/models/diffusion_models
 ```
 
 ## High-VRAM profile: full INT8 ConvRot
