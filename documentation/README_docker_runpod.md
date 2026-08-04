@@ -2,12 +2,14 @@
 
 ## Features
 
-- Automatic model and LoRA provisioning via environment variables.
-- Compatible with high-performance NVIDIA GPUs (CUDA 12.8).
-- Compiled attentions and GPU accelerations.
-- Automatic selecting bf16 or fp8 models/workflows.
-- Latent preview enabled for both samplers.
-- Lora manager
+- Automatic model provisioning through environment variables.
+- Full INT8 ConvRot diffusion models for high-VRAM GPUs.
+- Pruned INT8 ConvRot diffusion models for lower-VRAM GPUs.
+- INT8 ConvRot Qwen3-VL text encoders, including Ultra Heretic variants.
+- Official I2V, T2V and R2V workflows.
+- CUDA 12.8 runtime with compiled attention acceleration.
+- Authentication for ComfyUI, Code Server, Hugging Face and CivitAI.
+- LoRA Manager and common video, workflow and utility nodes.
 
 ## Built-in **authentication**
   

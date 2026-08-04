@@ -1,6 +1,6 @@
 # Manual provisioning for MiniMax H3 ConvRot
 
-All files are hosted in [`Comfy-Org/MiniMax-H3`](https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main).
+The base files are hosted in [`Comfy-Org/MiniMax-H3`](https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main). Alternative text encoders are hosted in [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/tree/main).
 
 ## Low-VRAM profile: pruned INT8 ConvRot
 
@@ -30,6 +30,15 @@ hf download Comfy-Org/MiniMax-H3 \
   --local-dir /workspace/ComfyUI/models
 ```
 
+## Alternative INT8 ConvRot text encoders
+
+```bash
+hf download ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot \
+  qwen3vl_32b_minimax_h3_ultra_uncensored_heretic_int8_convrot.safetensors \
+  qwen3vl_32b_minimax_h3_generation_tail_50_63_int8_convrot.safetensors \
+  --local-dir /workspace/ComfyUI/models/text_encoders
+```
+
 ## Audio and video VAEs
 
 ```bash
@@ -38,9 +47,3 @@ hf download Comfy-Org/MiniMax-H3 \
   vae/minimax_h3_video_vae_fp16.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```
-
-## Official workflows
-
-- [Image to video](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/video_minimax_h3_i2v.json)
-- [Text to video](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/video_minimax_h3_t2v.json)
-- [Reference to video](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/video_minimax_h3_r2v.json)

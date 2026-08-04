@@ -33,10 +33,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/ClownsharkBatwing/RES4LYF.git && \
     git clone --depth=1 --filter=blob:none https://github.com/evanspearman/ComfyMath.git && \
     git clone --depth=1 --filter=blob:none https://github.com/city96/ComfyUI-GGUF.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-segment-anything-2.git && \
     git clone --depth=1 --filter=blob:none https://github.com/1038lab/ComfyUI-RMBG.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/Fannovel16/comfyui_controlnet_aux.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/liusida/ComfyUI-AutoCropFaces.git && \
     git clone --depth=1 --filter=blob:none https://github.com/vrgamegirl19/comfyui-vrgamedevgirl.git && \
     git clone --depth=1 --filter=blob:none https://github.com/BigStationW/ComfyUi-Scale-Image-to-Total-Pixels-Advanced.git && \
     git clone --depth=1 --filter=blob:none https://github.com/x3bits/ComfyUI-Power-Flow.git && \
@@ -44,11 +41,10 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/PozzettiAndrea/ComfyUI-SAM3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/geroldmeisinger/ComfyUI-outputlists-combiner.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cubiq/ComfyUI_essentials.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/WASasquatch/was_affine.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/judian17/ComfyUI_YOLO_For_Multi_SDPose_Detection.git  && \
-    git clone --depth=1 --filter=blob:none https://github.com/wuwukaka/ComfyUI-BodyRatioMapper.git && \
-	  git clone --depth=1 --filter=blob:none https://github.com/afloy011-spec/afloy_audio_tools.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git
+    git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-MiniMax-H3-Guide.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/HM-RunningHub/ComfyUI_RH_MinMaxH3.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/KingGore/ComfyUI_sol-attn_Blackwell.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -94,14 +90,13 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r RES4LYF/requirements.txt \
 	-r ComfyUI-GGUF/requirements.txt \
 	-r ComfyUI-RMBG/requirements.txt \
-	-r comfyui_controlnet_aux/requirements.txt \
 	-r Comfyui-SecNodes/requirements.txt \
 	-r ComfyUI-outputlists-combiner/requirements.txt \
 	-r ComfyUI-Lora-Manager/requirements.txt \
 	-r ComfyUI-SAM3/requirements.txt \
   -r ComfyUI-Easy-Use/requirements.txt \
-  -r ComfyUI_YOLO_For_Multi_SDPose_Detection/requirements.txt \
-	-r comfyui-model-linker/requirements.txt
+	-r comfyui-model-linker/requirements.txt \
+  -r ComfyUI_RH_MinMaxH3/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
