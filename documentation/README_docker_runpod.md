@@ -4,7 +4,7 @@
 
 - Automatic model provisioning through environment variables.
 - Full INT8 ConvRot diffusion models for high-VRAM GPUs.
-- Pruned mixed-precision NVFP4 ConvRot INT8 diffusion models for lower-VRAM GPUs.
+- Pruned NVFP4 diffusion models for lower-VRAM GPUs.
 - INT8 ConvRot Qwen3-VL text encoders, including Ultra Heretic variants.
 - Official I2V, T2V and R2V workflows.
 - CUDA 12.8 runtime with compiled attention acceleration.
@@ -47,17 +47,17 @@
 
 ## Hardware tested
 
-### MiniMax H3 INT8 Convrot
+### MiniMax H3 full INT8 ConvRot
 
 - video settings 1 MP 15 sec 24fps
 
 | GPU          | VRAM  | RAM |
 |--------------------------|-------|-------------------------|
-| L40S / RTX 6000 Ada | 45Gb | 80Gb           |
+| L40S | 45Gb | 80Gb           |
 
-### MiniMax H3 fp8 pruned
+### MiniMax H3 pruned NVFP4
 
-- video settings 1 MP 15sec 24fps
+- video settings 0.4 MP 15sec 24fps
 
 | GPU          | VRAM  | RAM |
 |--------------------------|-------|-------------------------|
