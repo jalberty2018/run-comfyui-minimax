@@ -712,16 +712,10 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
       return 1
     }
 
-    # Blackwell-specific models. For diffusion models and checkpoints these
-    # replace the generic variables when at least one complete model/filename
-    # pair has been configured. Otherwise the generic variables are the
-    # fallback.
+    # Blackwell-specific models replace the generic variables per category
+    # when at least one complete model/filename pair has been configured.
+    # Otherwise the generic variables are the fallback for that category.
     if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
-      BLACKWELL_CATEGORIES_HF=(
-        "DIFFUSION_MODELS:DIFFUSION_MODELS_FILENAME:diffusion_models"
-        "CHECKPOINTS:CHECKPOINTS_FILENAME:checkpoints"
-      )
-
       if [[ "$HF_PREFIX" == "HF_MODEL_HVRAM_" ]]; then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
       else
@@ -730,7 +724,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
       echo "⚫ Blackwell-specific models enabled"
 
-      for cat in "${BLACKWELL_CATEGORIES_HF[@]}"; do
+      for cat in "${CATEGORIES_HF[@]}"; do
         IFS=":" read -r NAME SUFFIX DIR <<< "$cat"
 
         for i in $(seq 1 20); do
@@ -740,7 +734,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
         done
       done
 
-      for cat in "${BLACKWELL_CATEGORIES_HF[@]}"; do
+      for cat in "${CATEGORIES_HF[@]}"; do
         IFS=":" read -r NAME SUFFIX DIR <<< "$cat"
 
         for i in $(seq 1 20); do
@@ -756,8 +750,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
       # Prefer the VRAM-specific Blackwell variables. If none are configured
       # for this category, continue below with the standard VRAM variables.
-      if [[ "$HAS_GPU_BLACKWELL" -eq 1 \
-            && ( "$NAME" == "DIFFUSION_MODELS" || "$NAME" == "CHECKPOINTS" ) ]]; then
+      if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
         if has_numbered_model_pair "$BLACKWELL_VRAM_PREFIX" "$NAME" "$SUFFIX"; then
           continue
         fi
@@ -778,8 +771,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
       # Prefer the generic Blackwell variables. If none are configured for
       # this category, continue below with the standard generic variables.
-      if [[ "$HAS_GPU_BLACKWELL" -eq 1 \
-            && ( "$NAME" == "DIFFUSION_MODELS" || "$NAME" == "CHECKPOINTS" ) ]]; then
+      if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
         if has_numbered_model_pair "HF_MODEL_BLACKWELL_" "$NAME" "$SUFFIX"; then
           continue
         fi
