@@ -44,7 +44,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-MiniMax-H3-Guide.git && \
     git clone --depth=1 --filter=blob:none https://github.com/HM-RunningHub/ComfyUI_RH_MinMaxH3.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/KingGore/ComfyUI_sol-attn_Blackwell.git
+    git clone --depth=1 --filter=blob:none https://github.com/KingGore/ComfyUI_sol-attn_Blackwell.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -96,7 +97,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r ComfyUI-SAM3/requirements.txt \
   -r ComfyUI-Easy-Use/requirements.txt \
 	-r comfyui-model-linker/requirements.txt \
-  -r ComfyUI_RH_MinMaxH3/requirements.txt
+  -r ComfyUI_RH_MinMaxH3/requirements.txt \
+  -r ComfyUI_MiniMaxH3_Director/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
