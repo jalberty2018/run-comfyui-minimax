@@ -32,6 +32,7 @@ WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
+WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -99,6 +100,7 @@ WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
+WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
