@@ -3,11 +3,12 @@
 ## Features
 
 - Automatic model provisioning through environment variables.
-- Models downloads depending on VRAM and architecture (blackwell).
+- Models downloads depending on VRAM and architecture.
 - CUDA 12.8 runtime with compiled attention acceleration.
 - Authentication for ComfyUI, Code Server, Hugging Face and CivitAI.
 - LoRA Manager, utility nodes.
 - Example workflows.
+- Turbo Lora (experimental)
 
 ## Built-in **authentication**
   

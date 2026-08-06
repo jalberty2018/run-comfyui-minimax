@@ -4,6 +4,7 @@
 - [`lilcheaty/MiniMax-H3-NVFP4`](https://huggingface.co/lilcheaty/MiniMax-H3-NVFP4/)
 - [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/)
 - [`sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4`](https://huggingface.co/sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4/)
+- [`larryvrh/MiniMax-H3-Turbo-Lora`](https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora/)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
 `fl2va` is for first/last-frame-to-video.
@@ -68,6 +69,14 @@ hf download Comfy-Org/MiniMax-H3 \
 
 Download only one hardware/VRAM profile. Within that profile you may download only the
 `ref2va` or only the `fl2va` diffusion model when you do not need both workflows.
+
+## Optional 4-step Turbo LoRA (experimental)
+
+```bash
+hf download larryvrh/MiniMax-H3-Turbo-Lora \
+  minimax_h3_turbo_4step_ckpt500.safetensors \
+  --local-dir /workspace/ComfyUI/models/loras
+```
 
 ## Optional uncensored INT8 ConvRot text encoder
 
