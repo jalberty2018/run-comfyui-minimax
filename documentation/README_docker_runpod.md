@@ -46,9 +46,9 @@
 
 ## Hardware tested
 
-### MiniMax H3 full INT8 ConvRot
+### MiniMax H3 full INT8 ConvRot + turbo lora
 
-- video settings 1 MP 15 sec 24fps
+- video settings 0.9 MP 20 sec 24fps
 
 | GPU          | VRAM  | RAM |
 |--------------------------|-------|-------------------------|
