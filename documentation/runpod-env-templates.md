@@ -27,10 +27,11 @@ HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
 HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
-HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ckpt500.safetensors
+HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
+WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -58,7 +59,7 @@ HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
 HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
-HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ckpt500.safetensors
+HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 ```
@@ -93,10 +94,11 @@ HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
 HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
-HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ckpt500.safetensors
+HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
+WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -127,7 +129,7 @@ HF_MODEL_VAE_FILENAME1=vae/minimax_h3_audio_vae_fp32.safetensors
 HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
-HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ckpt500.safetensors
+HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 ```
