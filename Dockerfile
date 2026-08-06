@@ -45,7 +45,9 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-MiniMax-H3-Guide.git && \
     git clone --depth=1 --filter=blob:none https://github.com/HM-RunningHub/ComfyUI_RH_MinMaxH3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/KingGore/ComfyUI_sol-attn_Blackwell.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git
+    git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-SolAttn_triton.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
