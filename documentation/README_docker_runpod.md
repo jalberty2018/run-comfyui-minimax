@@ -3,13 +3,11 @@
 ## Features
 
 - Automatic model provisioning through environment variables.
-- Full INT8 ConvRot diffusion models for high-VRAM GPUs.
-- Pruned NVFP4 diffusion models for lower-VRAM GPUs.
-- INT8 ConvRot Qwen3-VL text encoders, including Ultra Heretic variants.
-- Official I2V, T2V and R2V workflows.
+- Models downloads depending on VRAM and architecture (blackwell).
 - CUDA 12.8 runtime with compiled attention acceleration.
 - Authentication for ComfyUI, Code Server, Hugging Face and CivitAI.
-- LoRA Manager and common video, workflow and utility nodes.
+- LoRA Manager, utility nodes.
+- Example workflows.
 
 ## Built-in **authentication**
   
@@ -18,7 +16,7 @@
 - HuggingFace API
 - CivitAI API
 
-## Images on Docker 
+## Images on Docker
 
 - If the image is **less than one day old** it is possible that it is not tested or will be updated.
 
