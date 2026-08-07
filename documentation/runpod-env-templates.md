@@ -6,12 +6,13 @@
 
 ```bash
 VRAM_THRESHOLD=40
+VRAM_TRESHOLD_BLACKWELL=40
 HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
 HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_int8_convrot.safetensors
 HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
 HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS1=lilcheaty/MiniMax-H3-NVFP4
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=minimax_h3_fl2va_pruned_nvfp4_convrot_int8.safetensors
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_fp8_scaled.safetensors
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS1=lilcheaty/MiniMax-H3-NVFP4
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=minimax_h3_fl2va_pruned_nvfp4.safetensors
 HF_MODEL_TEXT_ENCODERS1=ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot
@@ -41,12 +42,13 @@ WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.j
 
 ```bash
 VRAM_THRESHOLD=40
+VRAM_TRESHOLD_BLACKWELL=40
 HF_MODEL_HVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
 HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors
 HF_MODEL_LVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
 HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS2=lilcheaty/MiniMax-H3-NVFP4
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=minimax_h3_ref2va_pruned_nvfp4_convrot_int8.safetensors
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_fp8_scaled.safetensors
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS2=lilcheaty/MiniMax-H3-NVFP4
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=minimax_h3_ref2va_pruned_nvfp4.safetensors
 HF_MODEL_TEXT_ENCODERS1=ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot
@@ -76,6 +78,7 @@ WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.j
 
 ```bash
 VRAM_THRESHOLD=40
+VRAM_TRESHOLD_BLACKWELL=40
 CIVITAI_TOKEN={{ RUNPOD_SECRET_CivitAI_API_KEY }}
 HF_TOKEN={{ RUNPOD_SECRET_HF_TOKEN_WRITE }}
 PASSWORD={{ RUNPOD_SECRET_CODE-SERVER-NEW }}
@@ -83,8 +86,8 @@ HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
 HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_int8_convrot.safetensors
 HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
 HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS1=lilcheaty/MiniMax-H3-NVFP4
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=minimax_h3_fl2va_pruned_nvfp4_convrot_int8.safetensors
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS1=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_h3_fl2va_pruned_fp8_scaled.safetensors
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS1=lilcheaty/MiniMax-H3-NVFP4
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME1=minimax_h3_fl2va_pruned_nvfp4.safetensors
 HF_MODEL_TEXT_ENCODERS1=ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot
@@ -114,6 +117,7 @@ WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.j
 
 ```bash
 VRAM_THRESHOLD=40
+VRAM_TRESHOLD_BLACKWELL=40
 CIVITAI_TOKEN={{ RUNPOD_SECRET_CivitAI_API_KEY }}
 HF_TOKEN={{ RUNPOD_SECRET_HF_TOKEN_WRITE }}
 PASSWORD={{ RUNPOD_SECRET_CODE-SERVER-NEW }}
@@ -121,8 +125,8 @@ HF_MODEL_HVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
 HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_int8_convrot.safetensors
 HF_MODEL_LVRAM_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
 HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS2=lilcheaty/MiniMax-H3-NVFP4
-HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=minimax_h3_ref2va_pruned_nvfp4_convrot_int8.safetensors
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS2=Comfy-Org/MiniMax-H3
+HF_MODEL_HVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=diffusion_models/minimax_h3_ref2va_pruned_fp8_scaled.safetensors
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS2=lilcheaty/MiniMax-H3-NVFP4
 HF_MODEL_LVRAM_BLACKWELL_DIFFUSION_MODELS_FILENAME2=minimax_h3_ref2va_pruned_nvfp4.safetensors
 HF_MODEL_TEXT_ENCODERS1=ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot

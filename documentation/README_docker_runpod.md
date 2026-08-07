@@ -1,67 +1,72 @@
-# Run MiniMax H3 video model with ComfyUI with provisioning
+# MiniMax H3 on ComfyUI for RunPod
+
+Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, persistent workspace storage and GPU-aware model selection.
 
 ## Features
 
-- Automatic model provisioning through environment variables.
-- Models downloads depending on VRAM and architecture (Ada Lovelace / Blackwell).
-- CUDA 12.8 runtime with compiled attention acceleration.
-- Authentication for ComfyUI, Code Server, Hugging Face and CivitAI.
-- Ultra uncensored heretic QWEN3 VL 32B text encoder.
-- LoRA Manager
-- Installed custom nodes and accelerators.
-- Example workflows standard / turbo
-- Turbo-lora (experimental)
+- Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
+- Separate model profiles for standard NVIDIA and Blackwell GPUs.
+- High- and low-VRAM selection through environment variables.
+- CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
+- ComfyUI, Code Server, LoRA Manager and SSH access.
+- Hugging Face and CivitAI token support.
+- Standard and experimental four-step Turbo LoRA workflows.
 
-## Built-in **authentication**
-  
-- ComfyUI
-- Code Server
-- HuggingFace API
-- CivitAI API
+## RunPod templates
 
-## Images on Docker
-
-- If the image is **less than one day old** it is possible that it is not tested or will be updated.
-
-## Template Deployment on Runpod
-
-### Deployment/Usage information
-
-- All available templates on runpod are tested on compatible GPU´s see below.
-- Specific models/loras/workflows for the templates are downloaded when the pod starts.
-
-### Templates
-
-| Checkpoint | Supported Tasks | Input Conditions | Output | 
+| Template | Tasks | Inputs | Output |
 |---|---|---|---|
-| MiniMax-H3 Base FL2VA | Text-to-Audio-Video (`t2va`), First/Last-Frame-to-Audio-Video (`fl2va`) | Text; optional first frame, last frame, or both | Video and audio |
-| MiniMax-H3 Base Ref2VA | Reference-to-Audio-Video (`ref2va`) | Text with reference images, videos, and/or audio | Video and audio |
+| MiniMax H3 FL2VA | Text-to-video, image-to-video and first/last-frame-to-video | Text with optional first and/or last frame | Video with audio |
+| MiniMax H3 Ref2VA | Reference-to-video | Text with reference images, video and/or audio | Video with audio |
 
-- [**👉 One-click Deploy on RunPod MiniMax H3 FL2VA  **](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
-- [**👉 One-click Deploy on RunPod MiniMax H3 Ref2VA **](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
+- [Deploy MiniMax H3 FL2VA](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [Deploy MiniMax H3 Ref2VA](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
 
-## Documentation
+New image builds may be updated during their first day. For production use, validate a new build before replacing a working pod.
 
-- [Start](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
-- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
+## GPU profiles
 
-## Hardware tested
+| Hardware | Low-VRAM diffusion model | High-VRAM diffusion model |
+|---|---|---|
+| NVIDIA Blackwell | Pruned NVFP4 | ComfyUI-compatible pruned FP8 scaled |
+| Ada, Hopper or older NVIDIA | Pruned INT8 ConvRot | Full INT8 ConvRot |
 
-### MiniMax H3 full INT8 ConvRot + turbo lora
+## Required configuration
 
-- video settings 0.9 MP 20 sec 24fps
+Set these variables in the RunPod template when applicable:
 
-| GPU          | VRAM  | RAM |
-|--------------------------|-------|-------------------------|
-| L40S | 45Gb | 80Gb           |
+| Variable | Purpose |
+|---|---|
+| `PASSWORD` | Code Server password |
+| `HF_TOKEN` | Access to gated or private Hugging Face repositories |
+| `CIVITAI_TOKEN` | Access to CivitAI downloads |
+| `VRAM_THRESHOLD` | High/low-VRAM boundary for standard models |
+| `VRAM_TRESHHOLD_BLACKWELL` | High/low-VRAM boundary for Blackwell models; default `40` GB |
+| `COMFYUI_EXTRA_ARGUMENTS` | Additional ComfyUI startup arguments |
 
-### MiniMax H3 pruned NVFP4 + turbo lora
+## Deployment
 
-- video settings 0.4 MP 15sec 24fps
+1. Open the appropriate RunPod deployment link.
+2. Select a compatible NVIDIA GPU and sufficient system RAM.
+3. Configure authentication tokens and optional environment overrides.
+4. Deploy the pod and follow the container logs.
+5. Wait for `Provisioning done, ready to create AI content` before opening ComfyUI.
 
-| GPU          | VRAM  | RAM |
-|--------------------------|-------|-------------------------|
-| RTX 5090 | 32Gb | 70Gb           |
+Provisioned data is stored in `/workspace`, allowing pod restarts without downloading all assets again.
+
+## Tested configurations
+
+| Profile | GPU | VRAM | System RAM | Tested workload |
+|---|---|---:|---:|---|
+| Full INT8 ConvRot with Turbo LoRA | L40S | 45 GB | 80 GB | 0.9 MP, 20 seconds, 24 fps |
+| Pruned NVFP4 with Turbo LoRA | RTX 5090 | 32 GB | 70 GB | 0.4 MP, 15 seconds, 24 fps |
+
+Generation limits depend on resolution, duration, model selection and offloading. Allocate additional system RAM for larger workloads.
+
+## Documentation pod
+
+- [MiniMax H3 overview](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
+- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
 
 ## Other pods
 

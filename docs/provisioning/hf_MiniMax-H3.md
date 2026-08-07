@@ -12,7 +12,7 @@ Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-vi
 
 | Hardware | Low-VRAM profile | High-VRAM profile | Text encoder |
 |---|---|---|---|
-| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000, B200) | pruned NVFP4, about 12.5 GB per diffusion model | pruned NVFP4/INT8 mixed precision, about 20.1 GB per diffusion model | NVFP4-AWQ |
+| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000, B200) | pruned NVFP4, about 12.5 GB per diffusion model | pruned FP8 scaled, about 21.0 GB per diffusion model | NVFP4-AWQ |
 | Standard NVIDIA GPU (Ada, Hopper or older) | pruned INT8 ConvRot, about 21.0 GB per diffusion model | full INT8 ConvRot, about 34.0 GB per diffusion model | INT8 ConvRot |
 
 NVFP4 is native only on Blackwell. On older GPUs it is emulated, so use the standard
@@ -34,16 +34,12 @@ hf download Comfy-Org/MiniMax-H3 \
 
 ## Blackwell: high-VRAM profile
 
-This mixed-precision profile keeps the same pruned architecture but uses NVFP4, FP8 and
-INT8 ConvRot selectively for a higher-fidelity Blackwell option.
+This profile uses the ComfyUI-compatible pruned FP8-scaled diffusion models.
 
 ```bash
-hf download lilcheaty/MiniMax-H3-NVFP4 \
-  minimax_h3_fl2va_pruned_nvfp4_convrot_int8.safetensors \
-  minimax_h3_ref2va_pruned_nvfp4_convrot_int8.safetensors \
-  --local-dir /workspace/ComfyUI/models/diffusion_models
-
 hf download Comfy-Org/MiniMax-H3 \
+  diffusion_models/minimax_h3_fl2va_pruned_fp8_scaled.safetensors \
+  diffusion_models/minimax_h3_ref2va_pruned_fp8_scaled.safetensors \
   text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```

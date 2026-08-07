@@ -284,7 +284,9 @@ run_hf_download() {
     echo "ℹ️ [DOWNLOAD] Kill grace period: ${kill_after}s"
 
     # Safely quote all arguments passed to: hf download
-    printf -v hf_command '%q ' hf download "$@"
+    # Force human output so progress bars remain enabled when the command is
+    # captured through the pseudo-terminal and FIFO below.
+    printf -v hf_command '%q ' hf download --format human "$@"
 
     tmp_dir="$(mktemp -d)"
     fifo="${tmp_dir}/hf-output.fifo"
