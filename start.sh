@@ -275,10 +275,23 @@ run_hf_download() {
     local fifo
     local pid
     local watchdog_pid
+    local progress_pid
     local last_activity_file
     local activity_tmp_file
+    local progress_activity_tmp_file
     local exit_code
     local fallback=0
+    local download_dir=""
+    local -a download_args=("$@")
+    local arg_index
+
+    for ((arg_index = 0; arg_index < ${#download_args[@]}; arg_index++)); do
+        if [[ "${download_args[arg_index]}" == "--local-dir" ]] \
+           && (( arg_index + 1 < ${#download_args[@]} )); then
+            download_dir="${download_args[arg_index + 1]}"
+            break
+        fi
+    done
 
     echo "ℹ️ [DOWNLOAD] Stall watchdog: ${stall_timeout}s"
     echo "ℹ️ [DOWNLOAD] Kill grace period: ${kill_after}s"
@@ -292,6 +305,7 @@ run_hf_download() {
     fifo="${tmp_dir}/hf-output.fifo"
     last_activity_file="${tmp_dir}/last_activity"
     activity_tmp_file="${tmp_dir}/last_activity.tmp"
+    progress_activity_tmp_file="${tmp_dir}/last_activity.progress.tmp"
 
     mkfifo "$fifo"
     # Write to a separate file first so the watchdog can never observe a
@@ -301,6 +315,7 @@ run_hf_download() {
 
     cleanup() {
         [[ -n "${watchdog_pid:-}" ]] && kill "$watchdog_pid" 2>/dev/null || true
+        [[ -n "${progress_pid:-}" ]] && kill "$progress_pid" 2>/dev/null || true
         [[ -n "${pid:-}" ]] && kill "$pid" 2>/dev/null || true
         rm -rf "$tmp_dir"
     }
@@ -323,6 +338,42 @@ run_hf_download() {
         ) >"$fifo" 2>&1 &
 
         pid=$!
+
+        # Xet does not always emit its own progress bar when its output is
+        # captured. Report growth of the local download directory instead.
+        # Only actual byte growth refreshes the stall watchdog.
+        if [[ -n "$download_dir" ]]; then
+            (
+                local baseline_bytes
+                local previous_bytes
+                local current_bytes
+                local downloaded_bytes
+                local downloaded_mib
+
+                baseline_bytes="$(du -s -B1 "$download_dir" 2>/dev/null | awk '{print $1}')"
+                baseline_bytes="${baseline_bytes:-0}"
+                previous_bytes="$baseline_bytes"
+
+                while kill -0 "$pid" 2>/dev/null; do
+                    sleep 10
+                    current_bytes="$(du -s -B1 "$download_dir" 2>/dev/null | awk '{print $1}')"
+                    current_bytes="${current_bytes:-0}"
+
+                    if (( current_bytes > previous_bytes )); then
+                        downloaded_bytes=$((current_bytes - baseline_bytes))
+                        downloaded_mib=$((downloaded_bytes / 1024 / 1024))
+                        echo "⬇️ [DOWNLOAD] Progress: ${downloaded_mib} MiB received"
+                        date +%s > "$progress_activity_tmp_file"
+                        mv -f "$progress_activity_tmp_file" "$last_activity_file"
+                    else
+                        echo "ℹ️ [DOWNLOAD] Waiting for transfer progress..."
+                    fi
+
+                    previous_bytes="$current_bytes"
+                done
+            ) &
+            progress_pid=$!
+        fi
 
         #
         # Watchdog:
@@ -390,9 +441,12 @@ run_hf_download() {
 
         kill "$watchdog_pid" 2>/dev/null || true
         wait "$watchdog_pid" 2>/dev/null || true
+        [[ -n "${progress_pid:-}" ]] && kill "$progress_pid" 2>/dev/null || true
+        [[ -n "${progress_pid:-}" ]] && wait "$progress_pid" 2>/dev/null || true
 
         pid=""
         watchdog_pid=""
+        progress_pid=""
 
         return "$exit_code"
     }
