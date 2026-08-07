@@ -18,7 +18,7 @@ move_with_progress() {
     mkdir -p "$temporary_destination"
 
     echo "ℹ️ Moving $source to $destination"
-    echo "ℹ️ Around 3.0 Gb"
+    echo "ℹ️ Around 2.0 Gb"
     echo "ℹ️ Status interval: ${status_interval}s; stall timeout: ${stall_timeout}s"
 
     cp -a "$source"/. "$temporary_destination"/ &
