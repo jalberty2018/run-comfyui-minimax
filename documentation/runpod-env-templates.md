@@ -28,6 +28,8 @@ HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
+HF_MODEL_LORA2=Kijai/MiniMax-H3_comfy
+HF_MODEL_LORA_FILENAME2=loras/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
@@ -61,8 +63,11 @@ HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
+HF_MODEL_LORA2=Kijai/MiniMax-H3_comfy
+HF_MODEL_LORA_FILENAME2=loras/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
+WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 ```
 
 ## Private
@@ -96,6 +101,8 @@ HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
+HF_MODEL_LORA2=Kijai/MiniMax-H3_comfy
+HF_MODEL_LORA_FILENAME2=loras/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-i2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
@@ -132,6 +139,9 @@ HF_MODEL_VAE2=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME2=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_4step_ema_ckpt850.safetensors
+HF_MODEL_LORA2=Kijai/MiniMax-H3_comfy
+HF_MODEL_LORA_FILENAME2=loras/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
+WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 ```

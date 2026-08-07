@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime:03082026
+FROM ls250824/comfyui-runtime2:07082026
 
 # Set Working Directory
 WORKDIR /ComfyUI
@@ -48,8 +48,10 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Adudeguyman/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git
-
+    git clone --depth=1 --filter=blob:none https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/duckyshell/ComfyUI-MiniMaxH3-FirstBlockCache.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/quzopl/ComfyUI-SolAttn-H3
+    
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
 RUN set -eux; \

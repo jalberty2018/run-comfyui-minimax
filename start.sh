@@ -682,14 +682,15 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
     MAX_VRAM_GIB="$(get_max_vram_gib)"
     VRAM_THRESHOLD="${VRAM_THRESHOLD:-36}"
+    VRAM_TRESHHOLD_BLACKWELL="${VRAM_TRESHHOLD_BLACKWELL:-40}"
 
     if (( MAX_VRAM_GIB > VRAM_THRESHOLD )); then
         HF_PREFIX="HF_MODEL_HVRAM_"
-        echo "🟢 High VRAM detected (${MAX_VRAM_GIB} GB > ${VRAM_THRESHOLD} GB)"
+        echo "🟢 High VRAM detected (${MAX_VRAM_GIB} GB > ${VRAM_THRESHOLD} GB via VRAM_THRESHOLD)"
         export COMFYUI_VRAM_MODE=HIGH_VRAM
     else
        HF_PREFIX="HF_MODEL_LVRAM_"
-       echo "🟡 Low VRAM detected (${MAX_VRAM_GIB} GB < ${VRAM_THRESHOLD} GB)"
+       echo "🟡 Low VRAM detected (${MAX_VRAM_GIB} GB <= ${VRAM_THRESHOLD} GB via VRAM_THRESHOLD)"
     fi
 
     has_numbered_model_pair() {
@@ -716,13 +717,13 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
     # when at least one complete model/filename pair has been configured.
     # Otherwise the generic variables are the fallback for that category.
     if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
-      if [[ "$HF_PREFIX" == "HF_MODEL_HVRAM_" ]]; then
+      if (( MAX_VRAM_GIB > VRAM_TRESHHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
+        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_TRESHHOLD_BLACKWELL} GB)"
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
+        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_TRESHHOLD_BLACKWELL} GB)"
       fi
-
-      echo "⚫ Blackwell-specific models enabled"
 
       for cat in "${CATEGORIES_HF[@]}"; do
         IFS=":" read -r NAME SUFFIX DIR <<< "$cat"
@@ -925,17 +926,6 @@ if ort is not None:
     print(f"CUDA provider available: {'CUDAExecutionProvider' in providers}")
 else:
     print("ONNX Runtime: not available")
-PY
-
-python - <<'PY'
-import llama_cpp
-print("llama-cpp-python version:", llama_cpp.__version__)
-try:
-    from llama_cpp import llama_print_system_info
-    info = llama_print_system_info()
-    print(info.decode('utf-8'))
-except Exception as e2:
-    print("Failed:", e2)
 PY
 
 # Keep the container running

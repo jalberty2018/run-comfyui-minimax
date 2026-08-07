@@ -3,12 +3,14 @@
 ## Features
 
 - Automatic model provisioning through environment variables.
-- Models downloads depending on VRAM and architecture.
+- Models downloads depending on VRAM and architecture (Ada Lovelace / Blackwell).
 - CUDA 12.8 runtime with compiled attention acceleration.
 - Authentication for ComfyUI, Code Server, Hugging Face and CivitAI.
-- LoRA Manager, utility nodes.
-- Example workflows.
-- Turbo Lora (experimental)
+- Ultra uncensored heretic QWEN3 VL 32B text encoder.
+- LoRA Manager
+- Installed custom nodes and accelerators.
+- Example workflows standard / turbo
+- Turbo-lora (experimental)
 
 ## Built-in **authentication**
   
@@ -27,9 +29,8 @@
 
 - All available templates on runpod are tested on compatible GPU´s see below.
 - Specific models/loras/workflows for the templates are downloaded when the pod starts.
-- Avoid pods without region they are unstable.
 
-### Template
+### Templates
 
 | Checkpoint | Supported Tasks | Input Conditions | Output | 
 |---|---|---|---|
@@ -54,7 +55,7 @@
 |--------------------------|-------|-------------------------|
 | L40S | 45Gb | 80Gb           |
 
-### MiniMax H3 pruned NVFP4
+### MiniMax H3 pruned NVFP4 + turbo lora
 
 - video settings 0.4 MP 15sec 24fps
 
