@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:07082026
+FROM ls250824/comfyui-runtime2:08082026
 
 # Set Working Directory
 WORKDIR /ComfyUI
@@ -140,7 +140,7 @@ WORKDIR /workspace
 EXPOSE 8188 9000
 
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.30.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.31.0 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses="MIT"

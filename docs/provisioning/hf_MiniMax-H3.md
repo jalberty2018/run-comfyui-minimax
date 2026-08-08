@@ -71,7 +71,7 @@ Download only one hardware/VRAM profile. Within that profile you may download on
 
 ```bash
 hf download larryvrh/MiniMax-H3-Turbo-Lora \
-  minimax_h3_turbo_4step_ckpt850.safetensors \
+  minimax_h3_turbo_v4_step600_ema.safetensors \
   --local-dir /workspace/ComfyUI/models/loras
 ```
 
