@@ -14,14 +14,14 @@ A streamlined and automated environment for running **ComfyUI** with **MiniMax H
 
 ## 🔧 Features
 
-- Automatic model and LoRA downloads via environment variables or lora-manager.
-- Built-in **authentication** for:
-  - ComfyUI
-  - Code Server
-  - Hugging Face API
-  - CivitAI API
-- Supports advanced workflows for **video generation** and **enhancement** using pre-installed custom nodes.
-- Compatible with high-performance NVIDIA GPUs.
+- Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
+- Separate model profiles for standard NVIDIA and Blackwell GPUs.
+- High- and low-VRAM selection through environment variables.
+- Uncensored Heretic text encoder.
+- CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
+- ComfyUI, Code Server, LoRA Manager and SSH access.
+- Hugging Face and CivitAI token support.
+- Standard and experimental six-step Turbo LoRA workflows.
 
 ## 🧩 Template Deployment
 
@@ -46,7 +46,7 @@ A streamlined and automated environment for running **ComfyUI** with **MiniMax H
 
 - **PyTorch Runtime**  [![Docker](https://img.shields.io/docker/v/ls250824/pytorch-cuda-ubuntu-runtime)](https://hub.docker.com/r/ls250824/pytorch-cuda-ubuntu-runtime)
 
-- **ComfyUI Runtime**  [![Docker](https://img.shields.io/docker/v/ls250824/comfyui-runtime)](https://hub.docker.com/r/ls250824/comfyui-runtime)
+- **ComfyUI Runtime**  [![Docker](https://img.shields.io/docker/v/ls250824/comfyui-runtime2)](https://hub.docker.com/r/ls250824/comfyui-runtime2)
 
 ### Custom Image
 

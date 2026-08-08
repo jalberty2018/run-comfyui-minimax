@@ -7,10 +7,11 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
 - Separate model profiles for standard NVIDIA and Blackwell GPUs.
 - High- and low-VRAM selection through environment variables.
+- Uncensored Heretic text encoder.
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
-- Standard and experimental four-step Turbo LoRA workflows.
+- Standard and experimental six-step Turbo LoRA workflows.
 
 ## RunPod templates
 
@@ -22,7 +23,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - [Deploy MiniMax H3 FL2VA](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
 - [Deploy MiniMax H3 Ref2VA](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
 
-New image builds may be updated during their first day. For production use, validate a new build before replacing a working pod.
+- New image builds may be updated during their first day.
 
 ## GPU profiles
 
@@ -40,9 +41,6 @@ Set these variables in the RunPod template when applicable:
 | `PASSWORD` | Code Server password |
 | `HF_TOKEN` | Access to gated or private Hugging Face repositories |
 | `CIVITAI_TOKEN` | Access to CivitAI downloads |
-| `VRAM_THRESHOLD` | High/low-VRAM boundary for standard models |
-| `VRAM_TRESHHOLD_BLACKWELL` | High/low-VRAM boundary for Blackwell models; default `40` GB |
-| `COMFYUI_EXTRA_ARGUMENTS` | Additional ComfyUI startup arguments |
 
 ## Deployment
 
@@ -60,8 +58,9 @@ Provisioned data is stored in `/workspace`, allowing pod restarts without downlo
 |---|---|---:|---:|---|
 | Full INT8 ConvRot with Turbo LoRA | L40S | 45 GB | 80 GB | 0.9 MP, 20 seconds, 24 fps |
 | Pruned NVFP4 with Turbo LoRA | RTX 5090 | 32 GB | 70 GB | 0.4 MP, 15 seconds, 24 fps |
+| Pruned fp8 scaled with Turbo LoRA | RTX PRO 6000 | 62 GB | 70 GB | 1 MP, 30 seconds, 24 fps |
 
-Generation limits depend on resolution, duration, model selection and offloading. Allocate additional system RAM for larger workloads.
+- Generation limits depend on resolution, duration, model selection and offloading. Allocate additional system RAM for larger workloads.
 
 ## Documentation pod
 
