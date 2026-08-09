@@ -271,6 +271,11 @@ run_hf_download() {
     local stall_timeout="${HF_DOWNLOAD_STALL_TIMEOUT:-300}"
     local kill_after="${HF_DOWNLOAD_KILL_AFTER:-30}"
     local hf_command
+    local hf_dry_run_command
+    local dry_run_output
+    local total_size_value
+    local total_size_unit
+    local total_bytes=0
     local tmp_dir
     local fifo
     local pid
@@ -300,6 +305,27 @@ run_hf_download() {
     # Force human output so progress bars remain enabled when the command is
     # captured through the pseudo-terminal and FIFO below.
     printf -v hf_command '%q ' hf download --format human "$@"
+
+    # Ask the Hub for the selected file size before starting. The dry run uses
+    # the same repository, file filters, authentication and destination as the
+    # real download, but does not transfer the model itself.
+    printf -v hf_dry_run_command '%q ' hf download --dry-run --format human "$@"
+    dry_run_output="$(eval "$hf_dry_run_command" 2>&1 || true)"
+    if [[ "$dry_run_output" =~ totalling[[:space:]]+([0-9]+([.][0-9]+)?)([KMGTPE]?) ]]; then
+        total_size_value="${BASH_REMATCH[1]}"
+        total_size_unit="${BASH_REMATCH[3]}"
+        total_bytes="$(awk -v value="$total_size_value" -v unit="$total_size_unit" '
+            BEGIN {
+                exponent = index("KMGTPE", unit)
+                multiplier = 1
+                for (i = 0; i < exponent; i++) multiplier *= 1000
+                printf "%.0f", value * multiplier
+            }
+        ')"
+        printf 'ℹ️ [DOWNLOAD] Total size: %.2f GB\n' "$(awk -v bytes="$total_bytes" 'BEGIN { print bytes / 1000000000 }')"
+    else
+        echo "⚠️ [DOWNLOAD] Total size could not be determined; continuing download."
+    fi
 
     tmp_dir="$(mktemp -d)"
     fifo="${tmp_dir}/hf-output.fifo"
@@ -348,21 +374,40 @@ run_hf_download() {
                 local previous_bytes
                 local current_bytes
                 local downloaded_bytes
-                local downloaded_mib
+                local downloaded_gb
+                local speed_mbps
+                local previous_sample_time
+                local current_sample_time
+                local elapsed_seconds
+                local interval_bytes
 
                 baseline_bytes="$(du -s -B1 "$download_dir" 2>/dev/null | awk '{print $1}')"
                 baseline_bytes="${baseline_bytes:-0}"
                 previous_bytes="$baseline_bytes"
+                previous_sample_time="$(date +%s)"
 
                 while kill -0 "$pid" 2>/dev/null; do
                     sleep 10
                     current_bytes="$(du -s -B1 "$download_dir" 2>/dev/null | awk '{print $1}')"
                     current_bytes="${current_bytes:-0}"
+                    current_sample_time="$(date +%s)"
 
                     if (( current_bytes > previous_bytes )); then
                         downloaded_bytes=$((current_bytes - baseline_bytes))
-                        downloaded_mib=$((downloaded_bytes / 1024 / 1024))
-                        echo "⬇️ [DOWNLOAD] Progress: ${downloaded_mib} MiB received"
+                        interval_bytes=$((current_bytes - previous_bytes))
+                        elapsed_seconds=$((current_sample_time - previous_sample_time))
+                        (( elapsed_seconds < 1 )) && elapsed_seconds=1
+                        downloaded_gb="$(awk -v bytes="$downloaded_bytes" 'BEGIN { printf "%.2f", bytes / 1000000000 }')"
+                        speed_mbps="$(awk -v bytes="$interval_bytes" -v seconds="$elapsed_seconds" 'BEGIN { printf "%.1f", bytes / seconds / 1000000 }')"
+                        if (( total_bytes > 0 )); then
+                            printf '⬇️ [DOWNLOAD] Progress: %s / %.2f GB | %s MB/s\n' \
+                                "$downloaded_gb" \
+                                "$(awk -v bytes="$total_bytes" 'BEGIN { print bytes / 1000000000 }')" \
+                                "$speed_mbps"
+                        else
+                            printf '⬇️ [DOWNLOAD] Progress: %s GB downloaded | %s MB/s\n' \
+                                "$downloaded_gb" "$speed_mbps"
+                        fi
                         date +%s > "$progress_activity_tmp_file"
                         mv -f "$progress_activity_tmp_file" "$last_activity_file"
                     else
@@ -370,6 +415,7 @@ run_hf_download() {
                     fi
 
                     previous_bytes="$current_bytes"
+                    previous_sample_time="$current_sample_time"
                 done
             ) &
             progress_pid=$!
