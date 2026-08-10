@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:08082026
+FROM ls250824/comfyui-runtime2:10082026
 
 # Set Working Directory
 WORKDIR /ComfyUI

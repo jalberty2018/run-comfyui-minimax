@@ -50,7 +50,8 @@ Set these variables in the RunPod template when applicable:
 4. Deploy the pod and follow the container logs.
 5. Wait for `Provisioning done, ready to create AI content` before opening ComfyUI.
 
-Provisioned data is stored in `/workspace`, allowing pod restarts without downloading all assets again.
+- [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
+- Provisioned data is stored in `/workspace`, allowing pod restarts without downloading all assets again.
 
 ## Tested configurations
 
