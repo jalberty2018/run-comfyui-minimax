@@ -23,7 +23,8 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - [Deploy MiniMax H3 FL2VA](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
 - [Deploy MiniMax H3 Ref2VA](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
 
-- New image builds may be updated during their first day.
+- Specific models/loras/workflows for the templates are downloaded when the pod starts.
+- [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
 
 ## GPU profiles
 
@@ -66,7 +67,7 @@ Set these variables in the RunPod template when applicable:
 ## Documentation pod
 
 - [MiniMax H3 overview](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
-- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
+- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 
 ## Other pods
 

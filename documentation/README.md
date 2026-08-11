@@ -3,16 +3,16 @@
 ## Pre-Installed Custom Nodes
 
 - Open ComfyUI manager installed custom nodes.
-- [custom_nodes](../docs/ComfyUI_MiniMax_custom_nodes.md)
+- [custom_nodes](docs/ComfyUI_MiniMax_custom_nodes.md)
 
 ## Documentation
 
-- [Model provisioning](../docs/ComfyUI_MiniMax_provisioning.md)
-- [Resources](../docs/ComfyUI_MiniMax_resources.md)
-- [Image setup](../docs/ComfyUI_MiniMax_image_setup.md)
-- [Environment variables](../docs/ComfyUI_MiniMax_configuration.md)
-- [Hardware Requirements](../docs/ComfyUI_MiniMax_hardware.md)
-- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
+- [Model provisioning](docs/ComfyUI_MiniMax_provisioning.md)
+- [Resources](docs/ComfyUI_MiniMax_resources.md)
+- [Image setup](docs/ComfyUI_MiniMax_image_setup.md)
+- [Environment variables](docs/ComfyUI_MiniMax_configuration.md)
+- [Hardware Requirements](docs/ComfyUI_MiniMax_hardware.md)
+- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 - [Update](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_update/)
 
 ## Workflows
@@ -72,9 +72,11 @@ mc         # Midnight Commander (file manager)
 nano       # Text Editor
 ncdu       # Clean Up
 unzip      # uncompress
+age        # public/private key encryption
 7z         # Archiving
 runpodctl  # runpod pod management
 ```
+
 ## Test/debug
 
 ```bash

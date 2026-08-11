@@ -970,7 +970,7 @@ else
     fi
 fi
 
-echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/"
+echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
 
 # Environment
 echo "ℹ️ Running environment"

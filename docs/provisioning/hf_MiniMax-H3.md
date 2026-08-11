@@ -5,7 +5,7 @@
 - [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/)
 - [`sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4`](https://huggingface.co/sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4/)
 - [`larryvrh/MiniMax-H3-Turbo-Lora`](https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora/)
-- [`Kijai/MiniMax-H3_comfy`](https://huggingface.co/Kijai/MiniMax-H3_comfy/)
+- [`lightx2v/Minimax-h3-Turbo`](https://huggingface.co/lightx2v/Minimax-h3-Turbo/)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
 `fl2va` is for first/last-frame-to-video.
@@ -75,12 +75,13 @@ hf download larryvrh/MiniMax-H3-Turbo-Lora \
   --local-dir /workspace/ComfyUI/models/loras
 ```
 
-## Optional LightX2V 4-step Turbo LoRA (first version)
+## Optional LightX2V Turbo LoRAs (ComfyUI)
 
 ```bash
-hf download Kijai/MiniMax-H3_comfy \
-  loras/minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors \
-  --local-dir /workspace/ComfyUI/models
+hf download lightx2v/Minimax-h3-Turbo \
+  minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16.safetensors \
+  minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors \
+  --local-dir /workspace/ComfyUI/models/loras
 ```
 
 ## Optional uncensored INT8 ConvRot text encoder
