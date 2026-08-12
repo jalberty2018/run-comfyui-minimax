@@ -38,6 +38,8 @@ WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
+WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-i2v-pod.json
+WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -74,6 +76,7 @@ HF_MODEL_LORA_FILENAME3=minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensor
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
+WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
 ```
 
 ## Private
@@ -117,6 +120,8 @@ WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-t2v-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.json
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
+WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-i2v-pod.json
+WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -156,4 +161,5 @@ HF_MODEL_LORA_FILENAME3=minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensor
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
+WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
 ```

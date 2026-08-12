@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:10082026
+FROM ls250824/comfyui-runtime2:12082026
 
 # Set Working Directory
 WORKDIR /ComfyUI
@@ -54,7 +54,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/ukr8b3g-cmyk/ComfyUI-H3-Continuum.git
+    git clone --depth=1 --filter=blob:none https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
