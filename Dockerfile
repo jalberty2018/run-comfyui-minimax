@@ -51,8 +51,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git && \
     git clone --depth=1 --filter=blob:none https://github.com/duckyshell/ComfyUI-MiniMaxH3-FirstBlockCache.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cicalooo/ComfyUI-H3-PowerLoraStack.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
     git clone --depth=1 --filter=blob:none https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
 
