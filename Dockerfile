@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:12082026
+FROM ls250824/comfyui-runtime2:14082026
 
 # Set Working Directory
 WORKDIR /ComfyUI
@@ -51,10 +51,11 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git && \
     git clone --depth=1 --filter=blob:none https://github.com/duckyshell/ComfyUI-MiniMaxH3-FirstBlockCache.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cicalooo/ComfyUI-H3-PowerLoraStack.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
+    git clone --depth=1 --filter=blob:none --branch v2.2.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
+    git clone --depth=1 --filter=blob:none https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/lumos675/ComfyUI-OrbitSheets.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -143,7 +144,7 @@ WORKDIR /workspace
 EXPOSE 8188 9000
 
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.31.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.33.1 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses="MIT"
