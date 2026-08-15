@@ -1,7 +1,8 @@
 # Manual provisioning for MiniMax H3
 
 - [`Comfy-Org/MiniMax-H3`](https://huggingface.co/Comfy-Org/MiniMax-H3/)
-- [`lilcheaty/MiniMax-H3-NVFP4`](https://huggingface.co/lilcheaty/MiniMax-H3-NVFP4/)
+- [`rzgar/minimax_h3_fl2va_fp8_e4m3fn`](https://huggingface.co/rzgar/minimax_h3_fl2va_fp8_e4m3fn/)
+- [`rzgar/minimax_h3_ref2va_fp8_e4m3fn`](https://huggingface.co/rzgar/minimax_h3_ref2va_fp8_e4m3fn/)
 - [`ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot`](https://huggingface.co/ethanfel/Qwen3-VL-32B-Ultra-Heretic-MiniMax-H3-ComfyUI-INT8-ConvRot/)
 - [`sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4`](https://huggingface.co/sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4/)
 - [`larryvrh/MiniMax-H3-Turbo-Lora`](https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora/)
@@ -12,34 +13,39 @@ Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-vi
 
 | Hardware | Low-VRAM profile | High-VRAM profile | Text encoder |
 |---|---|---|---|
-| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000, B200) | pruned NVFP4, about 12.5 GB per diffusion model | pruned FP8 scaled, about 21.0 GB per diffusion model | NVFP4-AWQ |
+| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000, B200) | pruned INT8 ConvRot, about 21.0 GB per diffusion model (same as standard NVIDIA) | full MXFP8 (FP8 scaled), about 47.6 GB per diffusion model | NVFP4-AWQ |
 | Standard NVIDIA GPU (Ada, Hopper or older) | pruned INT8 ConvRot, about 21.0 GB per diffusion model | full INT8 ConvRot, about 34.0 GB per diffusion model | INT8 ConvRot |
 
-NVFP4 is native only on Blackwell. On older GPUs it is emulated, so use the standard
-INT8 ConvRot profile. The profiles below deliberately exclude full-BF16 diffusion models
-and full-BF16 text encoders.
+The NVFP4-AWQ text encoder is native only on Blackwell. On older GPUs it is
+emulated, so use the standard INT8 ConvRot profile. The profiles below deliberately
+exclude full-BF16 diffusion models and full-BF16 text encoders.
 
 ## Blackwell: low-VRAM profile
 
 ```bash
-hf download lilcheaty/MiniMax-H3-NVFP4 \
-  minimax_h3_fl2va_pruned_nvfp4.safetensors \
-  minimax_h3_ref2va_pruned_nvfp4.safetensors \
-  --local-dir /workspace/ComfyUI/models/diffusion_models
-
 hf download Comfy-Org/MiniMax-H3 \
+  diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors \
+  diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors \
   text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```
 
 ## Blackwell: high-VRAM profile
 
-This profile uses the ComfyUI-compatible pruned FP8-scaled diffusion models.
+This profile uses the full-size MXFP8 (FP8-scaled) diffusion models. It is intended
+for a 96 GB Blackwell GPU such as the RTX PRO 6000, prioritizing maximum quality
+and speed.
 
 ```bash
+hf download rzgar/minimax_h3_fl2va_fp8_e4m3fn \
+  minimax_h3_fl2va_mxfp8.safetensors \
+  --local-dir /workspace/ComfyUI/models/diffusion_models
+
+hf download rzgar/minimax_h3_ref2va_fp8_e4m3fn \
+  minimax_h3_ref2va_mxfp8.safetensors \
+  --local-dir /workspace/ComfyUI/models/diffusion_models
+
 hf download Comfy-Org/MiniMax-H3 \
-  diffusion_models/minimax_h3_fl2va_pruned_fp8_scaled.safetensors \
-  diffusion_models/minimax_h3_ref2va_pruned_fp8_scaled.safetensors \
   text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```

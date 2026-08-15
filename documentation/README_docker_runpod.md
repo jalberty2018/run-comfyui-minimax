@@ -11,7 +11,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
-- Standard and experimental six-step Turbo LoRA workflows.
+- Multiple Turbo LoRAs, including 4-step and 8-step variants.
 
 ## RunPod templates
 
@@ -30,8 +30,8 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 
 | Hardware | Low-VRAM diffusion model | High-VRAM diffusion model |
 |---|---|---|
-| NVIDIA Blackwell | Pruned NVFP4 | ComfyUI-compatible pruned FP8 scaled |
-| Ada, Hopper or older NVIDIA | Pruned INT8 ConvRot | Full INT8 ConvRot |
+| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000 or newer) | Pruned INT8 ConvRot (same as standard NVIDIA) | Full MXFP8 (FP8 scaled) |
+| Standard NVIDIA (Ada, Hopper or older) | Pruned INT8 ConvRot | Full INT8 ConvRot |
 
 ## Required configuration
 
@@ -56,18 +56,19 @@ Set these variables in the RunPod template when applicable:
 
 ## Tested configurations
 
-| Profile | GPU | VRAM | System RAM | Tested workload |
-|---|---|---:|---:|---|
-| Full INT8 ConvRot with Turbo LoRA | L40S | 45 GB | 80 GB | 0.9 MP, 20 seconds, 24 fps |
-| Pruned NVFP4 with Turbo LoRA | RTX 5090 | 32 GB | 70 GB | 0.4 MP, 15 seconds, 24 fps |
-| Pruned fp8 scaled with Turbo LoRA | RTX PRO 6000 | 62 GB | 70 GB | 1 MP, 30 seconds, 24 fps |
+| Provisioning | GPU | Model | Purpose | Pod RAM | Tested output |
+|---|---|---|---|---:|---|
+| NVIDIA LVRAM | RTX 3090 24 GB | Pruned INT8 ConvRot | Lowest cost and maximum compatibility | 50 GB | 0.9 MP, 15 seconds |
+| NVIDIA HVRAM | L40S 48 GB | Full INT8 ConvRot | Quality and longer video | 80 GB | 0.9 MP, 20 seconds, 24 fps |
+| Blackwell LVRAM | RTX 5090 32 GB | Pruned INT8 ConvRot | Compatible low-VRAM profile for Blackwell | 70 GB | 1.0 MP, 15 seconds, 24 fps |
+| Blackwell HVRAM | RTX PRO 6000 96 GB | Full MXFP8 (FP8 scaled) | Maximum quality and speed | 70 GB | 2 MP, 15 seconds, 24 fps |
 
 - Generation limits depend on resolution, duration, model selection and offloading. Allocate additional system RAM for larger workloads.
 
 ## Documentation pod
 
 - [MiniMax H3 overview](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
-- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
+- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
 
 ## Other pods
 

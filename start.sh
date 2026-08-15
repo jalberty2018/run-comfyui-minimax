@@ -59,7 +59,7 @@ if command -v nvidia-smi >/dev/null 2>&1; then
     # expose the compute_cap query field.
     GPU_COMPUTE_CAPS="$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader 2>/dev/null || true)"
     if awk -F. '$1 + 0 >= 10 { found=1 } END { exit !found }' <<< "$GPU_COMPUTE_CAPS" \
-       || grep -Eqi 'Blackwell|(^|[^[:alnum:]])(GB[0-9]{2,3}|B100|B200|B300|GeForce[[:space:]]+RTX[[:space:]]+50[0-9]{2})($|[^[:alnum:]])' <<< "$GPU_MODEL"; then
+       || grep -Eqi 'Blackwell|(^|[^[:alnum:]])(GB[0-9]{2,3}|B100|B200|B300|GeForce[[:space:]]+RTX[[:space:]]+50[0-9]{2}|RTX[[:space:]]+PRO[[:space:]]+6000)($|[^[:alnum:]])' <<< "$GPU_MODEL"; then
       export HAS_GPU_BLACKWELL=1
       echo "✅ [BLACKWELL GPU DETECTED] HAS_GPU_BLACKWELL=1"
     else
@@ -784,7 +784,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
     MAX_VRAM_GIB="$(get_max_vram_gib)"
     VRAM_THRESHOLD="${VRAM_THRESHOLD:-36}"
-    VRAM_TRESHOLD_BLACKWELL="${VRAM_TRESHOLD_BLACKWELL:-40}"
+    VRAM_THRESHOLD_BLACKWELL="${VRAM_THRESHOLD_BLACKWELL:-40}"
 
     if (( MAX_VRAM_GIB > VRAM_THRESHOLD )); then
         HF_PREFIX="HF_MODEL_HVRAM_"
@@ -819,12 +819,12 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
     # when at least one complete model/filename pair has been configured.
     # Otherwise the generic variables are the fallback for that category.
     if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
-      if (( MAX_VRAM_GIB > VRAM_TRESHOLD_BLACKWELL )); then
+      if (( MAX_VRAM_GIB > VRAM_THRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
-        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_TRESHOLD_BLACKWELL} GB)"
+        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_THRESHOLD_BLACKWELL} GB)"
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
-        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_TRESHOLD_BLACKWELL} GB)"
+        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_THRESHOLD_BLACKWELL} GB)"
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do

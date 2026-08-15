@@ -3,16 +3,16 @@
 ## Pre-Installed Custom Nodes
 
 - Open ComfyUI manager installed custom nodes.
-- [custom_nodes](docs/ComfyUI_MiniMax_custom_nodes.md)
+- [Custom nodes](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_custom_nodes/)
 
 ## Documentation
 
-- [Model provisioning](docs/ComfyUI_MiniMax_provisioning.md)
-- [Resources](docs/ComfyUI_MiniMax_resources.md)
-- [Image setup](docs/ComfyUI_MiniMax_image_setup.md)
-- [Environment variables](docs/ComfyUI_MiniMax_configuration.md)
-- [Hardware Requirements](docs/ComfyUI_MiniMax_hardware.md)
-- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
+- [Model provisioning](../docs/ComfyUI_MiniMax_provisioning.md)
+- [Resources](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_resources/)
+- [Image setup](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_image_setup/)
+- [Environment variables](https://comfyui.rozenlaan.site/RunPod_configuration/)
+- [Hardware requirements](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_hardware/)
+- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
 - [Update](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_update/)
 
 ## Workflows

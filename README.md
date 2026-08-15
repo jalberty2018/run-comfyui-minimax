@@ -21,13 +21,22 @@ A streamlined and automated environment for running **ComfyUI** with **MiniMax H
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
-- Standard and experimental six-step Turbo LoRA workflows.
+- Multiple Turbo LoRAs, including 4-step and 8-step variants.
 
 ## 🧩 Template Deployment
 
 ### Deployment
 
-- All available templates on runpod are tested on a L40S and RTX 5090
+- The provisioning profiles target RTX 3090, L40S, RTX 5090 and RTX PRO 6000 GPUs.
+
+## Tested configurations
+
+| Provisioning | GPU | Model | Purpose | Pod RAM | Tested output |
+|---|---|---|---|---:|---|
+| NVIDIA LVRAM | RTX 3090 24 GB | Pruned INT8 ConvRot | Lowest cost and maximum compatibility | 50 GB | 0.9 MP, 15 seconds |
+| NVIDIA HVRAM | L40S 48 GB | Full INT8 ConvRot | Quality and longer video | 80 GB | 0.9 MP, 20 seconds, 24 fps |
+| Blackwell LVRAM | RTX 5090 32 GB | Pruned INT8 ConvRot | Compatible low-VRAM profile for Blackwell | 70 GB | 1.0 MP, 15 seconds, 24 fps |
+| Blackwell HVRAM | RTX PRO 6000 96 GB | Full MXFP8 (FP8 scaled) | Maximum quality and speed | 70 GB | 2 MP, 15 seconds, 24 fps |
 
 ### Runpod templates
 
