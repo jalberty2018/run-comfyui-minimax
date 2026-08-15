@@ -784,7 +784,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
 
     MAX_VRAM_GIB="$(get_max_vram_gib)"
     VRAM_THRESHOLD="${VRAM_THRESHOLD:-36}"
-    VRAM_TRESHHOLD_BLACKWELL="${VRAM_TRESHHOLD_BLACKWELL:-40}"
+    VRAM_TRESHOLD_BLACKWELL="${VRAM_TRESHOLD_BLACKWELL:-40}"
 
     if (( MAX_VRAM_GIB > VRAM_THRESHOLD )); then
         HF_PREFIX="HF_MODEL_HVRAM_"
@@ -819,12 +819,12 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
     # when at least one complete model/filename pair has been configured.
     # Otherwise the generic variables are the fallback for that category.
     if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
-      if (( MAX_VRAM_GIB > VRAM_TRESHHOLD_BLACKWELL )); then
+      if (( MAX_VRAM_GIB > VRAM_TRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
-        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_TRESHHOLD_BLACKWELL} GB)"
+        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_TRESHOLD_BLACKWELL} GB)"
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
-        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_TRESHHOLD_BLACKWELL} GB)"
+        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_TRESHOLD_BLACKWELL} GB)"
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do
