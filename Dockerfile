@@ -53,7 +53,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
     git clone --depth=1 --filter=blob:none --branch v2.2.5 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none --branch v0.3.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/lumos675/ComfyUI-OrbitSheets.git
+    git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -92,7 +93,7 @@ WORKDIR /ComfyUI/custom_nodes
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   python -m pip install --no-cache-dir --root-user-action ignore -c /constraints.txt \
-    -r ComfyUI-Login/requirements.txt \
+  -r ComfyUI-Login/requirements.txt \
 	-r ComfyUI-VideoHelperSuite/requirements.txt \
 	-r ComfyUI-KJNodes/requirements.txt \
 	-r comfyui-vrgamedevgirl/requirements.txt \
@@ -105,7 +106,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r ComfyUI-SAM3/requirements.txt \
   -r ComfyUI-Easy-Use/requirements.txt \
 	-r comfyui-model-linker/requirements.txt \
-  -r ComfyUI_RH_MinMaxH3/requirements.txt \
   -r ComfyUI_MiniMaxH3_Director/requirements.txt
 
 # Add settings for lora manager 
