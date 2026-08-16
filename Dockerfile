@@ -42,7 +42,6 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/cubiq/ComfyUI_essentials.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-MiniMax-H3-Guide.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/HM-RunningHub/ComfyUI_RH_MinMaxH3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-SolAttn_triton.git && \
     git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
