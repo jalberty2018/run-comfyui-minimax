@@ -7,12 +7,12 @@
 
 ## Documentation
 
-- [Model provisioning](../docs/ComfyUI_MiniMax_provisioning.md)
+- [Model provisioning](docs/ComfyUI_MiniMax_provisioning.md)
 - [Resources](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_resources/)
 - [Image setup](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_image_setup/)
 - [Environment variables](https://comfyui.rozenlaan.site/RunPod_configuration/)
 - [Hardware requirements](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_hardware/)
-- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
+- [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 - [Update](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_update/)
 
 ## Workflows

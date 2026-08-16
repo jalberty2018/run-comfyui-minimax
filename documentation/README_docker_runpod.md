@@ -68,7 +68,7 @@ Set these variables in the RunPod template when applicable:
 ## Documentation pod
 
 - [MiniMax H3 overview](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
-- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_tutorial/)
+- [MiniMax H3 tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 
 ## Other pods
 

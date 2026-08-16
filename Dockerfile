@@ -23,7 +23,6 @@ WORKDIR /ComfyUI/custom_nodes
 RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/rgthree/rgthree-comfy.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Azornes/Comfyui-Resolution-Master.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/GizmoR13/PG-Nodes.git && \
     git clone --depth=1 --filter=blob:none https://github.com/willmiao/ComfyUI-Lora-Manager.git && \
     git clone --depth=1 --filter=blob:none https://github.com/yolain/ComfyUI-Easy-Use.git && \
     git clone --depth=1 --filter=blob:none https://github.com/liusida/ComfyUI-Login.git && \
@@ -53,8 +52,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/cicalooo/ComfyUI-H3-PowerLoraStack.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
-    git clone --depth=1 --filter=blob:none --branch v2.2.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
+    git clone --depth=1 --filter=blob:none --branch v2.2.5 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
+    git clone --depth=1 --filter=blob:none --branch v0.3.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/lumos675/ComfyUI-OrbitSheets.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
