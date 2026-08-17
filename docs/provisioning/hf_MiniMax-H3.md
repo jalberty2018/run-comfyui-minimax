@@ -87,6 +87,7 @@ hf download larryvrh/MiniMax-H3-Turbo-Lora \
 hf download lightx2v/Minimax-h3-Turbo \
   minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16.safetensors \
   minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors \
+  minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models/loras
 ```
 

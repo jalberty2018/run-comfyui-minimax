@@ -6,6 +6,22 @@ only when its reported VRAM is greater than the configured threshold.
 
 ## Public
 
+### MiniMax Music 3
+
+```bash
+VRAM_THRESHOLD=16
+VRAM_THRESHOLD_BLACKWELL=16
+HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_music3_dit_fp16.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_music3_dit_int8_convrot.safetensors
+HF_MODEL_TEXT_ENCODERS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_TEXT_ENCODERS_FILENAME1=text_encoders/minimax_music3_text_encoder_pruned_int8_convrot.safetensors
+HF_MODEL_VAE1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_VAE_FILENAME1=vae/minimax_music3_dav.safetensors
+WORKFLOW1=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/audio_minimax_music_3.json
+```
+
 ### MiniMax-H3 Base FL2VA
 
 ```bash
@@ -83,10 +99,30 @@ WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
+WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot.json
 ```
 
 ## Private
 
+### MiniMax Music 3
+
+```bash
+VRAM_THRESHOLD=16
+VRAM_THRESHOLD_BLACKWELL=16
+CIVITAI_TOKEN={{ RUNPOD_SECRET_CivitAI_API_KEY }}
+HF_TOKEN={{ RUNPOD_SECRET_HF_TOKEN_WRITE }}
+PASSWORD={{ RUNPOD_SECRET_CODE-SERVER-NEW }}
+HF_MODEL_HVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_HVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_music3_dit_fp16.safetensors
+HF_MODEL_LVRAM_DIFFUSION_MODELS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_LVRAM_DIFFUSION_MODELS_FILENAME1=diffusion_models/minimax_music3_dit_int8_convrot.safetensors
+HF_MODEL_TEXT_ENCODERS1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_TEXT_ENCODERS_FILENAME1=text_encoders/minimax_music3_text_encoder_pruned_int8_convrot.safetensors
+HF_MODEL_VAE1=Comfy-Org/MiniMax-Music-3
+HF_MODEL_VAE_FILENAME1=vae/minimax_music3_dav.safetensors
+WORKFLOW1=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/audio_minimax_music_3.json
+```
+
 ### MiniMax-H3 Base FL2VA
 
 ```bash
@@ -170,4 +206,5 @@ WORKFLOW1=https://provisioning.rozenlaan.site/minimax/minimax_h3-r2v-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
+WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot.json
 ```

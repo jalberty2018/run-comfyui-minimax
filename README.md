@@ -2,22 +2,22 @@
 
 # 🚀 Run MiniMax with ComfyUI with provisioning — RunPod
 
-## INT8 convrot
-
-![Pod running on L40S native comfyUI](images/runpod_L40S_MiniMax.jpg)
-
 ## Workflow i2v
 
 ![Workflow i2v](images/ai-generated-MiniMax.jpg)
 
 A streamlined and automated environment for running **ComfyUI** with **MiniMax H3 video model**, optimized for use on RunPod
 
+## Runpod NVIDIA HVRAM
+
+![Pod running on L40S native comfyUI](images/runpod_L40S_MiniMax.jpg)
+
 ## 🔧 Features
 
 - Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
 - Separate model profiles for standard NVIDIA and Blackwell GPUs.
 - High- and low-VRAM selection through environment variables.
-- Uncensored Heretic text encoder.
+- Uncensored Heretic text encoder and tail for prompt enhancement.
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.

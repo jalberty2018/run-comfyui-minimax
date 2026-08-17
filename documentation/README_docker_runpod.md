@@ -7,7 +7,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
 - Separate model profiles for standard NVIDIA and Blackwell GPUs.
 - High- and low-VRAM selection through environment variables.
-- Uncensored Heretic text encoder.
+- Uncensored Heretic text encoder and tail for prompt enhancement.
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
@@ -22,9 +22,6 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 
 - [Deploy MiniMax H3 FL2VA](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
 - [Deploy MiniMax H3 Ref2VA](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
-
-- Specific models/loras/workflows for the templates are downloaded when the pod starts.
-- [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
 
 ## GPU profiles
 
@@ -50,15 +47,13 @@ Set these variables in the RunPod template when applicable:
 3. Configure authentication tokens and optional environment overrides.
 4. Deploy the pod and follow the container logs.
 5. Wait for `Provisioning done, ready to create AI content` before opening ComfyUI.
-
-- [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
-- Provisioned data is stored in `/workspace`, allowing pod restarts without downloading all assets again.
+6. [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
 
 ## Tested configurations
 
 | Provisioning | GPU | Model | Purpose | Pod RAM | Tested output |
 |---|---|---|---|---:|---|
-| NVIDIA LVRAM | RTX 3090 24 GB | Pruned INT8 ConvRot | Lowest cost and maximum compatibility | 50 GB | 0.9 MP, 15 seconds |
+| NVIDIA LVRAM | RTX 3090/4090 24 GB | Pruned INT8 ConvRot | Lowest cost and maximum compatibility | 50 GB | 0.9 MP, 15 seconds |
 | NVIDIA HVRAM | L40S 48 GB | Full INT8 ConvRot | Quality and longer video | 80 GB | 0.9 MP, 20 seconds, 24 fps |
 | Blackwell LVRAM | RTX 5090 32 GB | Pruned INT8 ConvRot | Compatible low-VRAM profile for Blackwell | 70 GB | 1.0 MP, 15 seconds, 24 fps |
 | Blackwell HVRAM | RTX PRO 6000 96 GB | Full MXFP8 (FP8 scaled) | Maximum quality and speed | 70 GB | 2 MP, 15 seconds, 24 fps |
