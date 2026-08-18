@@ -60,6 +60,7 @@ WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.j
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
 WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-i2v-pod.json
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-t2v-pod.json
+WORKFLOW8=https://provisioning.rozenlaan.site/minimax/minimax_h3-prompt-generator.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -100,7 +101,11 @@ WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.js
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot.json
+WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-prompt-builder-pod.json
+WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-prompt-generator.json
+WORKFLOW8=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot-context-pin.json
 ```
+
 
 ## Private
 
@@ -164,6 +169,7 @@ WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-i2v-pod.j
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-t2v-pod.json
 WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-i2v-pod.json
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-t2v-pod.json
+WORKFLOW8=https://provisioning.rozenlaan.site/minimax/minimax_h3-prompt-generator.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -207,4 +213,7 @@ WORKFLOW2=https://provisioning.rozenlaan.site/minimax/minimax_h3-director-pod.js
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/minimax_h3-turbo-r2v-pod.json
 WORKFLOW4=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-pod.json
 WORKFLOW5=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot.json
+WORKFLOW6=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-prompt-builder-pod.json
+WORKFLOW7=https://provisioning.rozenlaan.site/minimax/minimax_h3-prompt-generator.json
+WORKFLOW8=https://provisioning.rozenlaan.site/minimax/minimax_h3-lightx2v-r2v-multi-shot-context-pin.json
 ```
