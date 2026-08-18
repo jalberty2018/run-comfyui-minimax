@@ -54,7 +54,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none --branch v2.6.1 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none --branch v0.3.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git \
+    git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
     git clone --depth=1 --filter=blob:none https://github.com/tritant/ComfyUI_MiniMax_H3_Extender.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG

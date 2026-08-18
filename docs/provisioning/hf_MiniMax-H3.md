@@ -7,6 +7,7 @@
 - [`sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4`](https://huggingface.co/sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4/)
 - [`larryvrh/MiniMax-H3-Turbo-Lora`](https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora/)
 - [`lightx2v/Minimax-h3-Turbo`](https://huggingface.co/lightx2v/Minimax-h3-Turbo/)
+- [`Kijai/MiniMax-H3-TAE/vae_approx`](https://huggingface.co/Kijai/MiniMax-H3-TAE/tree/main/vae_approx)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
 `fl2va` is for first/last-frame-to-video.
@@ -111,5 +112,9 @@ The VAEs are shared by all four profiles.
 hf download Comfy-Org/MiniMax-H3 \
   vae/minimax_h3_audio_vae_fp32.safetensors \
   vae/minimax_h3_video_vae_fp16.safetensors \
+  --local-dir /workspace/ComfyUI/models
+
+hf download Kijai/MiniMax-H3-TAE \
+  vae_approx/taeh3.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```
