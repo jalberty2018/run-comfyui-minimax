@@ -55,7 +55,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none --branch v0.3.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/tritant/ComfyUI_MiniMax_H3_Extender.git
+    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -107,8 +107,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r ComfyUI-SAM3/requirements.txt \
   -r ComfyUI-Easy-Use/requirements.txt \
 	-r comfyui-model-linker/requirements.txt \
-  -r ComfyUI_MiniMaxH3_Director/requirements.txt \
-  -r ComfyUI_MiniMax_H3_Extender/requirements.txt
+  -r ComfyUI_MiniMaxH3_Director/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
