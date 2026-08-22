@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:220820026
+FROM ls250824/comfyui-runtime2:22082026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
