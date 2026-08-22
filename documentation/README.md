@@ -84,7 +84,16 @@ python /workspace/test/test_pytorch_cuda.py
 python /workspace/test/test_flash.py
 python /workspace/test/test_sage.py
 python /workspace/test/test_torch_generic_nms.py
-python /workspace/test/test_llama_cpp.py
 python /workspace/test/test_environment.py
 python /workspace/test/test_environment_runpod.py
+```
+
+## Test llama
+
+- [llama.cpp VLM and test models](docs/provisioning/hf_vlm.md)
+
+```bash
+python /workspace/test/test_llama_cpp_python.py
+python /workspace/test/test_llama_cpp.py
+python /workspace/test/test_llama_cpp_minimax.py
 ```

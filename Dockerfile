@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:14082026
+FROM ls250824/comfyui-runtime2:220820026
+
+ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
 # Set Working Directory
 WORKDIR /ComfyUI
@@ -51,11 +53,12 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/cicalooo/ComfyUI-H3-PowerLoraStack.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
-    git clone --depth=1 --filter=blob:none --branch v2.6.1 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
+    git clone --depth=1 --filter=blob:none --branch v2.6.3 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none --branch v0.3.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
+    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/hyukudan/ComfyUI-MiniMax-H3-Prompt-Enhancer.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -148,19 +151,22 @@ LABEL org.opencontainers.image.title="ComfyUI 0.33.0 for MiniMax H3 inference" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses="MIT"
 
-# Test
-RUN python -c "import torch, torchvision, torchaudio, triton, importlib, importlib.util as iu; \
-print(f'Torch: {torch.__version__}'); \
-print(f'Torchvision: {torchvision.__version__}'); \
-print(f'Torchaudio: {torchaudio.__version__}'); \
-print(f'Triton: {triton.__version__}'); \
-name = 'onnxruntime_gpu' if iu.find_spec('onnxruntime_gpu') else ('onnxruntime' if iu.find_spec('onnxruntime') else None); \
-ver = (importlib.import_module(name).__version__ if name else 'not installed'); \
-label = 'ONNXRuntime-GPU' if name=='onnxruntime_gpu' else 'ONNXRuntime'; \
-print(f'{label}: {ver}'); \
-print('CUDA available:', torch.cuda.is_available()); \
-print('CUDA version:', torch.version.cuda); \
-print('Device:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')"
+# CPU-safe package verification. Docker builds have no GPU/driver, so avoid
+# importing CUDA-backed modules. Runtime CUDA checks are performed by start.sh.
+RUN python - <<'PY'
+import importlib.metadata as metadata
+
+packages = (
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "triton",
+    "llama-cpp-python",
+    "onnxruntime-gpu",
+)
+for package in packages:
+    print(f"{package}: {metadata.version(package)}")
+PY
 
 # Start Server
 CMD [ "/start.sh" ]

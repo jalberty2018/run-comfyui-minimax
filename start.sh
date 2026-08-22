@@ -979,6 +979,25 @@ echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
 # Environment
 echo "ℹ️ Running environment"
 
+# Native llama.cpp diagnostics. The MiniMax H3 Prompt Enhancer uses
+# llama-server directly; llama-cpp-python is checked separately below.
+LLAMA_CLI_PATH="$(command -v llama-cli 2>/dev/null || true)"
+LLAMA_SERVER_PATH="${MINIMAX_H3_LLAMA_SERVER:-$(command -v llama-server 2>/dev/null || true)}"
+
+if [[ -n "$LLAMA_CLI_PATH" && -x "$LLAMA_CLI_PATH" ]]; then
+    echo "✅ llama.cpp CLI found: $LLAMA_CLI_PATH"
+    "$LLAMA_CLI_PATH" --version || echo "⚠️ llama-cli version check failed"
+else
+    echo "❌ llama.cpp CLI not found in PATH"
+fi
+
+if [[ -n "$LLAMA_SERVER_PATH" && -x "$LLAMA_SERVER_PATH" ]]; then
+    echo "✅ llama.cpp server found: $LLAMA_SERVER_PATH"
+    "$LLAMA_SERVER_PATH" --version || echo "⚠️ llama-server version check failed"
+else
+    echo "❌ llama.cpp server not found via MINIMAX_H3_LLAMA_SERVER or PATH"
+fi
+
 python - <<'PY'
 import platform
 

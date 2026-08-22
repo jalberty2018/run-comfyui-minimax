@@ -4,6 +4,7 @@
 
 - [MiniMax Music 3](provisioning/hf_MiniMax-Music-3.md)
 - [MiniMax H3](provisioning/hf_MiniMax-H3.md)
+- [llama.cpp VLM and test models](provisioning/hf_vlm.md)
 
 ## Others
 
