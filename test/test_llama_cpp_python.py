@@ -9,7 +9,7 @@ from llama_cpp import Llama
 
 EXPECTED_VERSION = "0.3.34"
 DEFAULT_MODEL = Path(
-    "/workspace/ComfyUI/models/llm_gguf/tinyllama-1.1b-chat-v1.0.Q8_0.gguf"
+    "/workspace/ComfyUI/models/LLM/Qwen3.8/tinyllama-1.1b-chat-v1.0.Q8_0.gguf"
 )
 
 
