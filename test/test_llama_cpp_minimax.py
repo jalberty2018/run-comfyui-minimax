@@ -35,6 +35,17 @@ image = require_file("LLAMA_CPP_MINIMAX_IMAGE", DEFAULT_IMAGE, "Test image")
 
 print("llama-mtmd-cli:", llama_mtmd_cli)
 subprocess.run([llama_mtmd_cli, "--version"], check=True)
+
+devices = subprocess.run(
+    [llama_mtmd_cli, "--list-devices"],
+    check=True,
+    capture_output=True,
+    text=True,
+)
+device_output = f"{devices.stdout}\n{devices.stderr}".strip()
+print(device_output)
+assert "CUDA" in device_output.upper(), "llama-mtmd-cli did not discover a CUDA device"
+
 print("Model:", model)
 print("MMProj:", mmproj)
 print("Image:", image)
@@ -72,6 +83,4 @@ result = subprocess.run(
 
 print(result.stdout)
 print(result.stderr)
-combined_output = f"{result.stdout}\n{result.stderr}"
-assert "CUDA" in combined_output.upper(), "llama-mtmd-cli did not load the CUDA backend"
 assert result.stdout.strip(), "llama-mtmd-cli returned no final image description"

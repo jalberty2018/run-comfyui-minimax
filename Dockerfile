@@ -43,7 +43,6 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/geroldmeisinger/ComfyUI-outputlists-combiner.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cubiq/ComfyUI_essentials.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-MiniMax-H3-Guide.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-SolAttn_triton.git && \
     git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
@@ -59,7 +58,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
     git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git && \
     git clone --depth=1 --filter=blob:none https://github.com/hyukudan/ComfyUI-MiniMax-H3-Prompt-Enhancer.git
-
+    
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
 RUN set -eux; \
