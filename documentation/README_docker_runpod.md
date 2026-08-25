@@ -21,8 +21,18 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 | MiniMax H3 FL2VA | Text-to-video, image-to-video and first/last-frame-to-video | Text with optional first and/or last frame | Video with audio |
 | MiniMax H3 Ref2VA | Reference-to-video | Text with reference images, video and/or audio | Video with audio |
 
-- [Deploy MiniMax H3 FL2VA](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
-- [Deploy MiniMax H3 Ref2VA](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
+### **Two prompt-enhancement options are available**
+
+- The **tail** uses the MiniMax H3 text encoder and is slower.
+- The **QWEN prompt enhancer** uses a second, separate Qwen model together with llama.cpp for faster prompt generation.
+- Both are only needed for prompt enhancement, not for inference with the MiniMax H3 model itself.
+
+### Links to the templates
+
+- [Deploy MiniMax H3 FL2VA plus tail](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [Deploy MiniMax H3 Ref2VA plus tail](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
+- [Deploy MiniMax H3 FL2VA plus prompt enhancer](https://console.runpod.io/hub/template/a1nkufhzxq?ref=se4tkc5o)
+- [Deploy MiniMax H3 Ref2VA plus prompt enhancer](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o)
 
 ## GPU profiles
 
