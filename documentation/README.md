@@ -1,17 +1,20 @@
 # Pod MiniMax
 
-## Pre-Installed Custom Nodes
+## Pre-Installed Custom Nodes for this build cloned on docker image tag
 
 - Open ComfyUI manager installed custom nodes.
-- [Custom nodes](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_custom_nodes/)
+- [Custom nodes](docs/ComfyUI_MiniMax_custom_nodes.md)
 
-## Documentation
+## Documentation local for this build
 
 - [Model provisioning](docs/ComfyUI_MiniMax_provisioning.md)
-- [Resources](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_resources/)
-- [Image setup](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_image_setup/)
-- [Environment variables](https://comfyui.rozenlaan.site/RunPod_configuration/)
-- [Hardware requirements](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_hardware/)
+- [Resources](docs/ComfyUI_MiniMax_resources.md)
+- [Image setup](docs/ComfyUI_MiniMax_image_setup.md)
+- [Environment variables](docs/RunPod_configuration.md)
+- [Hardware requirements](docs/ComfyUI_MiniMax_hardware.md)
+
+## Documentation rozenlaan.site
+
 - [Tutorial](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 - [Update](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_update/)
 
@@ -19,7 +22,7 @@
 
 - Open from ComfyUI's interface on the left
 
-#### **Huggingface**  
+## **Huggingface**  
 
 ```bash
 export HF_TOKEN="xxxxx"
@@ -31,7 +34,7 @@ hf upload model /workspace/model.safetensors
 hf auth login --token xxxxx
 ```
 
-#### **CivitAI**  
+## **CivitAI**  
 
 ```bash
 export CIVITAI_TOKEN="xxxxx"
