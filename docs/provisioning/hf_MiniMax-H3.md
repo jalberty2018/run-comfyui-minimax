@@ -7,6 +7,7 @@
 - [`sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4`](https://huggingface.co/sakamakismile/Qwen3-VL-32B-Heretic-MiniMax-H3-NVFP4/)
 - [`larryvrh/MiniMax-H3-Turbo-Lora`](https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora/)
 - [`lightx2v/Minimax-h3-Turbo`](https://huggingface.co/lightx2v/Minimax-h3-Turbo/)
+- [`aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI`](https://huggingface.co/aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI/)
 - [`Kijai/MiniMax-H3-TAE/vae_approx`](https://huggingface.co/Kijai/MiniMax-H3-TAE/tree/main/vae_approx)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
@@ -74,7 +75,7 @@ hf download Comfy-Org/MiniMax-H3 \
 Download only one hardware/VRAM profile. Within that profile you may download only the
 `ref2va` or only the `fl2va` diffusion model when you do not need both workflows.
 
-## Optional 4-step Turbo LoRA (experimental)
+## Optional 4-step Turbo LoRA use with custom_node sampler
 
 ```bash
 hf download larryvrh/MiniMax-H3-Turbo-Lora \
@@ -90,6 +91,15 @@ hf download lightx2v/Minimax-h3-Turbo \
   minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors \
   minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models/loras
+```
+
+## Optional PDD acceleration LoRAs use with custom_node loader
+
+```bash
+hf download aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI \
+  minimax_h3_fl2va_pdd_acc_8step_comfyui.safetensors \
+  minimax_h3_ref2va_pdd_acc_8step_comfyui.safetensors \
+  --local-dir /workspace/ComfyUI/models/pdd_acc
 ```
 
 ## Optional uncensored INT8 ConvRot text encoder
