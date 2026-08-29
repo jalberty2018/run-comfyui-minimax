@@ -83,13 +83,15 @@ hf download larryvrh/MiniMax-H3-Turbo-Lora \
   --local-dir /workspace/ComfyUI/models/loras
 ```
 
-## Optional LightX2V Turbo LoRAs (ComfyUI)
+## Optional LightX2V FL2VA Turbo LoRAs (ComfyUI)
+
+Only the current FL2VA releases are provisioned here. For Ref2VA acceleration,
+use the Alibaba PDD LoRA below instead of the older LightX2V Ref2VA v0.1 model.
 
 ```bash
 hf download lightx2v/Minimax-h3-Turbo \
-  minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16.safetensors \
-  minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors \
-  minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors \
+  minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors \
+  minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models/loras
 ```
 
