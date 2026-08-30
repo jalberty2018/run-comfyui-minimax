@@ -11,8 +11,8 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
-- Multiple Turbo LoRAs, including 4-step and 8-step variants.
-- llama-cpp and llama-cpp-python availabe for prompt enhancements
+- 4-step , 8-step loras (turbo, lightx2v, Alibaba PDD Acc) included.
+- llama-cpp and llama-cpp-python availabe for prompt enhancements.
 
 ## RunPod templates
 
