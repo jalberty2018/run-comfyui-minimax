@@ -59,7 +59,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
     # git clone --depth=1 --filter=blob:none https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git & \
+    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git && \
     git clone --depth=1 --filter=blob:none https://github.com/bbaudio-2025/Comfyui-MMH3-UltimateUpscale.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
