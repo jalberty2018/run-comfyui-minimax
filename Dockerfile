@@ -46,7 +46,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-SolAttn_triton.git && \
     git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/Adudeguyman/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
+    # git clone --depth=1 --filter=blob:none https://github.com/Adudeguyman/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
+    git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc.git && \
     git clone --depth=1 --filter=blob:none https://github.com/duckyshell/ComfyUI-MiniMaxH3-FirstBlockCache.git && \
@@ -54,13 +55,15 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none --branch v0.6.2 https://github.com/Saganaki22/ComfyUI-sol-attn.git && \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
     # git clone --depth=1 --filter=blob:none --branch v2.7.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
-    git clone --depth=1 --filter=blob:none --branch v0.4.0 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI-H3-Multishot  && \
+    git clone --depth=1 --filter=blob:none --branch v0.4.0 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
+    # git clone --depth=1 --filter=blob:none https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
-  
+    git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git & \
+    git clone --depth=1 --filter=blob:none https://github.com/bbaudio-2025/Comfyui-MMH3-UltimateUpscale.git
+    
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
 RUN set -eux; \
