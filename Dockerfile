@@ -38,8 +38,6 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/vrgamegirl19/comfyui-vrgamedevgirl.git && \
     git clone --depth=1 --filter=blob:none https://github.com/BigStationW/ComfyUi-Scale-Image-to-Total-Pixels-Advanced.git && \
     git clone --depth=1 --filter=blob:none https://github.com/x3bits/ComfyUI-Power-Flow.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/9nate-drake/Comfyui-SecNodes.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/PozzettiAndrea/ComfyUI-SAM3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/geroldmeisinger/ComfyUI-outputlists-combiner.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cubiq/ComfyUI_essentials.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
@@ -63,7 +61,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git && \
     git clone --depth=1 --filter=blob:none https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git & \
     git clone --depth=1 --filter=blob:none https://github.com/bbaudio-2025/Comfyui-MMH3-UltimateUpscale.git
-    
+
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
 RUN set -eux; \
@@ -76,13 +74,6 @@ RUN set -eux; \
 RUN set -eux; \
   grep -RniE '^[[:space:]]*onnxruntime([[:space:]]*[<>=!~].*)?[[:space:]]*$|^[[:space:]]*onnxruntime-gpu([[:space:]]*[<>=!~].*)?[[:space:]]*$' \
     /ComfyUI/custom_nodes || true
-
-WORKDIR /ComfyUI/custom_nodes/ComfyUI-SAM3
-# Working version for SAM3 (comfy-env problems)
-RUN git fetch --unshallow && git checkout 5c0474e292e3658645f46e46378d58935a82692f
-# Pixi problem SAM3
-RUN sed -i '/^comfy-env/d' requirements.txt
-RUN sed -i '/^comfy-test/d' requirements.txt
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Easy-Use
 # remove onnxruntime
@@ -108,13 +99,11 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 	-r RES4LYF/requirements.txt \
 	-r ComfyUI-GGUF/requirements.txt \
 	-r ComfyUI-RMBG/requirements.txt \
-	-r Comfyui-SecNodes/requirements.txt \
 	-r ComfyUI-outputlists-combiner/requirements.txt \
 	-r ComfyUI-Lora-Manager/requirements.txt \
-	-r ComfyUI-SAM3/requirements.txt \
-  -r ComfyUI-Easy-Use/requirements.txt \
+    -r ComfyUI-Easy-Use/requirements.txt \
 	-r comfyui-model-linker/requirements.txt \
-  -r ComfyUI_MiniMaxH3_Director/requirements.txt
+    -r ComfyUI_MiniMaxH3_Director/requirements.txt
 
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
