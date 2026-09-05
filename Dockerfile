@@ -38,10 +38,8 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/vrgamegirl19/comfyui-vrgamedevgirl.git && \
     git clone --depth=1 --filter=blob:none https://github.com/BigStationW/ComfyUi-Scale-Image-to-Total-Pixels-Advanced.git && \
     git clone --depth=1 --filter=blob:none https://github.com/x3bits/ComfyUI-Power-Flow.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/geroldmeisinger/ComfyUI-outputlists-combiner.git && \
     git clone --depth=1 --filter=blob:none https://github.com/cubiq/ComfyUI_essentials.git && \
     git clone --depth=1 --filter=blob:none https://github.com/kianxyzw/comfyui-model-linker.git && \
-    git clone --depth=1 --filter=blob:none https://github.com/kijai/ComfyUI-SolAttn_triton.git && \
     git clone --depth=1 --filter=blob:none https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git && \
     git clone --depth=1 --filter=blob:none https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git && \
     # git clone --depth=1 --filter=blob:none https://github.com/Adudeguyman/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
@@ -54,7 +52,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
     # git clone --depth=1 --filter=blob:none --branch v2.7.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI-H3-Multishot  && \
-    git clone --depth=1 --filter=blob:none --branch v0.4.0 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
+    git clone --depth=1 --filter=blob:none --branch v0.6.0 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
     # git clone --depth=1 --filter=blob:none https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git && \
@@ -92,14 +90,13 @@ WORKDIR /ComfyUI/custom_nodes
 
 RUN --mount=type=cache,target=/root/.cache/pip \
   python -m pip install --no-cache-dir --root-user-action ignore -c /constraints.txt \
-  -r ComfyUI-Login/requirements.txt \
+    -r ComfyUI-Login/requirements.txt \
 	-r ComfyUI-VideoHelperSuite/requirements.txt \
 	-r ComfyUI-KJNodes/requirements.txt \
 	-r comfyui-vrgamedevgirl/requirements.txt \
 	-r RES4LYF/requirements.txt \
 	-r ComfyUI-GGUF/requirements.txt \
 	-r ComfyUI-RMBG/requirements.txt \
-	-r ComfyUI-outputlists-combiner/requirements.txt \
 	-r ComfyUI-Lora-Manager/requirements.txt \
     -r ComfyUI-Easy-Use/requirements.txt \
 	-r comfyui-model-linker/requirements.txt \
@@ -138,11 +135,13 @@ WORKDIR /workspace
 # Expose Necessary Ports
 EXPOSE 8188 9000
 
+# Licenses differ by component; see THIRD_PARTY_NOTICES.md.
+# Clear any inherited blanket license label for the assembled image.
 # Labels
 LABEL org.opencontainers.image.title="ComfyUI 0.34.0 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.licenses=""
 
 # CPU-safe package verification. Docker builds have no GPU/driver, so avoid
 # importing CUDA-backed modules. Runtime CUDA checks are performed by start.sh.
