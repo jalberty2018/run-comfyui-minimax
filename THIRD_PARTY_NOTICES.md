@@ -19,7 +19,6 @@ Third-party components retain their own copyrights and license terms.
 | llama.cpp / llama-server | [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp); the runtime supplies the executable. Consult the license and dependency notices for that build. |
 | NVIDIA CUDA and related libraries | Consult the license agreements shipped with the base image and the relevant [NVIDIA CUDA documentation](https://docs.nvidia.com/cuda/). These are not covered by this project's MIT license. |
 | OS packages, Code Server and other runtime utilities | Consult the base image, installed package copyright files and upstream projects for the versions included. |
-| Imported documentation | The Dockerfile copies documents from [jalberty2018/comfyui-docs](https://github.com/jalberty2018/comfyui-docs). Preserve applicable source notices and terms. |
 
 This is a guide to the sources of license information, not a complete inventory
 of every transitive dependency or a substitute for required license texts.
