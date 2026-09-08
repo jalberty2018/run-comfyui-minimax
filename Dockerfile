@@ -52,7 +52,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     git clone --depth=1 --filter=blob:none https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git && \
     # git clone --depth=1 --filter=blob:none --branch v2.7.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git && \
     git clone --depth=1 --filter=blob:none https://github.com/jalberty2018/ComfyUI-H3-Multishot  && \
-    git clone --depth=1 --filter=blob:none --branch v0.6.0 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
+    git clone --depth=1 --filter=blob:none --branch v0.6.2 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git && \
     git clone --depth=1 --filter=blob:none https://github.com/obvpm/comfyui-obvpm.git && \
     git clone --depth=1 --filter=blob:none https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git && \
     # git clone --depth=1 --filter=blob:none https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git && \
@@ -123,7 +123,7 @@ RUN --mount=type=cache,target=/root/.cache/git \
     rm -rf /comfyui-docs
 
 # Copy Scripts and documentation
-COPY --chmod=755 start.sh onworkspace/comfyui-on-workspace.sh onworkspace/files-on-workspace.sh onworkspace/test-on-workspace.sh onworkspace/docs-on-workspace.sh / 
+COPY --chmod=755 start.sh runpod-healthcheck.sh onworkspace/comfyui-on-workspace.sh onworkspace/files-on-workspace.sh onworkspace/test-on-workspace.sh onworkspace/docs-on-workspace.sh / 
 COPY --chmod=664 documentation/README.md /README.md
 COPY --chmod=644 onworkspace/batch.txt /batch.txt
 COPY --chmod=644 test/ /test

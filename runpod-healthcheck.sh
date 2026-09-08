@@ -4,25 +4,25 @@ set -uo pipefail
 # ==============================================================================
 # RunPod Lightweight Pod Health Check
 #
+# Tests:
+#   - GPU
+#   - RAM
+#   - CPU load
+#   - Filesystem type
+#   - ioping filesystem latency
+#   - fio sequential read/write
+#   - fio 4K random small-I/O
+#   - Optional real-world ComfyUI copy
+#
 # Exit codes:
 #   0 = PASS
 #   1 = WARNING
 #   2 = REJECT
 #
-# Extra dependencies:
+# Dependencies:
 #
-#   apt-get update
-#   apt-get install -y fio ioping
-#
-# Optional ENV overrides:
-#
-#   HEALTH_MIN_WRITE_MBPS=300
-#   HEALTH_MIN_READ_MBPS=300
-#   HEALTH_WARN_WRITE_MBPS=500
-#   HEALTH_WARN_READ_MBPS=500
-#
-#   HEALTH_COPY_SOURCE=/ComfyUI
-#   HEALTH_COPY_ENABLED=1
+#   apt update
+#   apt install -y fio ioping
 #
 # ==============================================================================
 
@@ -45,15 +45,10 @@ HEALTH_MIN_RAM_AVAILABLE_PERCENT="${HEALTH_MIN_RAM_AVAILABLE_PERCENT:-25}"
 # ------------------------------------------------------------------------------
 # CPU load
 #
-# Normalized load:
+# Normalized as:
 #
-#   load average / logical CPUs
+#   1-minute load / logical CPU count
 #
-# Examples:
-#
-#   0.25 = low
-#   1.00 = CPUs approximately fully loaded
-#   2.00 = twice as much runnable work as CPUs
 # ------------------------------------------------------------------------------
 
 HEALTH_MAX_LOAD_PER_CPU_WARN="${HEALTH_MAX_LOAD_PER_CPU_WARN:-1.0}"
@@ -61,7 +56,7 @@ HEALTH_MAX_LOAD_PER_CPU_REJECT="${HEALTH_MAX_LOAD_PER_CPU_REJECT:-2.0}"
 
 
 # ------------------------------------------------------------------------------
-# fio sequential storage test
+# Sequential fio test
 # ------------------------------------------------------------------------------
 
 HEALTH_FIO_ENABLED="${HEALTH_FIO_ENABLED:-1}"
@@ -69,43 +64,74 @@ HEALTH_FIO_ENABLED="${HEALTH_FIO_ENABLED:-1}"
 HEALTH_FIO_SIZE_MB="${HEALTH_FIO_SIZE_MB:-512}"
 HEALTH_FIO_RUNTIME="${HEALTH_FIO_RUNTIME:-5}"
 HEALTH_FIO_BS="${HEALTH_FIO_BS:-1M}"
-
-# QD1 is intentional.
-# It avoids misleading queue-depth results and is representative for many
-# model/file loading operations.
 HEALTH_FIO_IODEPTH="${HEALTH_FIO_IODEPTH:-1}"
 
-
-# Reject below these values
+# Reject thresholds
 HEALTH_MIN_READ_MBPS="${HEALTH_MIN_READ_MBPS:-300}"
 HEALTH_MIN_WRITE_MBPS="${HEALTH_MIN_WRITE_MBPS:-300}"
 
-
-# Warning below these preferred values
+# Warning thresholds
 HEALTH_WARN_READ_MBPS="${HEALTH_WARN_READ_MBPS:-500}"
 HEALTH_WARN_WRITE_MBPS="${HEALTH_WARN_WRITE_MBPS:-500}"
 
 
 # ------------------------------------------------------------------------------
-# ioping storage latency
+# Small random I/O fio test
+#
+# 4 KiB random read/write, QD1.
+#
+# This is intentionally light and is useful for detecting:
+#   - FUSE/network filesystem latency
+#   - shared storage contention
+#   - poor small-block performance
+#
+# ------------------------------------------------------------------------------
+
+HEALTH_SMALL_IO_ENABLED="${HEALTH_SMALL_IO_ENABLED:-1}"
+
+HEALTH_SMALL_IO_SIZE_MB="${HEALTH_SMALL_IO_SIZE_MB:-128}"
+HEALTH_SMALL_IO_RUNTIME="${HEALTH_SMALL_IO_RUNTIME:-3}"
+HEALTH_SMALL_IO_BS="${HEALTH_SMALL_IO_BS:-4k}"
+
+# 70% reads / 30% writes
+HEALTH_SMALL_IO_READ_PERCENT="${HEALTH_SMALL_IO_READ_PERCENT:-70}"
+
+# Aggregate IOPS thresholds
+#
+# These are deliberately conservative.
+#
+# A healthy local NVMe filesystem should normally be far above these.
+# A high-latency FUSE/network filesystem may fall into WARNING or REJECT.
+#
+HEALTH_SMALL_IO_WARN_IOPS="${HEALTH_SMALL_IO_WARN_IOPS:-500}"
+HEALTH_SMALL_IO_REJECT_IOPS="${HEALTH_SMALL_IO_REJECT_IOPS:-100}"
+
+
+# ------------------------------------------------------------------------------
+# ioping
 # ------------------------------------------------------------------------------
 
 HEALTH_IOPING_ENABLED="${HEALTH_IOPING_ENABLED:-1}"
 HEALTH_IOPING_COUNT="${HEALTH_IOPING_COUNT:-10}"
 
-
 # milliseconds
-HEALTH_MAX_IOPING_AVG_MS_WARN="${HEALTH_MAX_IOPING_AVG_MS_WARN:-10}"
-HEALTH_MAX_IOPING_AVG_MS_REJECT="${HEALTH_MAX_IOPING_AVG_MS_REJECT:-30}"
+#
+# New stricter defaults:
+#
+#   < 2 ms   = PASS
+#   2-10 ms  = WARNING
+#   > 10 ms  = REJECT
+#
+HEALTH_MAX_IOPING_AVG_MS_WARN="${HEALTH_MAX_IOPING_AVG_MS_WARN:-2}"
+HEALTH_MAX_IOPING_AVG_MS_REJECT="${HEALTH_MAX_IOPING_AVG_MS_REJECT:-10}"
 
 
 # ------------------------------------------------------------------------------
-# Optional real-world ComfyUI copy test
+# Optional ComfyUI copy test
 #
-# In your RunPod setup /ComfyUI is moved to /workspace/ComfyUI during start.sh.
-# Therefore /ComfyUI may legitimately be empty by the time this script runs.
+# In your setup /ComfyUI is moved to /workspace/ComfyUI during start.sh.
+# Therefore /ComfyUI being empty afterwards is normal.
 #
-# An empty/missing source is therefore INFO, not WARNING.
 # ------------------------------------------------------------------------------
 
 HEALTH_COPY_ENABLED="${HEALTH_COPY_ENABLED:-1}"
@@ -114,17 +140,10 @@ HEALTH_COPY_SOURCE="${HEALTH_COPY_SOURCE:-/ComfyUI}"
 
 HEALTH_COPY_DEST="${HEALTH_COPY_DEST:-${HEALTH_TEST_DIR}/.healthcheck-comfyui-copy}"
 
-
-# Warning / reject based on total copy time
 HEALTH_COPY_WARN_SECONDS="${HEALTH_COPY_WARN_SECONDS:-15}"
 HEALTH_MAX_COPY_SECONDS="${HEALTH_MAX_COPY_SECONDS:-30}"
 
-
-# Hard timeout
 HEALTH_COPY_TIMEOUT="${HEALTH_COPY_TIMEOUT:-120}"
-
-
-# Remove copy afterwards
 HEALTH_COPY_CLEANUP="${HEALTH_COPY_CLEANUP:-1}"
 
 
@@ -150,7 +169,7 @@ fi
 
 
 # ==============================================================================
-# Status
+# Status helpers
 # ==============================================================================
 
 OVERALL_STATUS=0
@@ -261,20 +280,15 @@ echo "${C_BOLD}--- Memory ----------------------------------------------------${
 MEM_TOTAL_KB="$(awk '/MemTotal:/ {print $2}' /proc/meminfo)"
 MEM_AVAILABLE_KB="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
 
-
 MEM_TOTAL_GB="$(
-    awk \
-        -v kb="$MEM_TOTAL_KB" \
+    awk -v kb="$MEM_TOTAL_KB" \
         'BEGIN {printf "%.1f", kb/1024/1024}'
 )"
-
 
 MEM_AVAILABLE_GB="$(
-    awk \
-        -v kb="$MEM_AVAILABLE_KB" \
+    awk -v kb="$MEM_AVAILABLE_KB" \
         'BEGIN {printf "%.1f", kb/1024/1024}'
 )"
-
 
 MEM_AVAILABLE_PERCENT="$(
     awk \
@@ -283,10 +297,8 @@ MEM_AVAILABLE_PERCENT="$(
         'BEGIN {printf "%.1f", (available/total)*100}'
 )"
 
-
 info "RAM total:     ${MEM_TOTAL_GB} GB"
 info "RAM available: ${MEM_AVAILABLE_GB} GB (${MEM_AVAILABLE_PERCENT}%)"
-
 
 if float_lt "$MEM_AVAILABLE_GB" "$HEALTH_MIN_RAM_AVAILABLE_GB"; then
 
@@ -304,7 +316,7 @@ fi
 
 
 # ==============================================================================
-# CPU / Load
+# CPU / load
 # ==============================================================================
 
 echo
@@ -313,7 +325,6 @@ echo "${C_BOLD}--- CPU / load ------------------------------------------------${
 CPU_COUNT="$(nproc)"
 LOAD1="$(awk '{print $1}' /proc/loadavg)"
 
-
 LOAD_PER_CPU="$(
     awk \
         -v load="$LOAD1" \
@@ -321,11 +332,9 @@ LOAD_PER_CPU="$(
         'BEGIN {printf "%.2f", load/cpus}'
 )"
 
-
 info "Logical CPUs: $CPU_COUNT"
 info "Load average 1 min: $LOAD1"
 info "Normalized load/core: $LOAD_PER_CPU"
-
 
 if float_gt "$LOAD_PER_CPU" "$HEALTH_MAX_LOAD_PER_CPU_REJECT"; then
 
@@ -343,7 +352,7 @@ fi
 
 
 # ==============================================================================
-# Filesystem information
+# Filesystem
 # ==============================================================================
 
 echo
@@ -351,19 +360,54 @@ echo "${C_BOLD}--- Filesystem ------------------------------------------------${
 
 df -h "$HEALTH_TEST_DIR"
 
+echo
 
 if have_cmd findmnt; then
+
     findmnt -T "$HEALTH_TEST_DIR" 2>/dev/null || true
+
+    FS_TYPE="$(
+        findmnt \
+            -n \
+            -o FSTYPE \
+            -T "$HEALTH_TEST_DIR" \
+            2>/dev/null || true
+    )"
+
+    FS_SOURCE="$(
+        findmnt \
+            -n \
+            -o SOURCE \
+            -T "$HEALTH_TEST_DIR" \
+            2>/dev/null || true
+    )"
+
+    echo
+
+    info "Filesystem type: ${FS_TYPE:-unknown}"
+    info "Filesystem source: ${FS_SOURCE:-unknown}"
+
+    case "$FS_TYPE" in
+
+        fuse|fuse.*)
+            info "FUSE filesystem detected"
+            ;;
+
+        ext4|xfs|btrfs)
+            info "Local/block-style filesystem detected"
+            ;;
+
+    esac
+
 fi
 
 
 # ==============================================================================
-# Storage latency - ioping
+# ioping latency
 # ==============================================================================
 
 echo
 echo "${C_BOLD}--- Storage latency -------------------------------------------${C_RESET}"
-
 
 if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
 
@@ -377,11 +421,9 @@ if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
                 2>/dev/null || true
         )"
 
-
         if [[ -n "$IOPING_OUTPUT" ]]; then
 
             echo "$IOPING_OUTPUT"
-
 
             AVG_RAW="$(
                 echo "$IOPING_OUTPUT" |
@@ -393,16 +435,15 @@ if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
                 '
             )"
 
-
             if [[ -n "$AVG_RAW" ]]; then
 
                 AVG_VALUE="$(echo "$AVG_RAW" | awk '{print $1}')"
                 AVG_UNIT="$(echo "$AVG_RAW" | awk '{print $2}')"
 
-
                 case "$AVG_UNIT" in
 
                     us)
+
                         AVG_MS="$(
                             awk \
                                 -v x="$AVG_VALUE" \
@@ -411,10 +452,12 @@ if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
                         ;;
 
                     ms)
+
                         AVG_MS="$AVG_VALUE"
                         ;;
 
                     s)
+
                         AVG_MS="$(
                             awk \
                                 -v x="$AVG_VALUE" \
@@ -423,16 +466,15 @@ if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
                         ;;
 
                     *)
+
                         AVG_MS=""
                         ;;
 
                 esac
 
-
                 if [[ -n "$AVG_MS" ]]; then
 
                     info "Average storage latency: ${AVG_MS} ms"
-
 
                     if float_gt "$AVG_MS" "$HEALTH_MAX_IOPING_AVG_MS_REJECT"; then
 
@@ -440,7 +482,7 @@ if [[ "$HEALTH_IOPING_ENABLED" == "1" ]]; then
 
                     elif float_gt "$AVG_MS" "$HEALTH_MAX_IOPING_AVG_MS_WARN"; then
 
-                        warn "Storage latency exceeds ${HEALTH_MAX_IOPING_AVG_MS_WARN} ms"
+                        warn "Storage latency exceeds preferred ${HEALTH_MAX_IOPING_AVG_MS_WARN} ms"
 
                     else
 
@@ -480,20 +522,17 @@ fi
 
 
 # ==============================================================================
-# fio throughput
+# fio sequential throughput
 # ==============================================================================
 
 echo
-echo "${C_BOLD}--- fio storage throughput ------------------------------------${C_RESET}"
-
+echo "${C_BOLD}--- Sequential storage throughput -----------------------------${C_RESET}"
 
 FIO_FILE="${HEALTH_TEST_DIR}/.runpod-healthcheck-fio.bin"
-
 
 cleanup_fio() {
     rm -f "$FIO_FILE" >/dev/null 2>&1 || true
 }
-
 
 trap cleanup_fio EXIT
 
@@ -505,12 +544,11 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
         cleanup_fio
 
 
-        # ======================================================================
-        # WRITE TEST
-        # ======================================================================
+        # ----------------------------------------------------------------------
+        # Sequential write
+        # ----------------------------------------------------------------------
 
         info "Running ${HEALTH_FIO_RUNTIME}s write test (${HEALTH_FIO_SIZE_MB} MB file)..."
-
 
         WRITE_JSON="$(
             fio \
@@ -526,7 +564,6 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
                 --output-format=json \
                 2>/dev/null || true
         )"
-
 
         if [[ -n "$WRITE_JSON" ]]; then
 
@@ -548,11 +585,9 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
                 '
             )"
 
-
             if [[ -n "$WRITE_MBPS" ]]; then
 
                 info "Sequential write: ${WRITE_MBPS} MiB/s"
-
 
                 if float_lt "$WRITE_MBPS" "$HEALTH_MIN_WRITE_MBPS"; then
 
@@ -581,16 +616,15 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
         fi
 
 
-        # ======================================================================
-        # READ TEST
-        # ======================================================================
+        # ----------------------------------------------------------------------
+        # Sequential read
+        # ----------------------------------------------------------------------
 
         if [[ -f "$FIO_FILE" ]]; then
 
             sync
 
             info "Running ${HEALTH_FIO_RUNTIME}s read test..."
-
 
             READ_JSON="$(
                 fio \
@@ -606,7 +640,6 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
                     --output-format=json \
                     2>/dev/null || true
             )"
-
 
             if [[ -n "$READ_JSON" ]]; then
 
@@ -628,11 +661,9 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
                     '
                 )"
 
-
                 if [[ -n "$READ_MBPS" ]]; then
 
                     info "Sequential read: ${READ_MBPS} MiB/s"
-
 
                     if float_lt "$READ_MBPS" "$HEALTH_MIN_READ_MBPS"; then
 
@@ -662,7 +693,6 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
 
         fi
 
-
         cleanup_fio
 
     else
@@ -673,47 +703,168 @@ if [[ "$HEALTH_FIO_ENABLED" == "1" ]]; then
 
 else
 
-    info "fio test disabled"
+    info "Sequential fio test disabled"
 
 fi
 
 
 # ==============================================================================
-# Optional real-world ComfyUI copy test
+# Small random I/O
+# ==============================================================================
+
+echo
+echo "${C_BOLD}--- Small-file / 4K random I/O -------------------------------${C_RESET}"
+
+SMALL_IO_FILE="${HEALTH_TEST_DIR}/.runpod-healthcheck-smallio.bin"
+
+
+cleanup_smallio() {
+    rm -f "$SMALL_IO_FILE" >/dev/null 2>&1 || true
+}
+
+
+if [[ "$HEALTH_SMALL_IO_ENABLED" == "1" ]]; then
+
+    if have_cmd fio; then
+
+        cleanup_smallio
+
+        info "Running ${HEALTH_SMALL_IO_RUNTIME}s 4K random I/O test..."
+        info "Test size: ${HEALTH_SMALL_IO_SIZE_MB} MB"
+        info "Read/write mix: ${HEALTH_SMALL_IO_READ_PERCENT}% read"
+
+        SMALL_JSON="$(
+            fio \
+                --name=health-smallio \
+                --filename="$SMALL_IO_FILE" \
+                --size="${HEALTH_SMALL_IO_SIZE_MB}M" \
+                --rw=randrw \
+                --rwmixread="$HEALTH_SMALL_IO_READ_PERCENT" \
+                --bs="$HEALTH_SMALL_IO_BS" \
+                --direct=1 \
+                --iodepth=1 \
+                --time_based \
+                --runtime="$HEALTH_SMALL_IO_RUNTIME" \
+                --output-format=json \
+                2>/dev/null || true
+        )"
+
+        if [[ -n "$SMALL_JSON" ]]; then
+
+            SMALL_READ_IOPS="$(
+                printf '%s\n' "$SMALL_JSON" |
+                awk '
+                    /"read"[[:space:]]*:/ {
+                        in_read=1
+                    }
+
+                    in_read && /"iops"[[:space:]]*:/ {
+                        line=$0
+                        sub(/^.*:[[:space:]]*/, "", line)
+                        gsub(/[,[:space:]]/, "", line)
+
+                        printf "%.1f", line
+                        exit
+                    }
+                '
+            )"
+
+            SMALL_WRITE_IOPS="$(
+                printf '%s\n' "$SMALL_JSON" |
+                awk '
+                    /"write"[[:space:]]*:/ {
+                        in_write=1
+                    }
+
+                    in_write && /"iops"[[:space:]]*:/ {
+                        line=$0
+                        sub(/^.*:[[:space:]]*/, "", line)
+                        gsub(/[,[:space:]]/, "", line)
+
+                        printf "%.1f", line
+                        exit
+                    }
+                '
+            )"
+
+            if [[ -n "$SMALL_READ_IOPS" && -n "$SMALL_WRITE_IOPS" ]]; then
+
+                SMALL_TOTAL_IOPS="$(
+                    awk \
+                        -v r="$SMALL_READ_IOPS" \
+                        -v w="$SMALL_WRITE_IOPS" \
+                        'BEGIN {printf "%.1f", r+w}'
+                )"
+
+                info "4K random read IOPS:  $SMALL_READ_IOPS"
+                info "4K random write IOPS: $SMALL_WRITE_IOPS"
+                info "4K aggregate IOPS:    $SMALL_TOTAL_IOPS"
+
+                if float_lt "$SMALL_TOTAL_IOPS" "$HEALTH_SMALL_IO_REJECT_IOPS"; then
+
+                    reject "Small-I/O performance below ${HEALTH_SMALL_IO_REJECT_IOPS} IOPS"
+
+                elif float_lt "$SMALL_TOTAL_IOPS" "$HEALTH_SMALL_IO_WARN_IOPS"; then
+
+                    warn "Small-I/O performance below preferred ${HEALTH_SMALL_IO_WARN_IOPS} IOPS"
+
+                else
+
+                    pass "Small-I/O performance is healthy"
+
+                fi
+
+            else
+
+                warn "Could not parse small-I/O fio result"
+
+            fi
+
+        else
+
+            warn "Small-I/O fio test failed"
+
+        fi
+
+        cleanup_smallio
+
+    else
+
+        warn "fio not installed"
+
+    fi
+
+else
+
+    info "Small-I/O test disabled"
+
+fi
+
+
+# ==============================================================================
+# Optional real-world ComfyUI copy
 # ==============================================================================
 
 echo
 echo "${C_BOLD}--- Real-world copy test --------------------------------------${C_RESET}"
 
-
 if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
 
     if [[ -d "$HEALTH_COPY_SOURCE" ]]; then
-
 
         SOURCE_SIZE_BYTES="$(
             du -sb "$HEALTH_COPY_SOURCE" 2>/dev/null |
             awk '{print $1}'
         )"
 
-
         SOURCE_SIZE_HUMAN="$(
             du -sh "$HEALTH_COPY_SOURCE" 2>/dev/null |
             awk '{print $1}'
         )"
 
-
         info "Source: $HEALTH_COPY_SOURCE"
         info "Size:   ${SOURCE_SIZE_HUMAN:-unknown}"
         info "Dest:   $HEALTH_COPY_DEST"
-
-
-        # ----------------------------------------------------------------------
-        # An empty /ComfyUI is normal after your start.sh has already moved it
-        # to /workspace/ComfyUI.
-        #
-        # Therefore this is informational only.
-        # ----------------------------------------------------------------------
 
         if [[ -z "${SOURCE_SIZE_BYTES:-}" || "$SOURCE_SIZE_BYTES" -lt 1048576 ]]; then
 
@@ -721,16 +872,13 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
             info "This is normal if ComfyUI was already moved to /workspace/ComfyUI."
             info "Skipping real-world copy benchmark."
 
-
         else
 
             rm -rf "$HEALTH_COPY_DEST" >/dev/null 2>&1 || true
 
-
             START_NS="$(date +%s%N)"
 
             COPY_OK=1
-
 
             if have_cmd timeout; then
 
@@ -752,9 +900,7 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
 
             fi
 
-
             END_NS="$(date +%s%N)"
-
 
             COPY_SECONDS="$(
                 awk \
@@ -764,7 +910,6 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
                         printf "%.2f", (end-start)/1000000000
                     }'
             )"
-
 
             COPY_MBPS="$(
                 awk \
@@ -778,10 +923,8 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
                     }'
             )"
 
-
             info "Copy time:       ${COPY_SECONDS} seconds"
             info "Effective speed: ${COPY_MBPS} MiB/s"
-
 
             if [[ "$COPY_OK" != "1" ]]; then
 
@@ -801,15 +944,11 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
 
             fi
 
-
             if [[ "$HEALTH_COPY_CLEANUP" == "1" ]]; then
-
                 rm -rf "$HEALTH_COPY_DEST" >/dev/null 2>&1 || true
-
             fi
 
         fi
-
 
     else
 
@@ -817,7 +956,6 @@ if [[ "$HEALTH_COPY_ENABLED" == "1" ]]; then
         info "Skipping real-world copy benchmark."
 
     fi
-
 
 else
 
@@ -827,12 +965,19 @@ fi
 
 
 # ==============================================================================
+# Cleanup
+# ==============================================================================
+
+cleanup_fio
+cleanup_smallio
+
+
+# ==============================================================================
 # Final result
 # ==============================================================================
 
 echo
 echo "${C_BOLD}==============================================================${C_RESET}"
-
 
 case "$OVERALL_STATUS" in
 
@@ -840,9 +985,8 @@ case "$OVERALL_STATUS" in
 
         echo "${C_GREEN}${C_BOLD} POD HEALTH: GOOD / PASS${C_RESET}"
         echo
-        echo "This node looks suitable for the workload."
+        echo "This node looks suitable for storage/model-heavy workloads."
         ;;
-
 
     1)
 
@@ -851,19 +995,16 @@ case "$OVERALL_STATUS" in
         echo "The node is usable, but one or more metrics are below the preferred level."
         ;;
 
-
     *)
 
         echo "${C_RED}${C_BOLD} POD HEALTH: REJECT${C_RESET}"
         echo
-        echo "This node is likely unsuitable for storage/model-heavy ComfyUI workloads."
+        echo "This node is likely unsuitable for storage/model-heavy workloads."
         ;;
 
 esac
 
-
 echo "${C_BOLD}==============================================================${C_RESET}"
 echo
-
 
 exit "$OVERALL_STATUS"
