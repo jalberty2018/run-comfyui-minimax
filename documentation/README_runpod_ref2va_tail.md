@@ -2,6 +2,8 @@
 
 Create video with native audio from reference images, video or audio while preserving a subject, character or style. Models, VAEs, LoRAs, custom nodes and workflows are provisioned automatically.
 
+**ControlNet:** MiniMax H3 Fun ControlNet Union and SDPose models are available in the separate ControlNet template variants; this base template omits these downloads.
+
 **Uncensored prompting:** includes the uncensored Heretic Qwen-VL text encoder and generation tail. They add no extra prompt-filtering layer. Users remain responsible for model use and generated content.
 
 **Input assessment:** the Qwen-VL tail evaluates text, images, video and audio. Qwen3.8-VL evaluates text, images and video.

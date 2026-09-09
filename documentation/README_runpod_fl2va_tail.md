@@ -2,6 +2,8 @@
 
 Generate video with native audio from text, a still image, or first and last frames. Models, VAEs, LoRAs, custom nodes and workflows are provisioned automatically.
 
+**ControlNet:** MiniMax H3 Fun ControlNet Union and SDPose models are available in the separate ControlNet template variants; this base template omits these downloads.
+
 **Uncensored prompting:** includes the uncensored Heretic Qwen-VL text encoder and generation tail. They add no extra prompt-filtering layer. Users remain responsible for model use and generated content.
 
 **Input assessment:** text, images for FL2VA or T2VA

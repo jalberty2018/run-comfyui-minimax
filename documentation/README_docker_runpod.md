@@ -2,29 +2,27 @@
 
 Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, persistent workspace storage and GPU-aware model selection.
 
-## Features
+## Features container
 
-- Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows.
+- Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows with environment variables.
 - Separate model profiles for standard NVIDIA and Blackwell GPUs.
 - High- and low-VRAM selection through environment variables.
-- Uncensored Heretic text encoder and tail for prompt enhancement.
 - CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
-- 4-step , 8-step loras (turbo, lightx2v, Alibaba PDD Acc) included.
 - llama-cpp and llama-cpp-python availabe for prompt enhancements.
 
-## RunPod templates
+## Features RunPod templates
 
 | Template | Tasks | Inputs | Output |
 |---|---|---|---|
 | MiniMax H3 FL2VA | Text-to-video, image-to-video and first/last-frame-to-video | Text with optional first and/or last frame | Video with audio |
 | MiniMax H3 Ref2VA | Reference-to-video | Text with reference images, video and/or audio | Video with audio |
 
-### **Two prompt-enhancement options are available**
+### **Two uncensored prompt-enhancement options are available**
 
-- The **tail** uses the MiniMax H3 text encoder and is slower.
-- The **QWEN prompt enhancer** uses a second, separate Qwen model together with llama.cpp for faster prompt generation.
+- The **tail** uses the MiniMax H3 uncensored text encoder and supports audio input for the REF2VA model.
+- The **QWEN prompt enhancer** uses a second, separate Qwen VL model together with llama.cpp for faster prompt generation for both models.
 - Both are only needed for prompt enhancement, not for inference with the MiniMax H3 model itself.
 
 ### Links to the templates
@@ -41,7 +39,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 | NVIDIA Blackwell (RTX 50-series, RTX PRO 6000 or newer) | Pruned INT8 ConvRot (same as standard NVIDIA) | Full MXFP8 (FP8 scaled) |
 | Standard NVIDIA (Ada, Hopper or older) | Pruned INT8 ConvRot | Full INT8 ConvRot |
 
-## Required configuration
+## Optional configuration
 
 Set these variables in the RunPod template when applicable:
 
@@ -55,10 +53,9 @@ Set these variables in the RunPod template when applicable:
 
 1. Open the appropriate RunPod deployment link.
 2. Select a compatible NVIDIA GPU and sufficient system RAM.
-3. Configure authentication tokens and optional environment overrides.
-4. Deploy the pod and follow the container logs.
-5. Wait for `Provisioning done, ready to create AI content` before opening ComfyUI.
-6. [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
+3. Deploy the pod and follow the container logs.
+4. Wait for `Provisioning done, ready to create AI content` before opening ComfyUI.
+5. [Deployment help](https://comfyui.rozenlaan.site/Runpod_pod_deployment/)
 
 ## Tested configurations
 

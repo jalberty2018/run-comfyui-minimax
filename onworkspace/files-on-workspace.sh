@@ -12,11 +12,11 @@ else
 	rm -f /README.md
 fi
 
-# Batch for civitai downloads.
+# Healthcheck test.
 
-if [[ ! -f /workspace/batch.txt ]]
+if [[ ! -f /workspace/runpod-healthcheck.sh ]]
 then
-	mv /batch.txt /workspace/batch.txt
+	mv /runpod-healthcheck.sh /workspace/runpod-healthcheck.sh
 else
-	rm -f /batch.txt
+	rm -f /runpod-healthcheck.sh
 fi
