@@ -1,4 +1,4 @@
-# Fast prompting - MiniMax H3 Ref2VA with uncensored local Qwen
+# Fast prompting - MiniMax H3 Ref2VA with uncensored local Qwen-VL
 
 Create video with native audio from reference images, video or audio while preserving a subject, character or style. Ref2VA, the local Qwen enhancer, VAEs, LoRAs, nodes and workflows are provisioned automatically.
 
@@ -6,11 +6,11 @@ Create video with native audio from reference images, video or audio while prese
 
 **Uncensored prompting:** MiniMax uses an uncensored Heretic Qwen-VL text encoder. The fast local enhancer is a separate uncensored Qwen3.8-27B GGUF model. They add no extra prompt-filtering layer. Users remain responsible for model use and generated content.
 
-**Input assessment:** the Qwen-VL tail evaluates text, images, video and audio. Qwen3.8-VL evaluates text, images and video.
+**Input assessment:** Qwen-VL evaluates text, images and video.
 
 ## Why a separate template?
 
-This template downloads Ref2VA and Qwen3.8, not FL2VA or the generation tail. This avoids unrelated downloads. If you will not use prompt enhancement, choose the smaller Ref2VA tail template and leave its tail unused.
+This template downloads Ref2VA and the separate local Qwen-VL prompt enhancer. If you write prompts yourself, choose the smaller Ref2VA base template.
 
 On a healthy RunPod host, downloading and extracting the container normally takes approximately **4–8 minutes**, followed by **0–110 seconds** to copy ComfyUI to `/workspace`. Model downloads come next; their duration depends on model size, network speed and storage performance, with sustained speeds above **200 MB/s** considered acceptable.
 
@@ -24,15 +24,14 @@ Choose Ref2VA to preserve a subject or style from reference images, video or aud
 
 | Option | Best for | Trade-off |
 |---|---|---|
-| **Uncensored Qwen3.8 + `llama.cpp` — this template** | Fast local prompt generation | Larger download and more RAM |
-| [Uncensored Qwen-VL tail](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o) | Enhancement inside MiniMax | Considerably slower |
-| [No enhancement — choose tail](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o) | Writing prompts yourself | Smallest download; leave tail unused |
+| **Uncensored Qwen-VL (Qwen3.8) + `llama.cpp` — this template** | Fast local prompt generation | Larger download and more RAM |
+| [No enhancement — choose base](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o) | Writing prompts yourself | Smallest download |
 
 Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 
 ## Start here
 
-1. [Open this Ref2VA + Qwen template](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o).
+1. [Open this Ref2VA + Qwen-VL template](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o).
 2. Select a compatible NVIDIA GPU and sufficient Pod RAM.
 3. Deploy and follow the container logs.
 4. Wait for `Provisioning done, ready to create AI content`.
@@ -68,6 +67,6 @@ Store tokens as RunPod secrets.
 - [Overview and examples](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
 - [Deployment guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_deployment/)
 - [Hardware guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_hardware/)
-- [Ref2VA + tail](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
-- [FL2VA + faster Qwen](https://console.runpod.io/hub/template/a1nkufhzxq?ref=se4tkc5o)
-- [FL2VA + tail](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [Ref2VA base](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o)
+- [FL2VA + Qwen-VL](https://console.runpod.io/hub/template/a1nkufhzxq?ref=se4tkc5o)
+- [FL2VA base](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)

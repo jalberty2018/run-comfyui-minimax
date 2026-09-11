@@ -162,16 +162,3 @@ hf download Comfy-Org/MiniMax-H3 \
   loras/minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```
-
-Download the [official workflow JSON](https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_fun_controlnet_union.json)
-and load your control video. Select the downloaded diffusion model and text
-encoder in its loaders. For FL2VA, leave the Ref2VA Lightning LoRA disabled.
-The existing 8-step Ref2VA LoRA is a separate option, not the 4-step file selected
-by this example.
-
-[RunPod environment templates](../../documentation/runpod-env-templates.md)
-provide four public ControlNet variants: FL2VA and Ref2VA, each with a generation
-tail or a separate Qwen prompt enhancer. These include the three control models;
-Ref2VA ControlNet variants also include the optional 4-step LoRA. Public base
-templates omit these ControlNet downloads. The two private ControlNet blocks
-retain their corresponding private base settings and RunPod secret placeholders.

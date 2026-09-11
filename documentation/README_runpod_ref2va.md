@@ -1,16 +1,16 @@
-# One Click - MiniMax H3 Ref2VA with uncensored Qwen-VL tail
+# One Click - MiniMax H3 Ref2VA
 
 Create video with native audio from reference images, video or audio while preserving a subject, character or style. Models, VAEs, LoRAs, custom nodes and workflows are provisioned automatically.
 
 **ControlNet:** MiniMax H3 Fun ControlNet Union and SDPose models are available in the separate ControlNet template variants; this base template omits these downloads.
 
-**Uncensored prompting:** includes the uncensored Heretic Qwen-VL text encoder and generation tail. They add no extra prompt-filtering layer. Users remain responsible for model use and generated content.
+**Uncensored prompting:** includes the uncensored Heretic Qwen-VL text encoder. It adds no extra prompt-filtering layer. Users remain responsible for model use and generated content.
 
-**Input assessment:** the Qwen-VL tail evaluates text, images, video and audio. Qwen3.8-VL evaluates text, images and video.
+**Input assessment:** use the separate Qwen-VL prompt-enhancer template to assess text, images and video.
 
 ## Why a separate template?
 
-This template downloads Ref2VA and the tail components, not FL2VA or a separate Qwen LLM. This avoids unnecessary downloads, storage use and provisioning time. If you do not use prompt enhancement, this tail version is still the smallest download: use a standard workflow and leave the tail unused.
+This base template downloads Ref2VA and its required models for use with manually written prompts. For optional prompt enhancement, choose the separate Qwen-VL template.
 
 On a healthy RunPod host, downloading and extracting the container normally takes approximately **4–8 minutes**, followed by **0–110 seconds** to copy ComfyUI to `/workspace`. Model downloads come next; their duration depends on model size, network speed and storage performance, with sustained speeds above **200 MB/s** considered acceptable.
 
@@ -24,15 +24,14 @@ Choose Ref2VA to preserve a subject or style from reference images, video or aud
 
 | Option | Best for | Trade-off |
 |---|---|---|
-| **Uncensored Qwen-VL tail — this template** | Enhancement inside MiniMax | Considerably slower |
-| [Uncensored Qwen3.8 + `llama.cpp`](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o) | Fast local prompt generation | Larger download and more RAM |
-| **No enhancement — use this template** | Writing prompts yourself | Smallest download; leave tail unused |
+| [Uncensored Qwen-VL (Qwen3.8) + `llama.cpp`](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o) | Fast local prompt generation | Larger download and more RAM |
+| **No enhancement — use this template** | Writing prompts yourself | Smallest download |
 
 Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 
 ## Start here
 
-1. [Deploy this Ref2VA + tail template](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o).
+1. [Deploy this Ref2VA base template](https://console.runpod.io/deploy?template=6qtfx7lxgc&ref=se4tkc5o).
 2. Select a compatible NVIDIA GPU and sufficient Pod RAM.
 3. Deploy and follow the container logs.
 4. Wait for `Provisioning done, ready to create AI content`.
@@ -68,6 +67,6 @@ Store tokens as RunPod secrets.
 - [Overview and examples](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/)
 - [Deployment guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_deployment/)
 - [Hardware guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_hardware/)
-- [Ref2VA + Qwen](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o)
-- [FL2VA + tail](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
-- [FL2VA + Qwen](https://console.runpod.io/hub/template/a1nkufhzxq?ref=se4tkc5o)
+- [Ref2VA + Qwen-VL](https://console.runpod.io/hub/template/pcsqepl6kt?ref=se4tkc5o)
+- [FL2VA base](https://console.runpod.io/deploy?template=v7b5g03csk&ref=se4tkc5o)
+- [FL2VA + Qwen-VL](https://console.runpod.io/hub/template/a1nkufhzxq?ref=se4tkc5o)

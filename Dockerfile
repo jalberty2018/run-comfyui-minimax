@@ -7,11 +7,11 @@ ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 # Set Working Directory
 WORKDIR /ComfyUI
 
-# Copy ComfyUI configurations
-COPY --chmod=644 configuration/comfy.settings.json user/default/comfy.settings.json
-
 # Copy ComfyUI ini settings
 COPY --chmod=644 configuration/config.ini user/__manager/config.ini
+
+# Copy ComfyUI configurations
+COPY --chmod=644 configuration/comfy.settings.json user/default/comfy.settings.json
 
 # Adding requirements internal comfyui-manager
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -61,8 +61,8 @@ RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clon
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git
 # RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/bbaudio-2025/Comfyui-MMH3-UltimateUpscale.git
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
