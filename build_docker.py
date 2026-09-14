@@ -13,6 +13,8 @@ parser.add_argument('docker', type=str, help='Name of the Dockerfile to build - 
 parser.add_argument('--username', type=str, default="name", help=f"Docker hub user name defaults to name")
 parser.add_argument('--tag', type=str, default=today_tag, help=f"Tag to use. Defaults to today's date: {today_tag}")
 parser.add_argument('--latest', action="store_true", help='If specified, we will also tag and push :latest')
+parser.add_argument('--noderebuild', action="store_true", help='Set NODEREBUILD to today\'s date to bust the custom nodes cache')
+parser.add_argument('--docrebuild', action="store_true", help='Set DOCREBUILD to today\'s date to bust the documentation cache')
 args = parser.parse_args()
 
 logger = logging.getLogger()
@@ -38,6 +40,10 @@ def build(docker_repo, tag, from_docker=None):
     logger.info(f"Building and pushing {docker_container}")
 
     docker_build_arg = f"--progress=plain -t {docker_container}"
+    if args.noderebuild:
+        docker_build_arg += f" --build-arg NODEREBUILD={today_tag}"
+    if args.docrebuild:
+        docker_build_arg += f" --build-arg DOCREBUILD={today_tag}"
     if from_docker is not None:
         docker_build_arg += f" --build-arg DOCKER_FROM={from_docker}"
 
@@ -56,6 +62,8 @@ def tag(source_container, target_container):
 
 
 try:
+    logger.info("Pulling latest changes before building")
+    subprocess.check_call(["git", "pull"], cwd=dockerLLM_dir)
     container = build(args.docker, args.tag)
     logger.info(f"Successfully built and pushed the container to {container}")
 
@@ -65,7 +73,8 @@ try:
         logger.info(f"Successfully tagged and pushed to {latest}")
 
 except subprocess.CalledProcessError as e:
-    logger.error(f"Process aborted due to error running Docker commands")
+    logger.error("Process aborted due to error running Git or Docker commands")
+    raise
 except Exception as e:
     raise e
 

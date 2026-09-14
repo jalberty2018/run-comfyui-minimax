@@ -217,50 +217,56 @@ show_runpod_services() {
         return 0
     fi
 
-    echo "ℹ️ Connect to the following services from console menu or url"
+    local output
+    # Buffer all output until the health checks have finished.
+    output="$(exec 2>&1
+        echo "ℹ️ Connect to the following services from console menu or url"
 
-    if [[ -z "${RUNPOD_POD_ID:-}" ]]; then
-        echo "⚠️ RUNPOD_POD_ID not set — service URLs unavailable"
-        return 0
-    fi
-
-    local service
-    local port
-    local url
-    local local_url
-    local http_code
-    local -A services=(
-      ["Code-Server"]=9000
-      ["ComfyUI"]=8188
-    )
-
-    # Local health checks (inside the pod)
-    for service in "${!services[@]}"; do
-        port="${services[$service]}"
-        url="https://${RUNPOD_POD_ID}-${port}.proxy.runpod.net/login"
-        local_url="http://127.0.0.1:${port}/"
-
-        echo "👉 🔗 Service ${service} : ${url}"
-
-        # Check service locally (no proxy dependency)
-        http_code="$(curl -sS -o /dev/null -m 2 --connect-timeout 1 -w "%{http_code}" "$local_url" || true)"
-
-        # Treat common “service is up but protected/redirect” codes as UP
-        if [[ "$http_code" =~ ^(200|301|302|401|403|404)$ ]]; then
-            echo "✅ ${service} is running (local ${local_url}, HTTP ${http_code})"
-        else
-            echo "❌ ${service} not responding yet (local ${local_url}, HTTP ${http_code})"
+        if [[ -z "${RUNPOD_POD_ID:-}" ]]; then
+            echo "⚠️ RUNPOD_POD_ID not set — service URLs unavailable"
+            return 0
         fi
-    done
 
-    echo "👉 🔗 Lora-Manager: https://${RUNPOD_POD_ID}-8188.proxy.runpod.net/loras"
+        local service
+        local port
+        local url
+        local local_url
+        local http_code
+        local -A services=(
+          ["Code-Server"]=9000
+          ["ComfyUI"]=8188
+        )
+
+        # Local health checks (inside the pod)
+        for service in "${!services[@]}"; do
+            port="${services[$service]}"
+            url="https://${RUNPOD_POD_ID}-${port}.proxy.runpod.net/login"
+            local_url="http://127.0.0.1:${port}/"
+
+            echo "👉 🔗 Service ${service} : ${url}"
+
+            # Check service locally (no proxy dependency)
+            http_code="$(curl -sS -o /dev/null -m 2 --connect-timeout 1 -w "%{http_code}" "$local_url" || true)"
+
+            # Treat common “service is up but protected/redirect” codes as UP
+            if [[ "$http_code" =~ ^(200|301|302|401|403|404)$ ]]; then
+                echo "✅ ${service} is running (local ${local_url}, HTTP ${http_code})"
+            else
+                echo "❌ ${service} not responding yet (local ${local_url}, HTTP ${http_code})"
+            fi
+        done
+
+        echo "👉 🔗 Lora-Manager: https://${RUNPOD_POD_ID}-8188.proxy.runpod.net/loras"
+
+    )"
+    printf '%s\n' "$output"
 }
 
 show_code_server_login() {
     if [[ -n "$PASSWORD" ]]; then
-        echo "ℹ️ Code-Server login use PASSWORD set as env"
+        echo "ℹ️ Code-Server login use PASSWORD set as env ℹ️"
     else
-        echo "⚠️ Code-Server login use the logged password"
+        echo "⚠️ Code-Server login use the logged password ⚠️"
         cat /root/.config/code-server/config.yaml
     fi
 }
@@ -946,36 +952,6 @@ else
     echo "⚠️ Skipped Provisioning: No workflows or models downloaded as ComfyUI is not online"
 fi
 
-echo "ℹ️ Connections and/or diagnostic information"
-
-if [[ "$HAS_PROVISIONING" -eq 1 ]]; then 
-    echo "🎉 Provisioning done, ready to create AI content 🎉"
-
-    show_runpod_services
-    show_code_server_login
-
-else
-    if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
-        echo "⚠️ Pod started without a runpod GPU"
-    fi
-
-    if [[ "$HAS_CUDA" -eq 0 ]]; then
-        echo "❌ Pytorch CUDA driver error/mismatch/not available"
-        if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
-            echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
-			echo "⚠️ [SOLUTION 2] Specify CUDA 12.8 using the runpod console filter. ⚠️"
-        fi
-    fi
-
-    if [[ "$HAS_CUDA" -eq 1 && "$HAS_COMFYUI" -eq 0 ]]; then
-        echo "❌ ComfyUI is not online (extreme slow vCPU's)"
-        echo "⚠️ [SOLUTION 1] restart pod ⚠️"
-		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
-    fi
-fi
-
-echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
-
 # Environment
 echo "ℹ️ Running environment"
 
@@ -1062,6 +1038,36 @@ if [[ -n "$LLAMA_SERVER_PATH" && -x "$LLAMA_SERVER_PATH" ]]; then
 else
     echo "❌ llama.cpp server not found via MINIMAX_H3_LLAMA_SERVER or PATH"
 fi
+
+echo "ℹ️ Connections and/or diagnostic information"
+
+if [[ "$HAS_PROVISIONING" -eq 1 ]]; then 
+    echo "🎉 Provisioning done, ready to create AI content 🎉"
+
+    show_runpod_services
+    show_code_server_login
+
+else
+    if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
+        echo "⚠️ Pod started without a runpod GPU"
+    fi
+
+    if [[ "$HAS_CUDA" -eq 0 ]]; then
+        echo "❌ Pytorch CUDA driver error/mismatch/not available"
+        if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
+            echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
+			echo "⚠️ [SOLUTION 2] Specify CUDA 12.8 using the runpod console filter. ⚠️"
+        fi
+    fi
+
+    if [[ "$HAS_CUDA" -eq 1 && "$HAS_COMFYUI" -eq 0 ]]; then
+        echo "❌ ComfyUI is not online (extreme slow vCPU's)"
+        echo "⚠️ [SOLUTION 1] restart pod ⚠️"
+		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
+    fi
+fi
+
+echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
 
 # Keep the container running
 echo "ℹ️ End script"

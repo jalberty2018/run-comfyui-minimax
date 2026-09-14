@@ -19,6 +19,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     matrix-nio \
     -r manager_requirements.txt
 
+# Reclone if NODEREBUILD is set
+ARG NODEREBUILD
+RUN echo "Rebuilding custom nodes: ${NODEREBUILD}"
+
 # Clone
 WORKDIR /ComfyUI/custom_nodes
 
@@ -26,7 +30,6 @@ WORKDIR /ComfyUI/custom_nodes
 # Override with --build-arg GIT_HTTP_VERSION=HTTP/2 when appropriate.
 ARG GIT_HTTP_VERSION=HTTP/1.1
 # Separate layers retain successful clones when a later repository fails.
-# Shallow full checkouts avoid the extra lazy blob fetch of --filter=blob:none.
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/rgthree/rgthree-comfy.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Azornes/Comfyui-Resolution-Master.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/willmiao/ComfyUI-Lora-Manager.git
@@ -109,6 +112,11 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
 COPY --chmod=644 /configuration/lora-manager-settings.json settings.json.template
+
+# Rebuild docs if DOCREBUILD is set
+# Reclone if clonebust is set
+ARG DOCREBUILD
+RUN echo "Rebuilding documentation: ${DOCREBUILD}"
 
 # Set Working Directory
 WORKDIR /
