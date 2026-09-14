@@ -37,7 +37,9 @@ Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 4. Wait for `Provisioning done, ready to create AI content`.
 5. Open ComfyUI and load a supplied Ref2VA workflow.
 
-Workflows: [reference-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#reference-to-video-ref2va), [multi-shot](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#multi-shot-reference-to-video), and [prompt tools](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#prompt-tools).
+- [Deployment guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_deployment/)
+- Workflows: [reference-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#reference-to-video-ref2va), [multi-shot](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#multi-shot-reference-to-video), and [prompt tools](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#prompt-tools).
+- [Tutorial ComfyUI](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 
 ## Tested hardware
 

@@ -1,4 +1,4 @@
-# One Click - MiniMax H3 Ref2VA
+# MiniMax H3 Ref2VA
 
 Create video with native audio from reference images, video or audio while preserving a subject, character or style. Models, VAEs, LoRAs, custom nodes and workflows are provisioned automatically.
 
@@ -37,7 +37,9 @@ Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 4. Wait for `Provisioning done, ready to create AI content`.
 5. Open ComfyUI and load a supplied Ref2VA workflow.
 
-Workflows: [reference-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#reference-to-video-ref2va), [multi-shot](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#multi-shot-reference-to-video), and [advanced reference](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#advanced-reference-workflow).
+- [Deployment guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_deployment/)
+- Workflows: [reference-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#reference-to-video-ref2va), [multi-shot](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#multi-shot-reference-to-video), and [advanced reference](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#advanced-reference-workflow).
+- [Tutorial ComfyUI](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 
 ## Tested hardware
 

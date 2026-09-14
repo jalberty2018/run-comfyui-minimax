@@ -37,7 +37,9 @@ Prompt enhancement is optional and does not change the FL2VA diffusion model.
 4. Wait for `Provisioning done, ready to create AI content`.
 5. Open ComfyUI and load a supplied FL2VA workflow.
 
-Workflows: [text-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#text-to-video-t2v), [image-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#image-to-video-i2v), and [Director](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#director-all-in-one).
+- [Deployment guide](https://comfyui.rozenlaan.site/ComfyUI_MiniMax_deployment/)
+- Workflows: [text-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#text-to-video-t2v), [image-to-video](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#image-to-video-i2v), and [Director](https://comfyui.rozenlaan.site/ComfyUI_MiniMax/#director-all-in-one).
+- [Tutorial ComfyUI](https://comfyui.rozenlaan.site/ComfyUI_tutorial/)
 
 ## Tested hardware
 
