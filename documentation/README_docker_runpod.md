@@ -36,7 +36,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 
 | Hardware | Low-VRAM diffusion model | High-VRAM diffusion model |
 |---|---|---|
-| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000 or newer) | Pruned INT8 ConvRot (same as standard NVIDIA) | Full MXFP8 (FP8 scaled) |
+| NVIDIA Blackwell (RTX 50-series, RTX PRO 6000 or newer) | Pruned INT8 ConvRot (same as standard NVIDIA) | Full INT8 ConvRot |
 | Standard NVIDIA (Ada, Hopper or older) | Pruned INT8 ConvRot | Full INT8 ConvRot |
 
 ## Optional configuration
@@ -64,7 +64,7 @@ Set these variables in the RunPod template when applicable:
 | NVIDIA LVRAM | RTX 3090/4090 24 GB | Pruned INT8 ConvRot | Lowest cost and maximum compatibility | 50 GB | 0.9 MP, 15 seconds |
 | NVIDIA HVRAM | L40S 48 GB | Full INT8 ConvRot | Quality and longer video | 80 GB | 0.9 MP, 20 seconds, 24 fps |
 | Blackwell LVRAM | RTX 5090 32 GB | Pruned INT8 ConvRot | Compatible low-VRAM profile for Blackwell | 70 GB | 1.0 MP, 15 seconds, 24 fps |
-| Blackwell HVRAM | RTX PRO 6000 96 GB | Full MXFP8 (FP8 scaled) | Maximum quality and speed | 70 GB | 2 MP, 15 seconds, 24 fps |
+| Blackwell HVRAM | RTX PRO 6000 96 GB | Full INT8 ConvRot | Maximum quality and speed | 70 GB | 2 MP, 15 seconds, 24 fps |
 
 - Generation limits depend on resolution, duration, model selection and offloading. Allocate additional system RAM for larger workloads.
 

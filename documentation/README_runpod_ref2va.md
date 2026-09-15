@@ -48,7 +48,7 @@ Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 | NVIDIA low VRAM | RTX 3090/4090 24 GB | Pruned INT8 | 50 GB | 0.9 MP, 10 s |
 | NVIDIA high VRAM | L40S 48 GB | Full INT8 | 80 GB | 0.9 MP, 15 s, 24 fps |
 | Blackwell low VRAM | RTX 5090 32 GB | Pruned INT8 | 70 GB | 1 MP, 10 s, 24 fps |
-| Blackwell high VRAM | RTX PRO 6000 96 GB | Full MXFP8 | 70 GB | 1 MP, 20 s, 24 fps |
+| Blackwell high VRAM | RTX PRO 6000 96 GB | Full INT8 ConvRot | 70 GB | 1 MP, 20 s, 24 fps |
 
 These tested-output values apply to Ref2VA with image input, Video or audio input requires **48 GB VRAM or more** to generate a video of acceptable length.
 

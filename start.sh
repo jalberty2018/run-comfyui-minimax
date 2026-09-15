@@ -1010,35 +1010,6 @@ else:
     print("ONNX Runtime: not available")
 PY
 
-python - <<'PY'
-import llama_cpp
-print("llama-cpp-python version:", llama_cpp.__version__)
-try:
-    from llama_cpp import llama_print_system_info
-    info = llama_print_system_info()
-    print(info.decode('utf-8'))
-except Exception as e2:
-    print("Failed:", e2)
-PY
-
-# Native llama.cpp diagnostics.
-LLAMA_CLI_PATH="$(command -v llama-cli 2>/dev/null || true)"
-LLAMA_SERVER_PATH="${MINIMAX_H3_LLAMA_SERVER:-$(command -v llama-server 2>/dev/null || true)}"
-
-if [[ -n "$LLAMA_CLI_PATH" && -x "$LLAMA_CLI_PATH" ]]; then
-    echo "llama.cpp CLI found: $LLAMA_CLI_PATH"
-    "$LLAMA_CLI_PATH" --version || echo "⚠️ llama-cli version check failed"
-else
-    echo "❌ llama.cpp CLI not found in PATH"
-fi
-
-if [[ -n "$LLAMA_SERVER_PATH" && -x "$LLAMA_SERVER_PATH" ]]; then
-    echo "llama.cpp server found: $LLAMA_SERVER_PATH"
-    "$LLAMA_SERVER_PATH" --version || echo "⚠️ llama-server version check failed"
-else
-    echo "❌ llama.cpp server not found via MINIMAX_H3_LLAMA_SERVER or PATH"
-fi
-
 echo "ℹ️ Connections and/or diagnostic information"
 
 if [[ "$HAS_PROVISIONING" -eq 1 ]]; then 
@@ -1068,6 +1039,37 @@ else
 fi
 
 echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
+
+echo "ℹ️ VLM environment"
+
+python - <<'PY'
+import llama_cpp
+print("llama-cpp-python version:", llama_cpp.__version__)
+try:
+    from llama_cpp import llama_print_system_info
+    info = llama_print_system_info()
+    print(info.decode('utf-8'))
+except Exception as e2:
+    print("Failed:", e2)
+PY
+
+# Native llama.cpp diagnostics.
+LLAMA_CLI_PATH="$(command -v llama-cli 2>/dev/null || true)"
+LLAMA_SERVER_PATH="${MINIMAX_H3_LLAMA_SERVER:-$(command -v llama-server 2>/dev/null || true)}"
+
+if [[ -n "$LLAMA_CLI_PATH" && -x "$LLAMA_CLI_PATH" ]]; then
+    echo "llama.cpp CLI found: $LLAMA_CLI_PATH"
+    "$LLAMA_CLI_PATH" --version || echo "⚠️ llama-cli version check failed"
+else
+    echo "❌ llama.cpp CLI not found in PATH"
+fi
+
+if [[ -n "$LLAMA_SERVER_PATH" && -x "$LLAMA_SERVER_PATH" ]]; then
+    echo "llama.cpp server found: $LLAMA_SERVER_PATH"
+    "$LLAMA_SERVER_PATH" --version || echo "⚠️ llama-server version check failed"
+else
+    echo "❌ llama.cpp server not found via MINIMAX_H3_LLAMA_SERVER or PATH"
+fi
 
 # Keep the container running
 echo "ℹ️ End script"

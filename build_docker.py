@@ -10,6 +10,7 @@ today_tag = datetime.datetime.now().strftime("%d%m%Y")
 # Creating argparse parser
 parser = argparse.ArgumentParser(description="Build Dockerfile")
 parser.add_argument('docker', type=str, help='Name of the Dockerfile to build - should match a folder name in this repo')
+parser.add_argument('--dockerfile', type=str, help='Alternative Dockerfile path, absolute or relative to the build directory (default: Dockerfile)')
 parser.add_argument('--username', type=str, default="name", help=f"Docker hub user name defaults to name")
 parser.add_argument('--tag', type=str, default=today_tag, help=f"Tag to use. Defaults to today's date: {today_tag}")
 parser.add_argument('--latest', action="store_true", help='If specified, we will also tag and push :latest')
@@ -23,6 +24,7 @@ logging.basicConfig(
 )
 
 dockerLLM_dir = os.path.dirname(os.path.realpath(__file__))
+docker_build_dir = os.path.join(dockerLLM_dir, args.docker)
 username = args.username
 
 def docker_command(command):
@@ -40,6 +42,9 @@ def build(docker_repo, tag, from_docker=None):
     logger.info(f"Building and pushing {docker_container}")
 
     docker_build_arg = f"--progress=plain -t {docker_container}"
+    if args.dockerfile:
+        dockerfile = os.path.join(docker_build_dir, args.dockerfile)
+        docker_build_arg += f' --file "{dockerfile}"'
     if args.noderebuild:
         docker_build_arg += f" --build-arg NODEREBUILD={today_tag}"
     if args.docrebuild:
@@ -47,7 +52,7 @@ def build(docker_repo, tag, from_docker=None):
     if from_docker is not None:
         docker_build_arg += f" --build-arg DOCKER_FROM={from_docker}"
 
-    build_command = f"docker build {docker_build_arg} {dockerLLM_dir}/{docker_repo}"
+    build_command = f'docker build {docker_build_arg} "{docker_build_dir}"'
     push_command = f"docker push {docker_container}"
 
     docker_command(build_command)
@@ -62,8 +67,8 @@ def tag(source_container, target_container):
 
 
 try:
-    logger.info("Pulling latest changes before building")
-    subprocess.check_call(["git", "pull"], cwd=dockerLLM_dir)
+    logger.info("Pulling latest changes in %s before building", docker_build_dir)
+    subprocess.check_call(["git", "pull"], cwd=docker_build_dir)
     container = build(args.docker, args.tag)
     logger.info(f"Successfully built and pushed the container to {container}")
 
