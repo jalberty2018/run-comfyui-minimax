@@ -95,8 +95,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     -r ComfyUI-Login/requirements.txt \
     -r ComfyUI-VideoHelperSuite/requirements.txt \
     -r ComfyUI-KJNodes/requirements.txt \
-    -r comfyui-vrgamedevgirl/requirements.txt \
-    -r RES4LYF/requirements.txt \
     -r ComfyUI-GGUF/requirements.txt \
     -r ComfyUI-RMBG/requirements.txt \
     -r ComfyUI-Lora-Manager/requirements.txt \
