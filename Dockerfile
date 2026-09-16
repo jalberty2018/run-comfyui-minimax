@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:09092026
+FROM ls250824/comfyui-runtime2:16092026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
@@ -31,20 +31,16 @@ WORKDIR /ComfyUI/custom_nodes
 ARG GIT_HTTP_VERSION=HTTP/1.1
 # Separate layers retain successful clones when a later repository fails.
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/rgthree/rgthree-comfy.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Azornes/Comfyui-Resolution-Master.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/willmiao/ComfyUI-Lora-Manager.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/yolain/ComfyUI-Easy-Use.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/liusida/ComfyUI-Login.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/kijai/ComfyUI-KJNodes.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ClownsharkBatwing/RES4LYF.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/evanspearman/ComfyMath.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/city96/ComfyUI-GGUF.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/1038lab/ComfyUI-RMBG.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/vrgamegirl19/comfyui-vrgamedevgirl.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/BigStationW/ComfyUi-Scale-Image-to-Total-Pixels-Advanced.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/x3bits/ComfyUI-Power-Flow.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/cubiq/ComfyUI_essentials.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/kianxyzw/comfyui-model-linker.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git
@@ -60,7 +56,6 @@ RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clon
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v0.6.2 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/chanon/comfyui-obvpm.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git
-# RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/chflame163/ComfyUI_Qwen_H3_Prompt.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/bbaudio-2025/Comfyui-MMH3-UltimateUpscale.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
@@ -149,7 +144,7 @@ EXPOSE 8188 9000
 # Licenses differ by component; see THIRD_PARTY_NOTICES.md.
 # Clear any inherited blanket license label for the assembled image.
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.35.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.36.0 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses=""
