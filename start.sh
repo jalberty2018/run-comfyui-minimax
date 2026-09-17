@@ -9,21 +9,8 @@ export HF_HUB_DISABLE_PROGRESS_BARS=0
 export HF_HUB_DISABLE_UPDATE_CHECK=1
 export HF_DOWNLOAD_TIMEOUT="${HF_DOWNLOAD_TIMEOUT:-10m}"
 
-# Enable VHS nvenc and check ffmpeg codecs
-export VHS_FORCE_FFMPEG_PATH=/usr/bin/ffmpeg
-
-echo "ℹ️ ffmpeg nvenc check"
-nvenc_encoders=$(/usr/bin/ffmpeg -hide_banner -encoders 2>/dev/null) || {
-    echo "⚠️: FFmpeg failed to start." >&2
-}
-
-for codec in h264_nvenc hevc_nvenc av1_nvenc; do
-    if grep -qw "$codec" <<< "$nvenc_encoders"; then
-        echo "✅ $codec available."
-    else
-        echo "⚠️: $codec not available." >&2
-    fi
-done
+# Link VHS to ffmpeg.
+export VHS_FORCE_FFMPEG_PATH="${VHS_FORCE_FFMPEG_PATH:-/usr/bin/ffmpeg}"
 
 # Enable SSH if PUBLIC_KEY is set
 if [[ -n "$PUBLIC_KEY" ]]; then
@@ -1074,6 +1061,18 @@ else
 fi
 
 echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
+
+# Check whether NVENC can actually encode video
+echo "📘 Checking NVENC video encoding (h264_nvenc)..."
+
+if timeout --kill-after=5s 30s "$VHS_FORCE_FFMPEG_PATH" \
+    -hide_banner -loglevel error -nostdin \
+    -f lavfi -i color=size=1280x720:rate=30 \
+    -frames:v 30 -an -c:v h264_nvenc -pix_fmt yuv420p -f null -; then
+    echo "✅ NVENC video encoding (h264_nvenc) is available on this host."
+else
+    echo "⚠️: NVENC GPU video encoding test failed on this host. Use standard CPU libx264 for video encoding." >&2
+fi
 
 echo "ℹ️ llama-cpp-python check"
 
