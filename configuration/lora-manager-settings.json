@@ -7,6 +7,12 @@
     "civitai-extension"
   ],
   "show_folder_sidebar": false,
-  "use_portable_settings": false,
-  "auto_organize_exclusions": []
+  "enable_other_models": true,
+  "enabled_other_sub_types": [
+    "vae",
+    "upscaler",
+    "text_encoder",
+    "controlnet"
+  ],
+  "blur_mature_content": false
 }

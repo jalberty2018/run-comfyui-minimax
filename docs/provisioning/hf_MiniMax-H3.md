@@ -115,6 +115,7 @@ The VAEs are shared by all four profiles.
 hf download Comfy-Org/MiniMax-H3 \
   vae/minimax_h3_audio_vae_fp32.safetensors \
   vae/minimax_h3_video_vae_fp16.safetensors \
+  vae/minimax_h3_video_vae_int8_convrot.safetensors \
   --local-dir /workspace/ComfyUI/models
 
 hf download Kijai/MiniMax-H3-TAE \

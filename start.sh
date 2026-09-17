@@ -9,6 +9,22 @@ export HF_HUB_DISABLE_PROGRESS_BARS=0
 export HF_HUB_DISABLE_UPDATE_CHECK=1
 export HF_DOWNLOAD_TIMEOUT="${HF_DOWNLOAD_TIMEOUT:-10m}"
 
+# Enable VHS nvenc and check ffmpeg codecs
+export VHS_FORCE_FFMPEG_PATH=/usr/bin/ffmpeg
+
+echo "ℹ️ ffmpeg nvenc check"
+nvenc_encoders=$(/usr/bin/ffmpeg -hide_banner -encoders 2>/dev/null) || {
+    echo "⚠️: FFmpeg failed to start." >&2
+}
+
+for codec in h264_nvenc hevc_nvenc av1_nvenc; do
+    if grep -qw "$codec" <<< "$nvenc_encoders"; then
+        echo "✅ $codec available."
+    else
+        echo "⚠️: $codec not available." >&2
+    fi
+done
+
 # Enable SSH if PUBLIC_KEY is set
 if [[ -n "$PUBLIC_KEY" ]]; then
     mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -29,9 +45,6 @@ fi
 
 # Create output directory for cloud transfer
 mkdir -p /workspace/output/
-
-# Set optimizations
-# export PYTORCH_ALLOC_CONF=expandable_segments:True,garbage_collection_threshold:0.8
 
 # GPU detection
 echo "ℹ️ Testing GPU/CUDA provisioning"
@@ -99,11 +112,10 @@ if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then
     fi
 	
     echo "🎉 code-server service started"
+    sleep 1
 else
     echo "⚠️ WARNING: No GPU available, Code Server not started to limit memory use"
 fi
-	
-sleep 2
 
 # Python, Torch CUDA check
 HAS_CUDA=0
@@ -220,7 +232,7 @@ show_runpod_services() {
     local output
     # Buffer all output until the health checks have finished.
     output="$(exec 2>&1
-        echo "ℹ️ Connect to the following services from console menu or url"
+        echo "ℹ️ Connect to the following services from console menu or url ℹ️"
 
         if [[ -z "${RUNPOD_POD_ID:-}" ]]; then
             echo "⚠️ RUNPOD_POD_ID not set — service URLs unavailable"
@@ -953,7 +965,7 @@ else
 fi
 
 # Environment
-echo "ℹ️ Running environment"
+echo "ℹ️ Running environment check"
 
 python - <<'PY'
 import platform
@@ -1010,15 +1022,17 @@ else:
     print("ONNX Runtime: not available")
 PY
 
-echo "ℹ️ Connections and/or diagnostic information"
-
 if [[ "$HAS_PROVISIONING" -eq 1 ]]; then 
     echo "🎉 Provisioning done, ready to create AI content 🎉"
 
     show_runpod_services
     show_code_server_login
 
+    echo "🎉 Provisioning done, ready to create AI content 🎉"
+
 else
+    echo "⚠️ Diagnostics, skipped provisioning ⚠️"
+
     if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
         echo "⚠️ Pod started without a runpod GPU"
     fi
@@ -1040,7 +1054,7 @@ fi
 
 echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
 
-echo "ℹ️ VLM environment"
+echo "ℹ️ llama-cpp-python check"
 
 python - <<'PY'
 import llama_cpp
@@ -1052,6 +1066,8 @@ try:
 except Exception as e2:
     print("Failed:", e2)
 PY
+
+echo "ℹ️ llama-cpp check"
 
 # Native llama.cpp diagnostics.
 LLAMA_CLI_PATH="$(command -v llama-cli 2>/dev/null || true)"
