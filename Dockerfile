@@ -107,6 +107,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Add settings for lora manager 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
 COPY --chmod=644 /configuration/lora-manager-settings.json settings.json.template
+COPY --chmod=644 configuration/lora-manager-settings.json /lora-manager-settings.json
 
 # Rebuild docs if DOCREBUILD is set
 # Reclone if clonebust is set

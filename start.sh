@@ -177,22 +177,43 @@ HAS_COMFYUI=0
 
 if [[ "$HAS_CUDA" -eq 1 ]]; then
 
-    SETTINGS_DIR="/workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager"
-	SETTINGS_FILE="$SETTINGS_DIR/settings.json"
-	TEMPLATE_FILE="$SETTINGS_DIR/settings.json.template"
-	
-	mkdir -p "$SETTINGS_DIR"
-	
-	if [[ -n "${CIVITAI_TOKEN:-}" ]]; then
-	    echo "ℹ️ Injecting CIVITAI_TOKEN into ComfyUI-Lora-Manager"
-	
-	    jq --arg token "$CIVITAI_TOKEN" \
-	       '.civitai_api_key = $token' \
-	       "$TEMPLATE_FILE" > "$SETTINGS_FILE"
-	else
-	    echo "⚠️ CIVITAI_TOKEN not set – Insert your token manually in ComfyUI-Lora-Manager"
-	fi
-	
+    # Use the template bundled with the image, including on persistent workspaces.
+    if ! python3 - <<'PY_SETTINGS'
+import json
+import os
+from pathlib import Path
+import tempfile
+
+template = Path("/lora-manager-settings.json")
+settings = Path("/workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager/settings.json")
+with template.open(encoding="utf-8") as source:
+    config = json.load(source)
+if not isinstance(config, dict):
+    raise ValueError("Lora-Manager settings template must contain a JSON object")
+
+token = os.environ.get("CIVITAI_TOKEN")
+if token:
+    config["civitai_api_key"] = token
+
+settings.parent.mkdir(parents=True, exist_ok=True)
+temporary = None
+try:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=settings.parent,
+                                     prefix=".settings-", suffix=".json", delete=False) as target:
+        temporary = Path(target.name)
+        json.dump(config, target, ensure_ascii=False, indent=2)
+        target.write("\n")
+    temporary.replace(settings)
+finally:
+    if temporary is not None:
+        temporary.unlink(missing_ok=True)
+print("✅ Lora-Manager settings loaded from template" +
+      (" with CIVITAI_TOKEN" if token else ""))
+PY_SETTINGS
+    then
+        echo "❌ Failed to initialize Lora-Manager settings" >&2
+    fi
+
    	echo "▶️ ComfyUI service starting (CUDA available)"
 	    
     python3 /workspace/ComfyUI/main.py ${COMFYUI_EXTRA_ARGUMENTS:---listen --enable-manager --preview-method latent2rgb} &
