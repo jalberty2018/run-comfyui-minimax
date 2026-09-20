@@ -122,6 +122,19 @@ else
   echo "⚠️ Python not found – assuming no CUDA"
 fi
 
+# Check whether NVENC can actually encode video before starting ComfyUI.
+echo "ℹ️  Checking NVENC video encoding"
+
+if timeout --kill-after=5s 30s "$VHS_FORCE_FFMPEG_PATH" \
+    -hide_banner -loglevel error -nostdin \
+    -f lavfi -i color=size=1280x720:rate=30 \
+    -frames:v 30 -an -c:v h264_nvenc -pix_fmt yuv420p -f null -; then
+    export NVENC_ENABLED_HOST=1
+else
+    # Auto encoder selection checks presence, so failure must leave this unset.
+    unset NVENC_ENABLED_HOST
+fi
+
 # provisioning Models and loras CIVITAI
 if [[ "$HAS_CUDA" -eq 1 ]]; then
 
@@ -1062,13 +1075,10 @@ fi
 
 echo "📘 Tutorial: https://comfyui.rozenlaan.site/ComfyUI_tutorial/"
 
-# Check whether NVENC can actually encode video
-echo "📘 Checking NVENC video encoding (h264_nvenc)..."
+# Report the NVENC result recorded before provisioning.
+echo "ℹ️  NVENC video encoding status"
 
-if timeout --kill-after=5s 30s "$VHS_FORCE_FFMPEG_PATH" \
-    -hide_banner -loglevel error -nostdin \
-    -f lavfi -i color=size=1280x720:rate=30 \
-    -frames:v 30 -an -c:v h264_nvenc -pix_fmt yuv420p -f null -; then
+if [[ "${NVENC_ENABLED_HOST:-}" == "1" ]]; then
     echo "✅ NVENC video encoding (h264_nvenc) is available on this host."
 else
     echo "⚠️: NVENC GPU video encoding test failed on this host. Use standard CPU libx264 for video encoding." >&2
