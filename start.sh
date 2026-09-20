@@ -683,6 +683,71 @@ download_generic_HF() {
     return 0
 }
 
+# Generic downloads use the same GPU/VRAM prefixes as typed models.
+has_generic_HF_config() {
+    local prefix="$1" kind="$2" i model_var file_var
+    for i in $(seq 1 20); do
+        model_var="${prefix}${kind}${i}"
+        file_var="${prefix}${kind}_FILENAME${i}"
+        [[ -n "${!model_var}" ]] || continue
+        if [[ "$kind" == FULL || -n "${!file_var}" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+download_generic_HF_group() {
+    local prefix="$1" kind="$2" i model_var file_var dir_var include_var exclude_var
+    for i in $(seq 1 20); do
+        model_var="${prefix}${kind}${i}"
+        file_var="${prefix}${kind}_FILENAME${i}"
+        dir_var="${prefix}${kind}_DIR${i}"
+        include_var="${prefix}${kind}_INCLUDE${i}"
+        exclude_var="${prefix}${kind}_EXCLUDE${i}"
+        [[ -n "${!model_var}" ]] || continue
+        if [[ "$kind" == FILE ]]; then
+            [[ -n "${!file_var}" ]] || continue
+        else
+            file_var=""
+        fi
+        download_generic_HF "$model_var" "$file_var" "${!dir_var}" "$include_var" "$exclude_var"
+    done
+}
+
+provision_generic_HF() {
+    local kind prefix i model_var file_var dir_var include_var exclude_var legacy_prefix
+    for kind in FILE FULL; do
+        prefix="$HF_PREFIX"
+        if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]] && has_generic_HF_config "$BLACKWELL_VRAM_PREFIX" "$kind"; then
+            prefix="$BLACKWELL_VRAM_PREFIX"
+        fi
+        download_generic_HF_group "$prefix" "$kind"
+
+        prefix="HF_MODEL_"
+        if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]] && has_generic_HF_config "HF_MODEL_BLACKWELL_" "$kind"; then
+            prefix="HF_MODEL_BLACKWELL_"
+        fi
+        download_generic_HF_group "$prefix" "$kind"
+
+        # Preserve old names as the generic fallback when no new group is set.
+        if has_generic_HF_config "$prefix" "$kind"; then
+            continue
+        fi
+        legacy_prefix="HF_MODEL"
+        [[ "$kind" == FULL ]] && legacy_prefix="HF_FULL_MODEL"
+        for i in $(seq 1 20); do
+            model_var="${legacy_prefix}${i}"
+            file_var="${legacy_prefix}_FILENAME${i}"
+            dir_var="${legacy_prefix}_DIR${i}"
+            include_var="${legacy_prefix}_INCLUDE${i}"
+            exclude_var="${legacy_prefix}_EXCLUDE${i}"
+            [[ "$kind" == FULL ]] && file_var=""
+            download_generic_HF "$model_var" "$file_var" "${!dir_var}" "$include_var" "$exclude_var"
+        done
+    done
+}
+
 download_workflow() {
     local url_var="$1"
 
@@ -932,24 +997,7 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
       done
     done
 
-    # Huggingface download file to specified directory independent on VRAM
-    for i in $(seq 1 20); do
-        VAR1="HF_MODEL${i}"
-        VAR2="HF_MODEL_FILENAME${i}"
-        DIR_VAR="HF_MODEL_DIR${i}"
-        INCLUDE_VAR="HF_MODEL_INCLUDE${i}"
-        EXCLUDE_VAR="HF_MODEL_EXCLUDE${i}"
-        download_generic_HF "${VAR1}" "${VAR2}" "${!DIR_VAR}" "${INCLUDE_VAR}" "${EXCLUDE_VAR}"
-    done
-	
-    # Huggingface download full model to specified directory independent on VRAM
-    for i in $(seq 1 20); do
-        VAR1="HF_FULL_MODEL${i}"
-        DIR_VAR="HF_FULL_MODEL_DIR${i}"
-        INCLUDE_VAR="HF_FULL_MODEL_INCLUDE${i}"
-        EXCLUDE_VAR="HF_FULL_MODEL_EXCLUDE${i}"
-        download_generic_HF "${VAR1}" "" "${!DIR_VAR}" "${INCLUDE_VAR}" "${EXCLUDE_VAR}"
-    done  
+    provision_generic_HF
 	 
     echo "📥 Provisioning workflows"
 
