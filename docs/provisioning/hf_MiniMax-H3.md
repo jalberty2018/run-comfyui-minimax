@@ -98,13 +98,6 @@ hf download aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI \
 
 ## Hyperflow 8-step adapters for FL2VA and Ref2VA
 
-The public and private Base FL2VA and Ref2VA RunPod templates, including the QWEN
-variants, download `custom_node_hyperflow_8step_v1.0_comfyui.safetensors` to
-`/workspace/ComfyUI/models/hyperflow/` for the high-VRAM profile. The same file is
-used for standard NVIDIA and Blackwell GPUs. Low-VRAM profiles instead download
-`custom_node_hyperflow_8step_v1.0_comfyui_pruned.safetensors` to the same directory,
-also on both GPU architectures. Fun ControlNet templates do not provision Hyperflow.
-
 For a manual download after selecting a high-VRAM profile:
 
 ```bash
@@ -120,33 +113,6 @@ hf download drbaph/Hyperflow-Comfyui \
   custom_node_hyperflow_8step_v1.0_comfyui_pruned.safetensors \
   --local-dir /workspace/ComfyUI/models/hyperflow
 ```
-
-Download only the adapter matching the selected VRAM profile.
-
-For automatic provisioning, the [RunPod templates](../../documentation/runpod-env-templates.md)
-use the generic `FILE` configuration with high- and low-VRAM prefixes:
-
-```bash
-HF_MODEL_HVRAM_FILE4=drbaph/Hyperflow-Comfyui
-HF_MODEL_HVRAM_FILE_FILENAME4=custom_node_hyperflow_8step_v1.0_comfyui.safetensors
-HF_MODEL_HVRAM_FILE_DIR4=models/hyperflow
-HF_MODEL_HVRAM_BLACKWELL_FILE4=drbaph/Hyperflow-Comfyui
-HF_MODEL_HVRAM_BLACKWELL_FILE_FILENAME4=custom_node_hyperflow_8step_v1.0_comfyui.safetensors
-HF_MODEL_HVRAM_BLACKWELL_FILE_DIR4=models/hyperflow
-HF_MODEL_LVRAM_FILE4=drbaph/Hyperflow-Comfyui
-HF_MODEL_LVRAM_FILE_FILENAME4=custom_node_hyperflow_8step_v1.0_comfyui_pruned.safetensors
-HF_MODEL_LVRAM_FILE_DIR4=models/hyperflow
-HF_MODEL_LVRAM_BLACKWELL_FILE4=drbaph/Hyperflow-Comfyui
-HF_MODEL_LVRAM_BLACKWELL_FILE_FILENAME4=custom_node_hyperflow_8step_v1.0_comfyui_pruned.safetensors
-HF_MODEL_LVRAM_BLACKWELL_FILE_DIR4=models/hyperflow
-```
-
-Standard GPUs select the HVRAM group above `VRAM_THRESHOLD`; Blackwell GPUs select
-the HVRAM Blackwell group above `VRAM_THRESHOLD_BLACKWELL`. Both thresholds are
-`40` GB in these templates. At or below the applicable threshold, the LVRAM group
-is selected (LVRAM Blackwell on Blackwell), downloading the pruned adapter.
-The matching Blackwell group replaces the standard group, so the adapter is
-downloaded once. `FILE_DIR4` is relative to `/workspace/ComfyUI/`.
 
 ## Optional uncensored INT8 ConvRot text encoder
 

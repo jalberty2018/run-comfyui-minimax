@@ -12,7 +12,7 @@ Create video with native audio from reference images, video or audio while prese
 
 This base template downloads Ref2VA and its required models for use with manually written prompts. For optional prompt enhancement, choose the separate Qwen-VL template.
 
-On a healthy RunPod host, downloading and extracting the container normally takes approximately **4–8 minutes**, followed by **0–110 seconds** to copy ComfyUI to `/workspace`. Model downloads come next; their duration depends on model size, network speed and storage performance, with sustained speeds above **200 MB/s** considered acceptable.
+On a healthy RunPod host, downloading and extracting the container normally takes approximately **4–8 minutes**, followed by **0–100 seconds** to copy ComfyUI to `/workspace`. Model downloads come next; their duration depends on model size, network speed and storage performance, with sustained speeds above **200 MB/s** considered acceptable.
 
 Unlike a one-click all-in-one setup that provisions every model and feature whether you need them or not, these focused templates download only the selected MiniMax variant and prompting option. You keep one-click deployment while reducing unnecessary model transfers, storage use and provisioning time. See the [RunPod pod deployment guide](https://comfyui.rozenlaan.site/Runpod_pod_deployment/) for screenshots, startup checkpoints and troubleshooting.
 

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime2:16092026
+FROM ls250824/comfyui-runtime2:21092026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
@@ -63,7 +63,7 @@ RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clon
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/x3bits/ComfyUI-Power-Flow.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-CreateVideo-FFmpeg.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-VideoHelperSuite.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Saganaki22/ComfyUI-Hyperflow.git
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v1.2.5 https://github.com/Saganaki22/ComfyUI-Hyperflow.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -124,7 +124,7 @@ WORKDIR /
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/comfyui-docs.git /comfyui-docs && \
     mkdir -p /docs && \
-    cp /comfyui-docs/RunPod_configuration.md /docs/ComfyUI_MiniMax_configuration.md && \
+    cp /comfyui-docs/RunPod_configuration.md /docs/RunPod_configuration.md && \
     cp /comfyui-docs/ComfyUI_MiniMax_custom_nodes.md /docs/ComfyUI_MiniMax_custom_nodes.md && \
     cp /comfyui-docs/ComfyUI_MiniMax_hardware.md /docs/ComfyUI_MiniMax_hardware.md && \
     cp /comfyui-docs/ComfyUI_MiniMax_image_setup.md /docs/ComfyUI_MiniMax_image_setup.md && \
@@ -146,7 +146,7 @@ EXPOSE 8188 9000
 # Licenses differ by component; see THIRD_PARTY_NOTICES.md.
 # Clear any inherited blanket license label for the assembled image.
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.36.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.37.0 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses=""

@@ -50,8 +50,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_v4_step600_ema.safetensors
 HF_MODEL_LORA2=lightx2v/Minimax-h3-Turbo
@@ -86,6 +84,8 @@ WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-generator-qwenvl-pod.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base FL2VA with QWEN prompt generator provisioning
@@ -113,8 +113,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_v4_step600_ema.safetensors
 HF_MODEL_LORA2=lightx2v/Minimax-h3-Turbo
@@ -154,6 +152,8 @@ WORKFLOW9=https://provisioning.rozenlaan.site/minimax/PDD-Acc-t2v-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-generator-qwenvl-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -181,8 +181,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL3=aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI
@@ -212,6 +210,10 @@ WORKFLOW9=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-multi-shot.js
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
+WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA with QWEN prompt enhancement
@@ -239,8 +241,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL3=aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI
@@ -276,6 +276,10 @@ WORKFLOW9=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-multi-shot.js
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
+WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### Public ControlNet variants
@@ -303,8 +307,6 @@ HF_MODEL_CHECKPOINTS1=Comfy-Org/SDPose
 HF_MODEL_CHECKPOINTS_FILENAME1=checkpoints/sdpose_wholebody_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL_LORA2=Comfy-Org/MiniMax-H3
@@ -349,8 +351,6 @@ HF_MODEL_CHECKPOINTS1=Comfy-Org/SDPose
 HF_MODEL_CHECKPOINTS_FILENAME1=checkpoints/sdpose_wholebody_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL_LORA2=Comfy-Org/MiniMax-H3
@@ -427,8 +427,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=larryvrh/MiniMax-H3-Turbo-Lora
 HF_MODEL_LORA_FILENAME1=minimax_h3_turbo_v4_step600_ema.safetensors
 HF_MODEL_LORA2=lightx2v/Minimax-h3-Turbo
@@ -466,6 +464,8 @@ WORKFLOW9=https://provisioning.rozenlaan.site/minimax/PDD-Acc-t2v-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-generator-qwenvl-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -496,8 +496,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL3=aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI
@@ -529,6 +527,10 @@ WORKFLOW5=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-builder
 WORKFLOW6=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-warmup-pod.json
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-multi-shot-context-pin.json
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
+WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
+WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### MiniMax-H3 Fun ControlNet Union REF2VA
@@ -551,8 +553,6 @@ HF_MODEL_VAE3=Comfy-Org/MiniMax-H3
 HF_MODEL_VAE_FILENAME3=vae/minimax_h3_video_vae_fp16.safetensors
 HF_MODEL_VAE_APPROX1=Kijai/MiniMax-H3-TAE
 HF_MODEL_VAE_APPROX_FILENAME1=vae_approx/taeh3.safetensors
-HF_MODEL_LATENT_UPSCALE1=LBH-123-AI/Minimax_h3_latent_Upscaler
-HF_MODEL_LATENT_UPSCALE_FILENAME1=minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors
 HF_MODEL_LORA1=lightx2v/Minimax-h3-Turbo
 HF_MODEL_LORA_FILENAME1=minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors
 HF_MODEL3=aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI
