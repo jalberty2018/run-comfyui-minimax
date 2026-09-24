@@ -4,10 +4,9 @@ from pathlib import Path
 import llama_cpp
 from llama_cpp import Llama
 
+# See docs/provisioning/hf_vlm.md for download information
 
-
-
-EXPECTED_VERSION = "0.3.34"
+EXPECTED_VERSION = "0.3.35"
 DEFAULT_MODEL = Path(
     "/workspace/ComfyUI/models/LLM/Qwen3.8/tinyllama-1.1b-chat-v1.0.Q8_0.gguf"
 )

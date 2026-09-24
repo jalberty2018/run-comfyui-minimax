@@ -80,7 +80,7 @@ age        # public/private key encryption
 runpodctl  # runpod pod management
 ```
 
-## Test/debug
+## Test environment & attentions
 
 ```bash
 python /workspace/test/test_pytorch_cuda.py
@@ -91,12 +91,13 @@ python /workspace/test/test_environment.py
 python /workspace/test/test_environment_runpod.py
 ```
 
-## Test llama
+## Test LLM & VLM
 
-- [llama.cpp VLM and test models](docs/provisioning/hf_vlm.md)
+- [llama.cpp test models](docs/provisioning/hf_vlm.md)
 
 ```bash
 python /workspace/test/test_llama_cpp_python.py
-python /workspace/test/test_llama_cpp.py
-python /workspace/test/test_llama_cpp_minimax.py
+python /workspace/test/test_llama_cpp_qwen_chat.py
+python /workspace/test/test_llama_cpp_qwen.py
 ```
+
