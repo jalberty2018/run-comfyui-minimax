@@ -875,31 +875,50 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
     # Huggingface download file depending on VRAM available to specified directory
 
     get_max_vram_gib() {
-      if ! command -v nvidia-smi >/dev/null 2>&1; then
-         echo 0
-         return
-      fi
+      # CUDA reports the visible MIG slice, whereas nvidia-smi's GPU query
+      # may return N/A or the parent GPU's memory. Use total, not free memory.
+      python - <<'PY_VRAM'
+import sys
 
-      nvidia-smi \
-         --query-gpu=memory.total \
-         --format=csv,noheader,nounits \
-        | awk 'BEGIN{m=0} {if($1>m) m=$1} END{print int(m/1024)}'
+try:
+    import torch
+
+    memory = max(
+        (torch.cuda.get_device_properties(i).total_memory
+         for i in range(torch.cuda.device_count())),
+        default=0,
+    )
+    if memory <= 0:
+        raise RuntimeError("no CUDA device with positive total memory")
+    gib = 1024 ** 3
+    # Preserve floor-based provisioning thresholds; round only the log display.
+    print(memory // gib, (memory + gib // 2) // gib)
+except Exception as exc:
+    print(f"VRAM detection failed: {exc}", file=sys.stderr)
+    sys.exit(1)
+PY_VRAM
     }
 
-    MAX_VRAM_GIB="$(get_max_vram_gib)"
+    if VRAM_VALUES="$(get_max_vram_gib)"; then
+        read -r MAX_VRAM_GIB MAX_VRAM_DISPLAY_GIB <<< "$VRAM_VALUES"
+    else
+        echo "⚠️ Cannot detect CUDA VRAM; using low-VRAM provisioning defaults"
+        MAX_VRAM_GIB=0
+        MAX_VRAM_DISPLAY_GIB=unknown
+    fi
     VRAM_THRESHOLD="${VRAM_THRESHOLD:-36}"
     VRAM_THRESHOLD_BLACKWELL="${VRAM_THRESHOLD_BLACKWELL:-40}"
 
     if (( MAX_VRAM_GIB > VRAM_THRESHOLD )); then
         HF_PREFIX="HF_MODEL_HVRAM_"
         if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
-          echo "🟢 High VRAM detected (${MAX_VRAM_GIB} GB > ${VRAM_THRESHOLD} GB via VRAM_THRESHOLD)"
+          echo "🟢 High VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
         fi
         export COMFYUI_VRAM_MODE=HIGH_VRAM
     else
        HF_PREFIX="HF_MODEL_LVRAM_"
        if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
-         echo "🟡 Low VRAM detected (${MAX_VRAM_GIB} GB <= ${VRAM_THRESHOLD} GB via VRAM_THRESHOLD)"
+         echo "🟡 Low VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
        fi
     fi
 
@@ -929,10 +948,10 @@ if [[ "$HAS_COMFYUI" -eq 1 ]]; then
     if [[ "$HAS_GPU_BLACKWELL" -eq 1 ]]; then
       if (( MAX_VRAM_GIB > VRAM_THRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
-        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_GIB} GB > ${VRAM_THRESHOLD_BLACKWELL} GB via VRAM_THRESHOLD_BLACKWELL)"
+        echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
-        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_GIB} GB <= ${VRAM_THRESHOLD_BLACKWELL} GB via VRAM_THRESHOLD_BLACKWELL)"
+        echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do
