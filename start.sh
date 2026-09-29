@@ -2,6 +2,11 @@
 echo "▶️ Pod run-comfyui-minimax started"
 echo "ℹ️ Wait until the message 🎉 Provisioning done, ready to create AI content 🎉 is displayed"
 
+# Privacy-friendly anonymous deployment diagnostics.
+# Records only deployment events such as start diagnostics, success or failure type.
+# No user data, prompts, generated content, account identifier, or persistent pod identifier is transmitted.
+wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------start----------.json || true
+
 # Hugging Face CLI output tuned for RunPod plain logs.
 export NO_COLOR=1
 export HF_HUB_VERBOSITY=warning
@@ -41,6 +46,7 @@ HAS_GPU_RUNPOD=0
 if [[ -n "${RUNPOD_GPU_COUNT:-}" && "${RUNPOD_GPU_COUNT:-0}" -gt 0 ]]; then
   HAS_GPU_RUNPOD=1
   echo "✅ [GPU DETECTED] Found via RUNPOD_GPU_COUNT=${RUNPOD_GPU_COUNT}"
+  wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----runpod-gpu-detected-----.json || true
 else
   echo "⚠️ [NO GPU] No Runpod.io GPU detected."
 fi  
@@ -62,6 +68,7 @@ if command -v nvidia-smi >/dev/null 2>&1; then
        || grep -Eqi 'Blackwell|(^|[^[:alnum:]])(GB[0-9]{2,3}|B100|B200|B300|GeForce[[:space:]]+RTX[[:space:]]+50[0-9]{2}|RTX[[:space:]]+PRO[[:space:]]+6000)($|[^[:alnum:]])' <<< "$GPU_MODEL"; then
       export HAS_GPU_BLACKWELL=1
       echo "✅ [BLACKWELL GPU DETECTED] HAS_GPU_BLACKWELL=1"
+      wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----gpu-blackwell-detected-----.json || true
     else
       echo "ℹ️ [NO BLACKWELL GPU] HAS_GPU_BLACKWELL=0"
     fi
@@ -85,6 +92,7 @@ if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then
 	        echo "⚠️ BUG: Skipping $script (not found)"
 	    fi
 	done
+    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----finished_onworkspace-----.json || true
 fi
 
 # Start code-server (HTTP port 9000) 
@@ -229,6 +237,7 @@ PY_SETTINGS
             echo "⚠️  WARNING: ComfyUI is still not responding after $MAX_TRIES attempts (~2 min)."
             echo "⚠️  SOLUTION: Use another region then $RUNPOD_DC_ID as vCPU speed is slow (normal count is around 20)"
             echo "⚠️  Continuing script anyway..."
+            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++comfyui-timed-out+++++.json || true
             break
         fi
 
@@ -1117,19 +1126,22 @@ if [[ "$HAS_PROVISIONING" -eq 1 ]]; then
     show_code_server_login
 
     echo "🎉 Provisioning done, ready to create AI content 🎉"
+    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------success----------.json || true
 
 else
     echo "⚠️ Diagnostics, skipped provisioning ⚠️"
 
     if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
         echo "⚠️ Pod started without a runpod GPU"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-gpu+++++.json || true
     fi
 
     if [[ "$HAS_CUDA" -eq 0 ]]; then
         echo "❌ Pytorch CUDA driver error/mismatch/not available"
         if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
             echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
-			echo "⚠️ [SOLUTION 2] Specify CUDA 12.8 using the runpod console filter. ⚠️"
+			echo "⚠️ [SOLUTION 2] Specify CUDA 13.0 using the runpod console filter. ⚠️"
+            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-cuda+++++.json || true
         fi
     fi
 
@@ -1137,6 +1149,7 @@ else
         echo "❌ ComfyUI is not online (extreme slow vCPU's)"
         echo "⚠️ [SOLUTION 1] restart pod ⚠️"
 		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-comfyui+++++.json || true
     fi
 fi
 
@@ -1149,6 +1162,7 @@ if [[ "${NVENC_ENABLED_HOST:-}" == "1" ]]; then
     echo "✅ NVENC video encoding (h264_nvenc) is available on this host."
 else
     echo "⚠️: NVENC GPU video encoding test failed on this host. Use standard CPU libx264 for video encoding." >&2
+    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----no-nvenc-----.json || true
 fi
 
 echo "ℹ️ llama-cpp-python check"

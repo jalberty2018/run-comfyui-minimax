@@ -82,10 +82,8 @@ WORKFLOW8=https://provisioning.rozenlaan.site/minimax/prompt-generator-qwenvl-fl
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/PDD-Acc-t2v-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
-WORKFLOW12=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-generator-qwenvl-pod.json
-WORKFLOW13=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
-WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
-WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
+WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
 ```
 
 ### MiniMax-H3 Base FL2VA with QWEN prompt generator provisioning
@@ -154,6 +152,10 @@ WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-gene
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
 WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-prompt-generator-qwenvl-pod.json
+WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-prompt-generator-qwenvl-pod.json
+WORKFLOW17=https://provisioning.rozenlaan.site/minimax/t2v-pod-prompt-generator-qwenvl-pod.json
+WORKFLOW18=https://provisioning.rozenlaan.site/minimax/PDD-Acc-t2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -207,13 +209,11 @@ WORKFLOW6=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-builder
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-multi-shot-context-pin.json
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-warmup-pod.json
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-multi-shot.json
-WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-generator-qwenvl-pod.json
-WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
-WORKFLOW12=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
-WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
-WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
-WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
-WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
+WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
+WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA with QWEN prompt enhancement
@@ -376,6 +376,7 @@ WORKFLOW9=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-multi-shot.js
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW12=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_fun_controlnet_union.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```
 
 ## Private
@@ -466,6 +467,10 @@ WORKFLOW11=https://provisioning.rozenlaan.site/minimax/lightx2v-fl2v-prompt-gene
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/PDD-Acc-fl2v-prompt-generator-qwenvl-pod.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-pod.json
 WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-pod.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-fl2v-prompt-generator-qwenvl-pod.json
+WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-t2v-prompt-generator-qwenvl-pod.json
+WORKFLOW17=https://provisioning.rozenlaan.site/minimax/t2v-pod-prompt-generator-qwenvl-pod.json
+WORKFLOW18=https://provisioning.rozenlaan.site/minimax/PDD-Acc-t2v-prompt-generator-qwenvl-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA
@@ -581,4 +586,5 @@ WORKFLOW6=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-warmup-pod.jso
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/PDD-Acc-r2v-multi-shot-context-pin.json
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/lightx2v-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW9=https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_fun_controlnet_union.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 ```

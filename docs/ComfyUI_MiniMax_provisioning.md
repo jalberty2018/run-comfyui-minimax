@@ -9,5 +9,6 @@
 ## Others
 
 - [upscale](provisioning/hf_upscale.md)
+- [latent upscale](provisioning/hf_latent_upscale.md)
 - [vfi](provisioning/hf_frame_interpolation.md)
 - [SeedVR2](provisioning/hf_seedvr2.md)
