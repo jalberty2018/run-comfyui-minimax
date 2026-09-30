@@ -911,7 +911,7 @@ PY_VRAM
         read -r MAX_VRAM_GIB MAX_VRAM_DISPLAY_GIB <<< "$VRAM_VALUES"
     else
         echo "⚠️ Cannot detect CUDA VRAM; using low-VRAM provisioning defaults"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/++zero-vram-detected++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++zero-vram-detected++.json || true
         MAX_VRAM_GIB=0
         MAX_VRAM_DISPLAY_GIB=unknown
     fi
@@ -922,14 +922,14 @@ PY_VRAM
         HF_PREFIX="HF_MODEL_HVRAM_"
         if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
           echo "🟢 High VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
-          wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----high-vram-detected-----.json || true
+          wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----high-vram-detected-----.json || true
         fi
         export COMFYUI_VRAM_MODE=HIGH_VRAM
     else
        HF_PREFIX="HF_MODEL_LVRAM_"
        if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
          echo "🟡 Low VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----low-vram-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----low-vram-detected-----.json || true
        fi
     fi
 
@@ -960,11 +960,11 @@ PY_VRAM
       if (( MAX_VRAM_GIB > VRAM_THRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
         echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----high-vram-blackwell-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----high-vram-blackwell-detected-----.json || true
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
         echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----low-vram-blackwell-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----low-vram-blackwell-detected-----.json || true
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do
