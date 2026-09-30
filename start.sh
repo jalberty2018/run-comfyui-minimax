@@ -5,7 +5,7 @@ echo "ℹ️ Wait until the message 🎉 Provisioning done, ready to create AI c
 # Privacy-friendly anonymous deployment diagnostics.
 # Records only deployment events such as start diagnostics, success or failure type.
 # No user data, prompts, generated content, account identifier, or persistent pod identifier is transmitted.
-wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------start----------.json || true
+wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------start-pod----------.json || true
 
 # Hugging Face CLI output tuned for RunPod plain logs.
 export NO_COLOR=1
@@ -68,7 +68,6 @@ if command -v nvidia-smi >/dev/null 2>&1; then
        || grep -Eqi 'Blackwell|(^|[^[:alnum:]])(GB[0-9]{2,3}|B100|B200|B300|GeForce[[:space:]]+RTX[[:space:]]+50[0-9]{2}|RTX[[:space:]]+PRO[[:space:]]+6000)($|[^[:alnum:]])' <<< "$GPU_MODEL"; then
       export HAS_GPU_BLACKWELL=1
       echo "✅ [BLACKWELL GPU DETECTED] HAS_GPU_BLACKWELL=1"
-      wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----gpu-blackwell-detected-----.json || true
     else
       echo "ℹ️ [NO BLACKWELL GPU] HAS_GPU_BLACKWELL=0"
     fi
@@ -237,7 +236,7 @@ PY_SETTINGS
             echo "⚠️  WARNING: ComfyUI is still not responding after $MAX_TRIES attempts (~2 min)."
             echo "⚠️  SOLUTION: Use another region then $RUNPOD_DC_ID as vCPU speed is slow (normal count is around 20)"
             echo "⚠️  Continuing script anyway..."
-            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++comfyui-timed-out+++++.json || true
+            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json || true
             break
         fi
 
@@ -912,6 +911,7 @@ PY_VRAM
         read -r MAX_VRAM_GIB MAX_VRAM_DISPLAY_GIB <<< "$VRAM_VALUES"
     else
         echo "⚠️ Cannot detect CUDA VRAM; using low-VRAM provisioning defaults"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/++zero-vram-detected++.json || true
         MAX_VRAM_GIB=0
         MAX_VRAM_DISPLAY_GIB=unknown
     fi
@@ -922,12 +922,14 @@ PY_VRAM
         HF_PREFIX="HF_MODEL_HVRAM_"
         if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
           echo "🟢 High VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
+          wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----high-vram-detected-----.json || true
         fi
         export COMFYUI_VRAM_MODE=HIGH_VRAM
     else
        HF_PREFIX="HF_MODEL_LVRAM_"
        if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
          echo "🟡 Low VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----low-vram-detected-----.json || true
        fi
     fi
 
@@ -958,9 +960,11 @@ PY_VRAM
       if (( MAX_VRAM_GIB > VRAM_THRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
         echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----high-vram-blackwell-detected-----.json || true
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
         echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/image2/-----low-vram-blackwell-detected-----.json || true
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do
@@ -1133,7 +1137,7 @@ else
 
     if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
         echo "⚠️ Pod started without a runpod GPU"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-gpu+++++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-gpu++.json || true
     fi
 
     if [[ "$HAS_CUDA" -eq 0 ]]; then
@@ -1141,7 +1145,7 @@ else
         if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
             echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
 			echo "⚠️ [SOLUTION 2] Specify CUDA 13.0 using the runpod console filter. ⚠️"
-            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-cuda+++++.json || true
+            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-cuda++.json || true
         fi
     fi
 
@@ -1149,7 +1153,7 @@ else
         echo "❌ ComfyUI is not online (extreme slow vCPU's)"
         echo "⚠️ [SOLUTION 1] restart pod ⚠️"
 		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/+++++fail-comfyui+++++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-comfyui++.json || true
     fi
 fi
 
