@@ -1,11 +1,14 @@
 #!/bin/bash
+# Generate a fresh identifier for this script execution, including container restarts.
+BOOT_ID="$(python -c 'import uuid; print(uuid.uuid4())')"
+readonly BOOT_ID
 echo "▶️ Pod run-comfyui-minimax started"
 echo "ℹ️ Wait until the message 🎉 Provisioning done, ready to create AI content 🎉 is displayed"
 
 # Privacy-friendly anonymous deployment diagnostics.
-# Records only deployment events such as start diagnostics, success or failure type.
+# Records deployment events with a random per-execution boot_id to correlate logs.
 # No user data, prompts, generated content, account identifier, or persistent pod identifier is transmitted.
-wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------start-pod----------.json || true
+wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/----------start-pod----------.json?boot_id=${BOOT_ID}" || true
 
 # Hugging Face CLI output tuned for RunPod plain logs.
 export NO_COLOR=1
@@ -46,7 +49,7 @@ HAS_GPU_RUNPOD=0
 if [[ -n "${RUNPOD_GPU_COUNT:-}" && "${RUNPOD_GPU_COUNT:-0}" -gt 0 ]]; then
   HAS_GPU_RUNPOD=1
   echo "✅ [GPU DETECTED] Found via RUNPOD_GPU_COUNT=${RUNPOD_GPU_COUNT}"
-  wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----runpod-gpu-detected-----.json || true
+  wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----runpod-gpu-detected-----.json?boot_id=${BOOT_ID}" || true
 else
   echo "⚠️ [NO GPU] No Runpod.io GPU detected."
 fi  
@@ -91,7 +94,7 @@ if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then
 	        echo "⚠️ BUG: Skipping $script (not found)"
 	    fi
 	done
-    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----finished_onworkspace-----.json || true
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----finished_onworkspace-----.json?boot_id=${BOOT_ID}" || true
 fi
 
 # Start code-server (HTTP port 9000) 
@@ -236,7 +239,7 @@ PY_SETTINGS
             echo "⚠️  WARNING: ComfyUI is still not responding after $MAX_TRIES attempts (~2 min)."
             echo "⚠️  SOLUTION: Use another region then $RUNPOD_DC_ID as vCPU speed is slow (normal count is around 20)"
             echo "⚠️  Continuing script anyway..."
-            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json || true
+            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json?boot_id=${BOOT_ID}" || true
             break
         fi
 
@@ -911,7 +914,7 @@ PY_VRAM
         read -r MAX_VRAM_GIB MAX_VRAM_DISPLAY_GIB <<< "$VRAM_VALUES"
     else
         echo "⚠️ Cannot detect CUDA VRAM; using low-VRAM provisioning defaults"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++zero-vram-detected++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++zero-vram-detected++.json?boot_id=${BOOT_ID}" || true
         MAX_VRAM_GIB=0
         MAX_VRAM_DISPLAY_GIB=unknown
     fi
@@ -922,14 +925,14 @@ PY_VRAM
         HF_PREFIX="HF_MODEL_HVRAM_"
         if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
           echo "🟢 High VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
-          wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----high-vram-detected-----.json || true
+          wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----high-vram-detected-----.json?boot_id=${BOOT_ID}" || true
         fi
         export COMFYUI_VRAM_MODE=HIGH_VRAM
     else
        HF_PREFIX="HF_MODEL_LVRAM_"
        if [[ "$HAS_GPU_BLACKWELL" -ne 1 ]]; then
          echo "🟡 Low VRAM detected (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD} GiB via VRAM_THRESHOLD)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----low-vram-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----low-vram-detected-----.json?boot_id=${BOOT_ID}" || true
        fi
     fi
 
@@ -960,11 +963,11 @@ PY_VRAM
       if (( MAX_VRAM_GIB > VRAM_THRESHOLD_BLACKWELL )); then
         BLACKWELL_VRAM_PREFIX="HF_MODEL_HVRAM_BLACKWELL_"
         echo "⚫ Blackwell high-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----high-vram-blackwell-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----high-vram-blackwell-detected-----.json?boot_id=${BOOT_ID}" || true
       else
         BLACKWELL_VRAM_PREFIX="HF_MODEL_LVRAM_BLACKWELL_"
         echo "⚫ Blackwell low-VRAM models enabled (${MAX_VRAM_DISPLAY_GIB} GiB, rounded; threshold ${VRAM_THRESHOLD_BLACKWELL} GiB via VRAM_THRESHOLD_BLACKWELL)"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----low-vram-blackwell-detected-----.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----low-vram-blackwell-detected-----.json?boot_id=${BOOT_ID}" || true
       fi
 
       for cat in "${CATEGORIES_HF[@]}"; do
@@ -1130,14 +1133,14 @@ if [[ "$HAS_PROVISIONING" -eq 1 ]]; then
     show_code_server_login
 
     echo "🎉 Provisioning done, ready to create AI content 🎉"
-    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/----------success----------.json || true
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/----------success----------.json?boot_id=${BOOT_ID}" || true
 
 else
     echo "⚠️ Diagnostics, skipped provisioning ⚠️"
 
     if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
         echo "⚠️ Pod started without a runpod GPU"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-gpu++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-gpu++.json?boot_id=${BOOT_ID}" || true
     fi
 
     if [[ "$HAS_CUDA" -eq 0 ]]; then
@@ -1145,7 +1148,7 @@ else
         if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
             echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
 			echo "⚠️ [SOLUTION 2] Specify CUDA 13.0 using the runpod console filter. ⚠️"
-            wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-cuda++.json || true
+            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-cuda++.json?boot_id=${BOOT_ID}" || true
         fi
     fi
 
@@ -1153,7 +1156,7 @@ else
         echo "❌ ComfyUI is not online (extreme slow vCPU's)"
         echo "⚠️ [SOLUTION 1] restart pod ⚠️"
 		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
-        wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/++fail-comfyui++.json || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-comfyui++.json?boot_id=${BOOT_ID}" || true
     fi
 fi
 
@@ -1166,7 +1169,7 @@ if [[ "${NVENC_ENABLED_HOST:-}" == "1" ]]; then
     echo "✅ NVENC video encoding (h264_nvenc) is available on this host."
 else
     echo "⚠️: NVENC GPU video encoding test failed on this host. Use standard CPU libx264 for video encoding." >&2
-    wget -q --timeout=5 --tries=1 -O /dev/null https://provisioning.rozenlaan.site/minimax/-----no-nvenc-----.json || true
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/-----no-nvenc-----.json?boot_id=${BOOT_ID}" || true
 fi
 
 echo "ℹ️ llama-cpp-python check"
@@ -1203,5 +1206,5 @@ else
 fi
 
 # Keep the container running
-echo "ℹ️ End script"
+echo "ℹ️ End script ${BOOT_ID}"
 exec sleep infinity
