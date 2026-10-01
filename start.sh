@@ -6,7 +6,7 @@ echo "ℹ️ Wait until the message 🎉 Provisioning done, ready to create AI c
 # Privacy-friendly anonymous deployment diagnostics.
 # Records deployment events only.
 # No user data, prompts, generated content, account identifier, or persistent pod identifier is transmitted.
-wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--start-pod--" || true
+wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--start-pod--.json" || true
 
 # Hugging Face CLI output tuned for RunPod plain logs.
 export NO_COLOR=1
@@ -237,7 +237,7 @@ PY_SETTINGS
             echo "⚠️  WARNING: ComfyUI is still not responding after $MAX_TRIES attempts (~2 min)."
             echo "⚠️  SOLUTION: Use another region then $RUNPOD_DC_ID as vCPU speed is slow (normal count is around 20)"
             echo "⚠️  Continuing script anyway..."
-            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json?boot_id=${BOOT_ID}" || true
+            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json" || true
             break
         fi
 
