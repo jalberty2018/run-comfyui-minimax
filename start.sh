@@ -79,8 +79,26 @@ else
   echo "⚠️ [NO GPU] No GPU found via nvidia-smi"
 fi
 
+# Python, Torch CUDA check
+HAS_CUDA=0
+if command -v python >/dev/null 2>&1; then
+  if python - << 'PY' >/dev/null 2>&1
+import sys
+try:
+    import torch
+    sys.exit(0 if torch.cuda.is_available() else 1)
+except Exception:
+    sys.exit(1)
+PY
+  then
+    HAS_CUDA=1
+  fi
+else
+  echo "⚠️ Python not found – assuming no CUDA"
+fi
+
 # Move necessary files to workspace
-if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then  
+if [[ ( "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ) && "$HAS_CUDA" -eq 1 ]]; then
 	echo "ℹ️ [Moving necessary files to workspace] enabling Start/Stop/Restart pod without data loss."
 	echo "ℹ️ This takes some time depending on hardware used, even longer if the volume is encrypted."
 	
@@ -92,7 +110,6 @@ if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then
 	        echo "⚠️ BUG: Skipping $script (not found)"
 	    fi
 	done
-    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--finished_onworkspace--.json" || true
 fi
 
 # Start code-server (HTTP port 9000) 
@@ -110,24 +127,6 @@ if [[ "$HAS_GPU" -eq 1 || "$HAS_GPU_RUNPOD" -eq 1 ]]; then
     sleep 1
 else
     echo "⚠️ WARNING: No GPU available, Code Server not started to limit memory use"
-fi
-
-# Python, Torch CUDA check
-HAS_CUDA=0
-if command -v python >/dev/null 2>&1; then
-  if python - << 'PY' >/dev/null 2>&1
-import sys
-try:
-    import torch
-    sys.exit(0 if torch.cuda.is_available() else 1)
-except Exception:
-    sys.exit(1)
-PY
-  then
-    HAS_CUDA=1
-  fi
-else
-  echo "⚠️ Python not found – assuming no CUDA"
 fi
 
 # Check whether NVENC can actually encode video before starting ComfyUI.

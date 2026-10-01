@@ -58,6 +58,7 @@ move_with_progress() {
     mv "$temporary_destination" "$destination"
     rm -rf "$source"
     echo "✅ Move completed"
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--finished_comfyui_onworkspace.json" || true
 }
 
 # Ensure we have /workspace in all scenarios
