@@ -214,6 +214,7 @@ WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA with QWEN prompt enhancement
@@ -280,6 +281,7 @@ WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
 WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
 WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW16=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
+WORKFLOW17=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
 ```
 
 ### Public ControlNet variants
@@ -538,6 +540,7 @@ WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-context-pin.json
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
 ```
 
 ### MiniMax-H3 Fun ControlNet Union REF2VA
