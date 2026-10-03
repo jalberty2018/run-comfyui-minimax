@@ -314,6 +314,31 @@ show_code_server_login() {
 
 # Provisioning routines
 
+report_download_space_error() {
+    local message="${1,,}"
+    if [[ "$message" == *"no space left on device"* || "$message" == *"enospc"* ]]; then
+        echo "❌ [DOWNLOAD] No space left on device"
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++hf-no-space-left.json" || true
+        return 0
+    fi
+    return 1
+}
+
+run_wget_download() {
+    local output
+    local exit_code
+    # Keep diagnostics in memory so reporting also works when the disk is full.
+    if output="$(LC_ALL=C wget -nv "$@" 2>&1)"; then
+        return 0
+    else
+        exit_code=$?
+    fi
+    printf '%s\n' "$output"
+    report_download_space_error "$output" || true
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++wget-no-space-left.json" || true
+    return "$exit_code"
+}
+
 run_hf_download() {
     local stall_timeout="${HF_DOWNLOAD_STALL_TIMEOUT:-300}"
     local kill_after="${HF_DOWNLOAD_KILL_AFTER:-30}"
@@ -358,6 +383,7 @@ run_hf_download() {
     # real download, but does not transfer the model itself.
     printf -v hf_dry_run_command '%q ' hf download --dry-run --format human "$@"
     dry_run_output="$(eval "$hf_dry_run_command" 2>&1 || true)"
+    report_download_space_error "$dry_run_output" || true
     if [[ "$dry_run_output" =~ totalling[[:space:]]+([0-9]+([.][0-9]+)?)([KMGTPE]?) ]]; then
         total_size_value="${BASH_REMATCH[1]}"
         total_size_unit="${BASH_REMATCH[3]}"
@@ -398,6 +424,7 @@ run_hf_download() {
     run_download_attempt() {
         local disable_xet="$1"
         local backend_name="$2"
+        local space_error_reported=0
 
         date +%s > "$activity_tmp_file"
         mv -f "$activity_tmp_file" "$last_activity_file"
@@ -521,6 +548,9 @@ run_hf_download() {
             mv -f "$activity_tmp_file" "$last_activity_file"
 
             printf '%s\n' "$line"
+            if (( space_error_reported == 0 )) && report_download_space_error "$line"; then
+                space_error_reported=1
+            fi
         done < <(
             stdbuf -oL tr '\r' '\n' <"$fifo" \
                 | sed -u -E \
@@ -782,7 +812,7 @@ download_workflow() {
 
     echo "ℹ️ [DOWNLOAD] Fetching $filename ..."
 
-    if ! wget -q -P "$dest_dir" "$url"; then
+    if ! run_wget_download -P "$dest_dir" "$url"; then
         echo "⚠️ Download model workflow failed: $url"
         return 0
     fi
@@ -849,7 +879,7 @@ download_media() {
 
     # Download file
     echo "🎞️  [DOWNLOAD] Fetching $filename → ComfyUI/input ..."
-    if wget -q -O "$filepath" "$url"; then
+    if run_wget_download -O "$filepath" "$url"; then
         echo "✅ [DONE] Downloaded $filename"
     else
         echo "⚠️  [ERROR] Failed to download $url"
