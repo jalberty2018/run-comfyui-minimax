@@ -6,7 +6,7 @@ echo "ℹ️ Wait until the message 🎉 Provisioning done, ready to create AI c
 # Privacy-friendly anonymous deployment diagnostics.
 # Records deployment events only.
 # No user data, prompts, generated content, account identifier, or persistent pod identifier is transmitted.
-wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--start-pod--.json" || true
+wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--start-pod.json" || true
 
 # Hugging Face CLI output tuned for RunPod plain logs.
 export NO_COLOR=1
@@ -47,7 +47,7 @@ HAS_GPU_RUNPOD=0
 if [[ -n "${RUNPOD_GPU_COUNT:-}" && "${RUNPOD_GPU_COUNT:-0}" -gt 0 ]]; then
   HAS_GPU_RUNPOD=1
   echo "✅ [GPU DETECTED] Found via RUNPOD_GPU_COUNT=${RUNPOD_GPU_COUNT}"
-  wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--runpod-gpu-detected--.json" || true
+  wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--runpod-gpu-detected.json" || true
 else
   echo "⚠️ [NO GPU] No Runpod.io GPU detected."
 fi  
@@ -236,7 +236,7 @@ PY_SETTINGS
             echo "⚠️  WARNING: ComfyUI is still not responding after $MAX_TRIES attempts (~2 min)."
             echo "⚠️  SOLUTION: Use another region then $RUNPOD_DC_ID as vCPU speed is slow (normal count is around 20)"
             echo "⚠️  Continuing script anyway..."
-            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out++.json" || true
+            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++comfyui-timed-out.json" || true
             break
         fi
 
@@ -568,6 +568,7 @@ run_hf_download() {
     fi
 
     echo "❌ [DOWNLOAD] Plain HTTP download failed with exit code ${exit_code}."
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++failed-hf-download.json" || true
     return "$exit_code"
 }
 
@@ -621,6 +622,7 @@ download_model_HF() {
 
     # -------- REAL FAILURE --------
     echo "❌ HF download failed (exit=$rc)"
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++failed-hf-model-download.json" || true
     sleep 1
     return 0
 }
@@ -687,6 +689,7 @@ download_generic_HF() {
 
     # -------- REAL FAILURE --------
     echo "❌ HF download failed (exit=$rc)"
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++failed-hf-generic-download.json" || true
     sleep 1
     return 0
 }
@@ -773,6 +776,7 @@ download_workflow() {
 
     if [[ -f "$filepath" ]]; then
         echo "⏭️  [SKIP] $filename already exists"
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--skip-workflow-download.json" || true
         return 0
     fi
 
@@ -912,7 +916,7 @@ PY_VRAM
         read -r MAX_VRAM_GIB MAX_VRAM_DISPLAY_GIB <<< "$VRAM_VALUES"
     else
         echo "⚠️ Cannot detect CUDA VRAM; using low-VRAM provisioning defaults"
-        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++zero-vram-detected++.json" || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++zero-vram-detected.json" || true
         MAX_VRAM_GIB=0
         MAX_VRAM_DISPLAY_GIB=unknown
     fi
@@ -1131,14 +1135,14 @@ if [[ "$HAS_PROVISIONING" -eq 1 ]]; then
     show_code_server_login
 
     echo "🎉 Provisioning done, ready to create AI content 🎉"
-    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--success-deployed-pod--.json" || true
+    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--success-deployed-pod.json" || true
 
 else
     echo "⚠️ Diagnostics, skipped provisioning ⚠️"
 
     if [[ "$HAS_GPU_RUNPOD" -eq 0 ]]; then
         echo "⚠️ Pod started without a runpod GPU"
-        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-gpu++.json" || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-gpu.json" || true
     fi
 
     if [[ "$HAS_CUDA" -eq 0 ]]; then
@@ -1146,7 +1150,7 @@ else
         if [[ "$HAS_GPU_RUNPOD" -eq 1 ]]; then
             echo "⚠️ [SOLUTION 1] Deploy pod on another region then $RUNPOD_DC_ID. ⚠️"
 			echo "⚠️ [SOLUTION 2] Specify CUDA 13.0 using the runpod console filter. ⚠️"
-            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-cuda++.json" || true
+            wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-cuda.json" || true
         fi
     fi
 
@@ -1154,7 +1158,7 @@ else
         echo "❌ ComfyUI is not online (extreme slow vCPU's)"
         echo "⚠️ [SOLUTION 1] restart pod ⚠️"
 		echo "⚠️ [SOLUTION 2] Deploy pod on another region then ${RUNPOD_DC_ID:-unknown} ⚠️"
-        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-comfyui++.json" || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++fail-comfyui.json" || true
     fi
 fi
 
@@ -1204,5 +1208,5 @@ fi
 
 # Keep the container running
 echo "ℹ️ End script"
-wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--end-start-script-pod--.json" || true
+wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--end-start-script-pod.json" || true
 exec sleep infinity
