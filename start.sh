@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-export BUILD_TAG=03102026
+export BUILD_TAG=05102026
 
 # Generate a fresh identifier for this script execution, including container restarts.
 echo "▶️ Pod run-comfyui-minimax started"
@@ -322,7 +322,7 @@ report_download_space_error() {
     local message="${1,,}"
     if [[ "$message" == *"no space left on device"* || "$message" == *"enospc"* ]]; then
         echo "❌ [DOWNLOAD] No space left on device"
-        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++hf-no-space-left-${BUILD_TAG}.json" || true
+        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++no-space-left-${BUILD_TAG}.json" || true
         return 0
     fi
     return 1
@@ -810,7 +810,6 @@ download_workflow() {
 
     if [[ -f "$filepath" ]]; then
         echo "⏭️  [SKIP] $filename already exists"
-        wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/--skip-workflow-download-${BUILD_TAG}.json" || true
         return 0
     fi
 
