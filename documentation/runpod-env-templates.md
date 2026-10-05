@@ -177,6 +177,8 @@ WORKFLOW7=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-c
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
+WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-omnichar-pod.json
+WORKFLOW12=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA with QWEN prompt enhancement
@@ -225,6 +227,9 @@ WORKFLOW8=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-c
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
+WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-omnichar-pod.json
+WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-omnichar-pod.json
+WORKFLOW14=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
 ```
 
 ## Private
@@ -359,4 +364,7 @@ WORKFLOW5=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-multi-shot-c
 WORKFLOW6=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-builder-pod.json
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-pod.json
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod.json
+WORKFLOW9=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-omnichar-pod.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-omnichar-pod.json
+WORKFLOW11=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
 ```
