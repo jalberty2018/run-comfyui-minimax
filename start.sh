@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-export BUILD_TAG=05102026
+export BUILD_TAG=06102026
 
 # Generate a fresh identifier for this script execution, including container restarts.
 echo "▶️ Pod run-comfyui-minimax started"
