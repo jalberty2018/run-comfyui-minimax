@@ -1035,8 +1035,6 @@ PY_VRAM
         if has_numbered_model_pair "$BLACKWELL_VRAM_PREFIX" "$NAME" "$SUFFIX"; then
           continue
         fi
-
-        echo "ℹ️ No ${BLACKWELL_VRAM_PREFIX}${NAME} models configured; using ${HF_PREFIX}${NAME}"
       fi
 
       for i in $(seq 1 20); do
@@ -1056,8 +1054,6 @@ PY_VRAM
         if has_numbered_model_pair "HF_MODEL_BLACKWELL_" "$NAME" "$SUFFIX"; then
           continue
         fi
-
-        echo "ℹ️ No HF_MODEL_BLACKWELL_${NAME} models configured; using HF_MODEL_${NAME}"
       fi
 	
       for i in $(seq 1 20); do
