@@ -19,12 +19,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     matrix-nio \
     -r manager_requirements.txt
 
+# Clone
+WORKDIR /ComfyUI/custom_nodes
+
 # Reclone if NODEREBUILD is set
 ARG NODEREBUILD
 RUN echo "Rebuilding custom nodes: ${NODEREBUILD}"
-
-# Clone
-WORKDIR /ComfyUI/custom_nodes
 
 # Build-only setting; HTTP/1.1 is a transport workaround, not an auth fix.
 # Override with --build-arg GIT_HTTP_VERSION=HTTP/2 when appropriate.
