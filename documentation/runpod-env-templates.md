@@ -223,6 +223,7 @@ WORKFLOW11=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-po
 WORKFLOW12=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-omnichar-pod.json
 WORKFLOW13=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-omnichar-pod.json
 WORKFLOW14=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
+WORKFLOW15=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwen-refmod-pod.json
 ```
 
 ## Private
@@ -345,4 +346,5 @@ WORKFLOW6=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-director-pod
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-omnichar-pod.json
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwenvl-omnichar-pod.json
 WORKFLOW9=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/Hyperflow-r2v-prompt-generator-qwen-refmod-pod.json
 ```
