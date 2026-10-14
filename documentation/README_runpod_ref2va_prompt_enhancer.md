@@ -2,8 +2,6 @@
 
 Create video with native audio from reference images, video or audio while preserving a subject, character or style. Ref2VA, the local Qwen enhancer, VAEs, LoRAs, nodes and workflows are provisioned automatically.
 
-**ControlNet:** MiniMax H3 Fun ControlNet Union and SDPose models are available in the separate ControlNet template variants; this base template omits these downloads.
-
 **Uncensored prompting:** MiniMax uses an uncensored Heretic Qwen-VL text encoder. The fast local enhancer is a separate uncensored Qwen3.8-27B GGUF model. They add no extra prompt-filtering layer. Users remain responsible for model use and generated content.
 
 **Input assessment:** Qwen-VL evaluates text, images and video.
@@ -45,9 +43,9 @@ Prompt enhancement is optional and does not change the Ref2VA diffusion model.
 
 | Profile | GPU | Model | Pod RAM | Tested output |
 |---|---|---|---:|---|
-| NVIDIA low VRAM | RTX 3090/4090 24 GB | Pruned INT8 | 50 GB | 0.9 MP, 10 s |
-| NVIDIA high VRAM | L40S 48 GB | Full INT8 | 80 GB | 0.9 MP, 15 s, 24 fps |
-| Blackwell low VRAM | RTX 5090 32 GB | Pruned INT8 | 70 GB | 1 MP, 10 s, 24 fps |
+| NVIDIA low VRAM | RTX 3090/4090 24 GB | Pruned INT8 ConvRot | 50 GB | 0.9 MP, 10 s |
+| NVIDIA high VRAM | L40S 48 GB | Full INT8 ConvRot | 80 GB | 0.9 MP, 15 s, 24 fps |
+| Blackwell low VRAM | RTX 5090 32 GB | Pruned INT8 ConvRot| 70 GB | 1 MP, 10 s, 24 fps |
 | Blackwell high VRAM | RTX PRO 6000 96 GB | Full INT8 ConvRot | 70 GB | 1 MP, 20 s, 24 fps |
 
 These tested-output values apply to Ref2VA with image input, Video or audio input requires **48 GB VRAM or more** to generate a video of acceptable length.

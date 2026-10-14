@@ -62,7 +62,7 @@ civitai_red <VERSION_ID> /workspace/ComfyUI/models/loras
 ## Clean up  
 
 ```bash
-rm -rf /workspace/output/ /workspace/input/ /workspace/ComfyUI/output/ /workspace/ComfyUI/input/ /workspace/ComfyUI/models/loras/
+rm -rf /workspace/output/ /workspace/input/ /workspace/ComfyUI/output/ /workspace/ComfyUI/input/ /workspace/ComfyUI/models/loras/  /workspace/ComfyUI/models/refmods/
 ```
 
 ## Utilities  

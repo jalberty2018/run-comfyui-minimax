@@ -7,7 +7,7 @@ Run MiniMax H3 audio-video generation in ComfyUI with automatic provisioning, pe
 - Automatic provisioning of models, LoRAs, VAEs, text encoders and workflows with environment variables.
 - Separate model profiles for standard NVIDIA and Blackwell GPUs.
 - High- and low-VRAM selection through environment variables.
-- CUDA 12.8 runtime with preinstalled attention accelerators and custom nodes.
+- CUDA 13.x runtime with preinstalled attention accelerators and custom nodes.
 - ComfyUI, Code Server, LoRA Manager and SSH access.
 - Hugging Face and CivitAI token support.
 - llama-cpp and llama-cpp-python availabe for prompt enhancements.
