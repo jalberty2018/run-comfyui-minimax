@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime3:14102026
+FROM ls250824/comfyui-runtime3:16102026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
@@ -82,7 +82,7 @@ RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI-H3-Multishot.git && \
     git -C ComfyUI-H3-Multishot sparse-checkout set --no-cone '/*' '!/samples/H3_multishot_presenter_demo.mp4' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-H3-Multishot -c http.version="$GIT_HTTP_VERSION" checkout
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v0.6.2 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v0.7.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/chanon/comfyui-obvpm.git && \
     git -C comfyui-obvpm sparse-checkout set --no-cone '/*' '!/assets/*.png' '!/assets/*.jpg' '!/assets/*.gif' '!/assets/*.webp' && \
@@ -111,7 +111,7 @@ RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -C comfyui-obvpm-timeline -c http.version="$GIT_HTTP_VERSION" checkout
 # RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v1.3.1 https://github.com/Saganaki22/ComfyUI-Hyperflow.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-Hyperflow.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-QwenImageRefPack.git
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-ImageRefPack.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI-Omnichar.git && \
     git -C ComfyUI-Omnichar sparse-checkout set --no-cone '/*' '!/node.zip' && \
@@ -208,7 +208,7 @@ EXPOSE 8188 9000
 # Licenses differ by component; see THIRD_PARTY_NOTICES.md.
 # Clear any inherited blanket license label for the assembled image.
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.40.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.41.2 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses=""

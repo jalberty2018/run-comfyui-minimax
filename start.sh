@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-export BUILD_TAG=14102026
+export BUILD_TAG=18102026
 
 # Generate a fresh identifier for this script execution, including container restarts.
 echo "▶️ Pod run-comfyui-minimax started"
@@ -371,7 +371,6 @@ run_wget_download() {
     fi
     printf '%s\n' "$output"
     report_download_space_error "$output" || true
-    wget -q --timeout=5 --tries=1 -O /dev/null "https://provisioning.rozenlaan.site/minimax/++wget-no-space-left-${BUILD_TAG}.json" || true
     return "$exit_code"
 }
 
@@ -408,6 +407,8 @@ run_hf_download() {
 
     echo "ℹ️ [DOWNLOAD] Stall watchdog: ${stall_timeout}s"
     echo "ℹ️ [DOWNLOAD] Kill grace period: ${kill_after}s"
+    echo "ℹ️ [DOWNLOAD] Updated every 5s"
+
 
     # Safely quote all arguments passed to: hf download
     # Force human output so progress bars remain enabled when the command is
