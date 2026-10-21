@@ -103,7 +103,6 @@ RUN set -eux; \
     git -C ComfyUI-Fantastic-MiniMaxH3-PromptBuilder sparse-checkout set --no-cone '/*' '!/docs/*.png' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-Fantastic-MiniMaxH3-PromptBuilder -c http.version="$GIT_HTTP_VERSION" checkout
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/x3bits/ComfyUI-Power-Flow.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-CreateVideo-FFmpeg.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-VideoHelperSuite.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/chanon/comfyui-obvpm-timeline.git && \
@@ -121,6 +120,7 @@ RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/Luisacaotica/ComfyUI-MiniMaxH3Mod && \
     git -C ComfyUI-MiniMaxH3Mod sparse-checkout set --no-cone '/*' '!/examples/' '!/node.zip' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-MiniMaxH3Mod -c http.version="$GIT_HTTP_VERSION" checkout
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-CreateVideo-FFmpeg.git
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
