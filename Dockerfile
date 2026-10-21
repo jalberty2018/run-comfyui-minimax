@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime3:16102026
+FROM ls250824/comfyui-runtime3:19102026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
@@ -208,7 +208,7 @@ EXPOSE 8188 9000
 # Licenses differ by component; see THIRD_PARTY_NOTICES.md.
 # Clear any inherited blanket license label for the assembled image.
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.41.2 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.42.1 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses=""
