@@ -32,11 +32,11 @@ ARG GIT_HTTP_VERSION=HTTP/1.1
 # Separate layers retain successful clones when a later repository fails.
 # Sparse clones omit README media and redundant archives, including Git blobs.
 # Keep runtime assets, workflow examples/inputs, model files, and Git metadata.
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/willmiao/ComfyUI-Lora-Manager.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/rgthree-comfy.git && \
     git -C rgthree-comfy sparse-checkout set --no-cone '/*' '!/docs/*.png' && \
     GIT_TERMINAL_PROMPT=0 git -C rgthree-comfy -c http.version="$GIT_HTTP_VERSION" checkout
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/willmiao/ComfyUI-Lora-Manager.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/yolain/ComfyUI-Easy-Use.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/liusida/ComfyUI-Login.git && \
