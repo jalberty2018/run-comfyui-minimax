@@ -850,7 +850,7 @@ download_workflow() {
         return 0
     fi
 
-    echo "[DONE] Downloaded $filename"
+    echo "✅ [DONE] Downloaded $filename"
 
     case "$filename" in
         *.zip)
