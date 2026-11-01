@@ -8,6 +8,7 @@
 - [`aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI`](https://huggingface.co/aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI/)
 - [`drbaph/Hyperflow-Comfyui`](https://huggingface.co/drbaph/Hyperflow-Comfyui/)
 - [`Kijai/MiniMax-H3-TAE/vae_approx`](https://huggingface.co/Kijai/MiniMax-H3-TAE/tree/main/vae_approx)
+- [Pika H3 Flex tutorial](https://docs.comfy.org/tutorials/video/pika/pika-h3-flex)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
 `fl2va` is for first/last-frame-to-video.
@@ -85,6 +86,15 @@ hf download lightx2v/Minimax-h3-Turbo \
   minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors \
   minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models/loras
+```
+
+## Optional Pika H3 Flex LoRAs for FL2VA and Ref2VA
+
+```bash
+hf download Comfy-Org/MiniMax-H3 \
+  loras/pika_h3_flex_fl2va_v1_bf16.safetensors \
+  loras/pika_h3_flex_ref2va_v1_bf16.safetensors \
+  --local-dir /workspace/ComfyUI/models
 ```
 
 ## Optional PDD acceleration LoRAs use with custom_node loader

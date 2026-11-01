@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-export BUILD_TAG=27102026
+export BUILD_TAG=01112026
 
 # Generate a fresh identifier for this script execution, including container restarts.
 echo "▶️ Pod run-comfyui-minimax started"
@@ -842,11 +842,8 @@ download_workflow() {
     local filepath="${dest_dir}${filename}"
 
     if [[ -f "$filepath" ]]; then
-        echo "⏭️  [SKIP] $filename already exists"
         return 0
     fi
-
-    echo "ℹ️ [DOWNLOAD] Fetching $filename ..."
 
     if ! run_wget_download -P "$dest_dir" "$url"; then
         echo "⚠️ Download model workflow failed: $url"
@@ -881,12 +878,8 @@ download_workflow() {
             7z x -y -o"$dest_dir" "$filepath" >/dev/null 2>&1 || \
                 echo "⚠️  Failed to extract $filename"
             ;;
-        *)
-            echo "[INFO] No extraction needed for $filename"
-            ;;
     esac
 
-    sleep 1
     return 0
 }
 
@@ -909,7 +902,6 @@ download_media() {
 
     # Skip if file already exists
     if [[ -f "$filepath" ]]; then
-        echo "⏭️  [SKIP] $filename already exists in ComfyUI/input"
         return 0
     fi
 
@@ -922,7 +914,6 @@ download_media() {
         rm -f "$filepath"
     fi
 
-    sleep 1
     return 0
 }
 
