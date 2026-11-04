@@ -155,6 +155,7 @@ WORKFLOW7=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode
 WORKFLOW8=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-ref2va-prompt-builder-refmod-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-ref2va-refmod-pod.json
+WORKFLOW11=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-character-sheet-designer-pod.json
 ```
 
 ### MiniMax-H3 Base Ref2VA with QWEN prompt enhancement
@@ -199,6 +200,7 @@ WORKFLOW6=https://provisioning.rozenlaan.site/minimax/ref2va/Hyperflow-ref2va-pr
 WORKFLOW7=https://provisioning.rozenlaan.site/minimax/ref2va/prompt-generator-qwenvl-ref2va-pod.json
 WORKFLOW8=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
 WORKFLOW9=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-ref2va-prompt-generator-qwenvl-refmod-pod.json
+WORKFLOW10=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-character-sheet-designer-pod.json
 ```
 
 ## Private
@@ -325,6 +327,8 @@ HF_MODEL_LORA2=LS110824/minimax
 HF_MODEL_LORA_FILENAME2=MMH3-RealismSlider-V1.safetensors
 HF_MODEL_LORA3=Comfy-Org/MiniMax-H3
 HF_MODEL_LORA_FILENAME3=loras/pika_h3_flex_ref2va_v1_bf16.safetensors
+HF_MODEL_LORA4=Alissonerdx/Minimax-H3-ComfyUI
+HF_MODEL_LORA_FILENAME4=loras/minimax_h3_lms_v1.0_r64.safetensors
 WORKFLOW1=https://provisioning.rozenlaan.site/minimax/ref2va/Hyperflow-ref2va-refmod-pod.json
 WORKFLOW2=https://provisioning.rozenlaan.site/minimax/ref2va/Hyperflow-ref2va-multi-shot-context-pin.json
 WORKFLOW3=https://provisioning.rozenlaan.site/minimax/ref2va/Hyperflow-ref2va-prompt-builder-refmod-pod.json
@@ -336,4 +340,5 @@ WORKFLOW8=https://provisioning.rozenlaan.site/minimax/ref2va/prompt-generator-qw
 WORKFLOW9=https://provisioning.rozenlaan.site/multiple/omnichar-character-encode-pod.json
 WORKFLOW10=https://provisioning.rozenlaan.site/minimax/prompt-generator-tail-pod.json
 WORKFLOW11=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-ref2va-prompt-generator-qwenvl-refmod-pod.json
+WORKFLOW12=https://provisioning.rozenlaan.site/minimax/ref2va/Pikaflex-character-sheet-designer-pod.json
 ```
