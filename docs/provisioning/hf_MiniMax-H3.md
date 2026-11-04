@@ -9,6 +9,7 @@
 - [`drbaph/Hyperflow-Comfyui`](https://huggingface.co/drbaph/Hyperflow-Comfyui/)
 - [`Kijai/MiniMax-H3-TAE/vae_approx`](https://huggingface.co/Kijai/MiniMax-H3-TAE/tree/main/vae_approx)
 - [Pika H3 Flex tutorial](https://docs.comfy.org/tutorials/video/pika/pika-h3-flex)
+- [`PrunaAI/P-H3-Image-Comfy`](https://huggingface.co/PrunaAI/P-H3-Image-Comfy)
 
 Choose one hardware column and one VRAM profile. `ref2va` is for reference-to-video;
 `fl2va` is for first/last-frame-to-video.
@@ -94,6 +95,21 @@ hf download lightx2v/Minimax-h3-Turbo \
 hf download Comfy-Org/MiniMax-H3 \
   loras/pika_h3_flex_fl2va_v1_bf16.safetensors \
   loras/pika_h3_flex_ref2va_v1_bf16.safetensors \
+  --local-dir /workspace/ComfyUI/models
+```
+
+## Optional P-H3-Image LoRA for FL2VA
+
+For image generation and editing with an existing MiniMax-H3 FL2VA diffusion model,
+including pruned and quantized variants. Ref2VA compatibility is not confirmed by
+Pruna. Apply at strength 1.0 with Load LoRA (Bypass, Model Only) and use the
+[P-H3-Image LoRA workflows](https://huggingface.co/PrunaAI/P-H3-Image-Comfy/tree/main/workflows).
+For the P-H3-Image text encoder, prompt upsampler and VAE downloads, see
+[P-H3-Image provisioning](../../../run-comfyui-image2/docs/provisioning/hf_p_h3_image.md).
+
+```bash
+hf download PrunaAI/P-H3-Image-Comfy \
+  loras/p-h3-image_lora_bf16.safetensors \
   --local-dir /workspace/ComfyUI/models
 ```
 
