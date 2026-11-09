@@ -100,13 +100,6 @@ hf download Comfy-Org/MiniMax-H3 \
 
 ## Optional P-H3-Image LoRA for FL2VA
 
-For image generation and editing with an existing MiniMax-H3 FL2VA diffusion model,
-including pruned and quantized variants. Ref2VA compatibility is not confirmed by
-Pruna. Apply at strength 1.0 with Load LoRA (Bypass, Model Only) and use the
-[P-H3-Image LoRA workflows](https://huggingface.co/PrunaAI/P-H3-Image-Comfy/tree/main/workflows).
-For the P-H3-Image text encoder, prompt upsampler and VAE downloads, see
-[P-H3-Image provisioning](../../../run-comfyui-image2/docs/provisioning/hf_p_h3_image.md).
-
 ```bash
 hf download PrunaAI/P-H3-Image-Comfy \
   loras/p-h3-image_lora_bf16.safetensors \

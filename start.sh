@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-export BUILD_TAG=04112026
+export BUILD_TAG=09112026
 
 # Generate a fresh identifier for this script execution, including container restarts.
 echo "▶️ Pod run-comfyui-minimax started"
@@ -669,7 +669,6 @@ download_model_HF() {
     # ----------- SUCCESS ----------
     if [[ $rc -eq 0 ]]; then
         echo "✅ HF download completed"
-        sleep 1
         return 0
     fi
 
@@ -736,7 +735,6 @@ download_generic_HF() {
     # ----------- SUCCESS ----------
     if [[ $rc -eq 0 ]]; then
         echo "✅ HF download completed"
-        sleep 1
         return 0
     fi
 
