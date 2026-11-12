@@ -1,18 +1,17 @@
 {
   "civitai_api_key": "your_civitai_api_key_here",
-  "folder_paths": {},
   "civitai_host": "civitai.red",
   "onboarding_completed": true,
   "dismissed_banners": [
     "civitai-extension"
   ],
   "show_folder_sidebar": false,
+  "blur_mature_content": false,
+  "initial_scan_completed": true,
+  "bulk_fetch_prompt_pending": true,
   "enable_other_models": true,
-  "enabled_other_sub_types": [
-    "vae",
-    "upscaler",
-    "text_encoder",
-    "controlnet"
-  ],
-  "blur_mature_content": false
+  "update_channel": "nightly"
 }
+
+
+
