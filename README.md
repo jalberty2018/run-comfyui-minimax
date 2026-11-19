@@ -23,7 +23,7 @@ A streamlined and automated environment for running **ComfyUI** with **MiniMax H
 - Hugging Face and CivitAI token support.
 - Multiple Turbo LoRAs, including 4-step and 8-step variants.
 - MiniMax H3 Prompt Enhancer with isolated local GGUF inference through the
-  CUDA-enabled `llama-server` included in `comfyui-runtime2`.
+  CUDA-enabled `llama-server` included in `comfyui-runtime3`.
 
 ## 🧩 Template Deployment
 
