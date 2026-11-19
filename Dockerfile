@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # run-comfyui-minimax
-FROM ls250824/comfyui-runtime3:10112026
+FROM ls250824/comfyui-runtime3:19112026
 
 ENV MINIMAX_H3_LLAMA_SERVER="/opt/llama.cpp/bin/llama-server"
 
@@ -32,11 +32,6 @@ ARG GIT_HTTP_VERSION=HTTP/1.1
 # Separate layers retain successful clones when a later repository fails.
 # Sparse clones omit README media and redundant archives, including Git blobs.
 # Keep runtime assets, workflow examples/inputs, model files, and Git metadata.
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/rgthree-comfy.git && \
-    git -C rgthree-comfy sparse-checkout set --no-cone '/*' '!/docs/*.png' && \
-    GIT_TERMINAL_PROMPT=0 git -C rgthree-comfy -c http.version="$GIT_HTTP_VERSION" checkout
-
     RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/willmiao/ComfyUI-Lora-Manager.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/yolain/ComfyUI-Easy-Use.git
 
@@ -61,17 +56,7 @@ RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clon
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/BigStationW/ComfyUi-Scale-Image-to-Total-Pixels-Advanced.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/cubiq/ComfyUI_essentials.git
 
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/comfyui-model-linker.git && \
-    git -C comfyui-model-linker sparse-checkout set --no-cone '/*' '!/demo.mp4' '!/model-linker.png' && \
-    GIT_TERMINAL_PROMPT=0 git -C comfyui-model-linker -c http.version="$GIT_HTTP_VERSION" checkout
-
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3.git
-
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI_MiniMaxH3_Director.git && \
-    git -C ComfyUI_MiniMaxH3_Director sparse-checkout set --no-cone '/*' '!/docs/screenshot.png' && \
-    GIT_TERMINAL_PROMPT=0 git -C ComfyUI_MiniMaxH3_Director -c http.version="$GIT_HTTP_VERSION" checkout
 
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/Larryvrh/ComfyUI-MiniMax-H3-Turbo.git && \
@@ -86,15 +71,7 @@ RUN set -eux; \
     git -C ComfyUI-H3-PowerLoraStack sparse-checkout set --no-cone '/*' '!/assets/stack.png' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-H3-PowerLoraStack -c http.version="$GIT_HTTP_VERSION" checkout
 
-# RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v0.6.2 https://github.com/Saganaki22/ComfyUI-sol-attn.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-sol-attn.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Brioch/ComfyUI-MiniMaxH3-Preview.git
-
-# RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v2.7.2 https://github.com/jlucasmcrell/ComfyUI-H3-Multishot.git
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI-H3-Multishot.git && \
-    git -C ComfyUI-H3-Multishot sparse-checkout set --no-cone '/*' '!/samples/H3_multishot_presenter_demo.mp4' && \
-    GIT_TERMINAL_PROMPT=0 git -C ComfyUI-H3-Multishot -c http.version="$GIT_HTTP_VERSION" checkout
 
     RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v0.7.1 https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context.git
 
@@ -104,6 +81,46 @@ RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -C comfyui-obvpm -c http.version="$GIT_HTTP_VERSION" checkout
 
     RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ethanfel/ComfyUI-H3-Qwen3VL-TextGen.git
+
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/x3bits/ComfyUI-Power-Flow.git
+
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/chanon/comfyui-obvpm-timeline.git && \
+    git -C comfyui-obvpm-timeline sparse-checkout set --no-cone '/*' '!/assets/timeline-node.png' && \
+    GIT_TERMINAL_PROMPT=0 git -C comfyui-obvpm-timeline -c http.version="$GIT_HTTP_VERSION" checkout
+
+# Skip example media and the bundled archive, including their Git blobs.
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/Luisacaotica/ComfyUI-MiniMaxH3Mod && \
+    git -C ComfyUI-MiniMaxH3Mod sparse-checkout set --no-cone '/*' '!/examples/' '!/node.zip' && \
+    GIT_TERMINAL_PROMPT=0 git -C ComfyUI-MiniMaxH3Mod -c http.version="$GIT_HTTP_VERSION" checkout
+
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ukr8b3g-cmyk/H3-Character-Sheet-Designer.git
+
+# Clone jalberty2018 repositories
+
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/rgthree-comfy.git && \
+    git -C rgthree-comfy sparse-checkout set --no-cone '/*' '!/docs/*.png' && \
+    GIT_TERMINAL_PROMPT=0 git -C rgthree-comfy -c http.version="$GIT_HTTP_VERSION" checkout
+
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/comfyui-model-linker.git && \
+    git -C comfyui-model-linker sparse-checkout set --no-cone '/*' '!/demo.mp4' '!/model-linker.png' && \
+    GIT_TERMINAL_PROMPT=0 git -C comfyui-model-linker -c http.version="$GIT_HTTP_VERSION" checkout
+
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI_MiniMaxH3_Director.git && \
+    git -C ComfyUI_MiniMaxH3_Director sparse-checkout set --no-cone '/*' '!/docs/screenshot.png' && \
+    GIT_TERMINAL_PROMPT=0 git -C ComfyUI_MiniMaxH3_Director -c http.version="$GIT_HTTP_VERSION" checkout
+
+RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-sol-attn.git
+
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI-H3-Multishot.git && \
+    git -C ComfyUI-H3-Multishot sparse-checkout set --no-cone '/*' '!/samples/H3_multishot_presenter_demo.mp4' && \
+    GIT_TERMINAL_PROMPT=0 git -C ComfyUI-H3-Multishot -c http.version="$GIT_HTTP_VERSION" checkout
 
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI_Qwen_H3_Prompt.git && \
@@ -115,23 +132,15 @@ RUN set -eux; \
     git -C Comfyui_Minimax_h3_latent_Upscaler sparse-checkout set --no-cone '/*' '!/examples/*.mp4' '!/examples/*.jpg' && \
     GIT_TERMINAL_PROMPT=0 git -C Comfyui_Minimax_h3_latent_Upscaler -c http.version="$GIT_HTTP_VERSION" checkout
 
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
-# RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/Adudeguyman/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git
 RUN set -eux; \
     GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/ComfyUI-Fantastic-MiniMaxH3-PromptBuilder.git && \
     git -C ComfyUI-Fantastic-MiniMaxH3-PromptBuilder sparse-checkout set --no-cone '/*' '!/docs/*.png' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-Fantastic-MiniMaxH3-PromptBuilder -c http.version="$GIT_HTTP_VERSION" checkout
 
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/x3bits/ComfyUI-Power-Flow.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-VideoHelperSuite.git
 
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/chanon/comfyui-obvpm-timeline.git && \
-    git -C comfyui-obvpm-timeline sparse-checkout set --no-cone '/*' '!/assets/timeline-node.png' && \
-    GIT_TERMINAL_PROMPT=0 git -C comfyui-obvpm-timeline -c http.version="$GIT_HTTP_VERSION" checkout
-
-# RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --branch v1.3.1 https://github.com/Saganaki22/ComfyUI-Hyperflow.git
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-Hyperflow.git
+
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-ImageRefPack.git
 
 RUN set -eux; \
@@ -139,15 +148,33 @@ RUN set -eux; \
     git -C ComfyUI-Omnichar sparse-checkout set --no-cone '/*' '!/node.zip' && \
     GIT_TERMINAL_PROMPT=0 git -C ComfyUI-Omnichar -c http.version="$GIT_HTTP_VERSION" checkout
 
-# Skip example media and the bundled archive, including their Git blobs.
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/Luisacaotica/ComfyUI-MiniMaxH3Mod && \
-    git -C ComfyUI-MiniMaxH3Mod sparse-checkout set --no-cone '/*' '!/examples/' '!/node.zip' && \
-    GIT_TERMINAL_PROMPT=0 git -C ComfyUI-MiniMaxH3Mod -c http.version="$GIT_HTTP_VERSION" checkout
-
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-CreateVideo-FFmpeg.git
-RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/ukr8b3g-cmyk/H3-Character-Sheet-Designer.git
+
 RUN set -eux; GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 https://github.com/jalberty2018/ComfyUI-Viggle-Remake.git
+
+# Rebuild docs if DOCREBUILD is set
+# Reclone if clonebust is set
+ARG DOCREBUILD
+RUN echo "Rebuilding documentation: ${DOCREBUILD}"
+
+# Set Working Directory
+WORKDIR /
+
+# Clone the documentation repo and copy the required files in one layer.
+# Keeping these operations together prevents a stale clone layer from being reused
+# when a documentation filename changes upstream.
+RUN set -eux; \
+    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/comfyui-docs.git /comfyui-docs && \
+    git -C /comfyui-docs sparse-checkout set --no-cone '/RunPod_configuration.md' '/ComfyUI_MiniMax_custom_nodes.md' '/ComfyUI_MiniMax_hardware.md' '/ComfyUI_MiniMax_image_setup.md' '/ComfyUI_MiniMax_resources.md' && \
+    GIT_TERMINAL_PROMPT=0 git -C /comfyui-docs -c http.version="$GIT_HTTP_VERSION" checkout && \
+    mkdir -p /docs && \
+    cp /comfyui-docs/RunPod_configuration.md /docs/RunPod_configuration.md && \
+    cp /comfyui-docs/ComfyUI_MiniMax_custom_nodes.md /docs/ComfyUI_MiniMax_custom_nodes.md && \
+    cp /comfyui-docs/ComfyUI_MiniMax_hardware.md /docs/ComfyUI_MiniMax_hardware.md && \
+    cp /comfyui-docs/ComfyUI_MiniMax_image_setup.md /docs/ComfyUI_MiniMax_image_setup.md && \
+    cp /comfyui-docs/ComfyUI_MiniMax_resources.md /docs/ComfyUI_MiniMax_resources.md && \
+    rm -rf /comfyui-docs
+
 
 WORKDIR /ComfyUI/custom_nodes/ComfyUI-RMBG
 # Rewrite any top-level CPU ORT refs to GPU ORT
@@ -197,29 +224,6 @@ WORKDIR /ComfyUI/custom_nodes/ComfyUI-Lora-Manager
 COPY --chmod=644 /configuration/lora-manager-settings.json settings.json.template
 COPY --chmod=644 configuration/lora-manager-settings.json /lora-manager-settings.json
 
-# Rebuild docs if DOCREBUILD is set
-# Reclone if clonebust is set
-ARG DOCREBUILD
-RUN echo "Rebuilding documentation: ${DOCREBUILD}"
-
-# Set Working Directory
-WORKDIR /
-
-# Clone the documentation repo and copy the required files in one layer.
-# Keeping these operations together prevents a stale clone layer from being reused
-# when a documentation filename changes upstream.
-RUN set -eux; \
-    GIT_TERMINAL_PROMPT=0 git -c http.version="$GIT_HTTP_VERSION" clone --depth=1 --filter=blob:none --no-checkout https://github.com/jalberty2018/comfyui-docs.git /comfyui-docs && \
-    git -C /comfyui-docs sparse-checkout set --no-cone '/RunPod_configuration.md' '/ComfyUI_MiniMax_custom_nodes.md' '/ComfyUI_MiniMax_hardware.md' '/ComfyUI_MiniMax_image_setup.md' '/ComfyUI_MiniMax_resources.md' && \
-    GIT_TERMINAL_PROMPT=0 git -C /comfyui-docs -c http.version="$GIT_HTTP_VERSION" checkout && \
-    mkdir -p /docs && \
-    cp /comfyui-docs/RunPod_configuration.md /docs/RunPod_configuration.md && \
-    cp /comfyui-docs/ComfyUI_MiniMax_custom_nodes.md /docs/ComfyUI_MiniMax_custom_nodes.md && \
-    cp /comfyui-docs/ComfyUI_MiniMax_hardware.md /docs/ComfyUI_MiniMax_hardware.md && \
-    cp /comfyui-docs/ComfyUI_MiniMax_image_setup.md /docs/ComfyUI_MiniMax_image_setup.md && \
-    cp /comfyui-docs/ComfyUI_MiniMax_resources.md /docs/ComfyUI_MiniMax_resources.md && \
-    rm -rf /comfyui-docs
-
 # Copy Scripts and documentation
 COPY --chmod=755 start.sh runpod-healthcheck.sh onworkspace/comfyui-on-workspace.sh onworkspace/files-on-workspace.sh onworkspace/test-on-workspace.sh onworkspace/docs-on-workspace.sh / 
 COPY --chmod=664 documentation/README.md /README.md
@@ -235,7 +239,7 @@ EXPOSE 8188 9000
 # Licenses differ by component; see THIRD_PARTY_NOTICES.md.
 # Clear any inherited blanket license label for the assembled image.
 # Labels
-LABEL org.opencontainers.image.title="ComfyUI 0.45.0 for MiniMax H3 inference" \
+LABEL org.opencontainers.image.title="ComfyUI 0.46.0 for MiniMax H3 inference" \
       org.opencontainers.image.description="ComfyUI + internal manager + flash-attn + sageattention + onnxruntime-gpu + torch_generic_nms + code-server + civitai downloader + huggingface_hub + custom_nodes" \
       org.opencontainers.image.source="https://hub.docker.com/r/ls250824/run-comfyui-minimax" \
       org.opencontainers.image.licenses=""
